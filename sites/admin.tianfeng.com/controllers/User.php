@@ -124,7 +124,7 @@ class User extends Admin_Controller{
 	    $level++;
 	    $is_upgrade = $this->user_model->upgrade_require($uid,$level,$space);
 	    
-	    if($is_upgrade){
+	    if(empty($is_upgrade)){
 	       go('不符合升级条件','index/index');
 	    }
 	    
@@ -132,7 +132,8 @@ class User extends Admin_Controller{
 	    //判断是否有插入过支付表
 	    $pay_info = $this->pay_model->pay_info($uid,PAY_TYPE_DOWN_UP);
 	    if(empty($pay_info)){
-	        $receive_uid = $this->user_model->get_parents($uid,$level);
+	        $receive_uid = $this->user_model->get_parents($uid,$level,$space);
+	        
 	        //插入支付表
 	        $pay_info['myself_trade_no'] = create_order_sn(2);
 	        $pay_info['pay_uid']         = $uid;

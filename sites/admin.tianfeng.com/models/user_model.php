@@ -108,7 +108,7 @@ class User_model extends CI_Model{
 	
 	
 	/**
-	 * 查询当前用户下的子用户
+	 * 判断是否符合升级条件
 	 * @param int $puid 当前升级用户的uid
 	 * @param int $level 要升的等级
 	 * @param int $space 当前升级用户所在空间
@@ -122,18 +122,20 @@ class User_model extends CI_Model{
 	         return false;
 	     }
 	     
-	     //获取当前uid的puid
-	     $sql = " SELECT * FROM tf_relate WHERE uid = {$uid} AND space = {$space}";
-	     $relate = $this->db->query($sql)->row_array();
-	     if(!$relate){
-	         return false;
-	     }
-	     $puid = $relate['puid'];
+// 	     //获取当前uid的puid
+// 	     $sql = " SELECT * FROM tf_relate WHERE uid = {$uid} AND space = {$space}";
+// 	     $relate = $this->db->query($sql)->row_array();
+// 	     if(!$relate){
+// 	         return false;
+// 	     }
+// 	     $puid = $relate['puid'];
 	     
 	     
 	     if($level == 2){
-	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
-	         WHERE tr.puid = {$puid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
+// 	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
+// 	         WHERE tr.puid = {$puid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
+	         $sql = " SELECT * FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
+	                  WHERE tr.puid = {$uid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
 	         
 	         $arr = $this->db->query($sql)->result_array();
 	         if(count($arr) < 2){
@@ -157,8 +159,8 @@ class User_model extends CI_Model{
 	         
 // 	         return true;
 	     }else{
-	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
-	         WHERE tr.puid = {$puid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
+	         $sql = " SELECT * FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
+	                  WHERE tr.puid = {$uid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
 	         $arr = $this->db->query()->result_array($sql);
 	         
 	         if(count($arr) < 2){
@@ -167,12 +169,19 @@ class User_model extends CI_Model{
 	         
 	         $new_arr = array_column($arr, 'uid');
 	         
-	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
+	         $sql = " SELECT tu.company_id,tu.uid,tr.level FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
 	         WHERE tr.puid in ( ".implode(',', $new_arr).") AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
 	         
 	         $arr2 = $this->db->query($sql)->result_array();
 	         
-	         if(count($arr2) < 4){
+	         $i = 0;
+	         foreach ($arr2 as $key=>$val){
+	             if($val['level'] == 2 || $val['company_id'] > 0){
+	                 $i++;
+	             }
+	         }
+	         
+	         if($i < 4){
 	             return false;
 	         }
 	         
@@ -201,17 +210,18 @@ class User_model extends CI_Model{
 	/**
 	 * 获取升级父亲节点
 	 */
-	public function get_parents($uid,$level){
+	public function get_parents($uid,$level,$space){
 	    $level = intval($level);
 	    $uid   = intval($uid);
-	    if($level != 2 || $level != 3 || empty($uid)){
+	    $space = intval($space);
+	    if($level != 2 || $level != 3 || empty($uid) || empty($space)){
 	        return false;
 	    }
 	    
 	    $cur_uid = $uid;
 	    for ($i = 0 ;$i < $level;$i++){
 	        if(!empty($cur_uid)){
-	            $cur_uid = $this->_get_parent($cur_uid);
+	            $cur_uid = $this->_get_parent($cur_uid,$space);
 	        }
 	    }
 	   if(empty($cur_uid)){
@@ -223,9 +233,10 @@ class User_model extends CI_Model{
 	/*
 	 * 递归寻找父uid
 	 */
-	private function _get_parent($uid){
-	    
-	    $sql = " SELECT puid FROM tf_relate WHERE uid = {$uid}"; 
+	private function _get_parent($uid,$space){
+	    $uid   = intval($uid);
+	    $space = intval($space);
+	    $sql = " SELECT puid FROM tf_relate WHERE uid = {$uid} AND space = {$space}"; 
 	    
 	    $res = $this->db->query($sql)->row_array();
 	    

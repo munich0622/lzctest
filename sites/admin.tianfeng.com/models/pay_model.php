@@ -125,8 +125,15 @@ class Pay_model extends CI_Model{
 	                $this->db->trans_rollback();
 	                return false;
 	            }
-	            $cur_level = $been_info['level']++;
-	            $res = $this->_is_last_redbag_upgrade($been_info,$cur_level);
+	        }
+	        
+	        //查看是否属于最后一个红包如果是的话则开启冻结时间
+	        if($pay_info['receive_uid'] != 0){
+	            $res = $this->_is_last_redbag_upgrade($been_info,$pay_info['receive_uid']);
+	            if(!$res){
+	                $this->db->trans_rollback();
+	                return false;
+	            }
 	        }
 	        
 	    }
@@ -152,22 +159,43 @@ class Pay_model extends CI_Model{
 	 * $been_info 升级用户的信息
 	 * $cur_level 升级后的等级
 	 */
-	private function _is_last_redbag_upgrade($been_info,$cur_level){
-	    if(empty($been_info) || !is_array($been_info)){
-	        return false;
+	private function _is_last_redbag_upgrade($been_info,$receive_uid){
+	    $will_level = $been_info['level']++;
+	    $space = $been_info['space'];
+	    if($will_level == 2){
+	       //查询收钱用户下级的下级是否有4个2级用户 这样才能升3级
+	       $sql = " SELECT tr.uid  FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
+	                WHERE  tr.puid = {$receive_uid} AND tr.space = {$space} AND tu.status = 1";
+	       $arr = $this->db->query()->result_array($sql);
+           if(count($arr) < 2){
+               return true;
+           }
+           $new_arr = array_column($arr, 'uid');
+           
+           $sql = " SELECT tu.company_id,tu.uid,tr.level FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
+	                WHERE tr.puid in ( ".implode(',', $new_arr).") AND tr.space = {$space} AND tu.status = 1";
+           $arr2 = $this->db->query($sql)->result_array();
+           
+           $i = 0;
+           foreach ($arr2 as $key=>$val){
+               if($val['level'] == 2 || $val['company_id'] > 0){
+                   $i++;
+               }
+           }
+           
+           if($i == 4){
+               $time = time()+86400*2;
+               $sql = " UPDATE tf_user SET tf_user frozen_time  = {$time} WHERE uid = {$receive_uid}";
+               $this->db->query($sql);
+               if($this->db->affected_row() != 1){
+                   return false;
+               }
+               return true;
+           }
+           
 	    }
 	    
-	    if($cur_level == 2){
-	        //获取他上级的上级的uid
-	        $sql = " SELECT tr2.puid FROM tf_relate AS tr 
-	                 LEFT JOIN tf_relate AS tr2 ON tr.puid = tr2.uid 
-	                 WHERE tr.uid = {$been_info['uid']}";
-	        $res = $this->db->query($sql)->row_array();
-	        if(empty($res)){
-	            return true;
-	        }
-	        $res['puid'];
-	    }
+	    return true;
 	}
 	/**
 	 * 判断是否是最后一个红包(注册)
