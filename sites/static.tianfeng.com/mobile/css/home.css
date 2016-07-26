@@ -1,0 +1,32 @@
+.head{
+	width:720px;
+	height:492px;
+	background:url("../img/mobel-headerBG.png") no-repeat;
+}
+.download img{padding-top:345px;margin-left:185px;}
+.code{background:url("../img/mobel-codeBG.png") no-repeat;height:97px;}
+.code h1{color:#fff;font-size:38px;text-align:center;font-weight:normal;font-family:"黑体";}
+.code h1 span{font-size:63px;}
+.code h1 font{color:#ffff00;}
+
+.nav{width:720px;}
+.nav ul li{float:left;width:360px;height:80px;text-align:center;line-height:80px;}
+.nav ul li a{font-size:34px;}
+.nav ul li.current{border-bottom:5px solid #ff5131;}
+.line{background:url("../img/line.png") no-repeat left;}
+
+.phone{margin-top:77px;margin-left:60px;}
+.margin_list{margin-top:62px;}
+.list_img{float:left;margin-left:38px;}
+.list_word{float:left;margin-left:36px;width:470px;}
+.list_word h5{font-size:35px;color:#FF4D30;}
+.list_word p{font-size:24px;}
+
+.footer{background-color:#DFDFE9;height:112px;text-align:center;font-size:20px;line-height:112px;margin-top:70px;}
+
+.contact_word {margin-left:30px;}
+.contact_word h1{font-size:40px;margin-top:55px;}
+.contact_word h5{font-size:26px;margin-top:25px;}
+#ul_magin{margin-top:10px;}
+.contact_word ul li{float:left;font-size:16px;line-height:38px;width:100px;}
+.contact_word ul li.info{width:435px;}

@@ -1,0 +1,188 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 本地数据库
+Source Server Version : 50536
+Source Host           : localhost:3306
+Source Database       : dolocker
+
+Target Server Type    : MYSQL
+Target Server Version : 50536
+File Encoding         : 65001
+
+Date: 2015-04-20 20:43:23
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for dolocker_admin_log
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_admin_log`;
+CREATE TABLE `dolocker_admin_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间',
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `uname` varchar(64) NOT NULL DEFAULT '' COMMENT '操作人名称',
+  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '操作内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员日志表';
+
+-- ----------------------------
+-- Table structure for dolocker_app
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_app`;
+CREATE TABLE `dolocker_app` (
+  `app_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '应用编号',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '应用名称',
+  `state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '应用状态:1、未上线，2、上线 ',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `platform` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '平台:1、安卓，2、IOS',
+  `download_link` varchar(255) NOT NULL DEFAULT '' COMMENT '下载链接',
+  `install_package` varchar(255) NOT NULL DEFAULT '' COMMENT '安装包',
+  `content` text NOT NULL COMMENT '应用详情',
+  `size` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '应用大小',
+  `is_block` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否屏蔽 0:不屏蔽 1:屏蔽',
+  `block_reason` varchar(64) NOT NULL DEFAULT '' COMMENT '屏蔽原因',
+  `block_time` int(10) NOT NULL DEFAULT '0' COMMENT '屏蔽时间',
+  `money` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '应用下所有任务价格之和',
+  `packages` varchar(255) NOT NULL DEFAULT '' COMMENT '包名',
+  `face_img` varchar(255) NOT NULL DEFAULT '' COMMENT '封面图',
+  PRIMARY KEY (`app_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='应用表';
+
+-- ----------------------------
+-- Table structure for dolocker_app_img
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_app_img`;
+CREATE TABLE `dolocker_app_img` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `app_id` int(11) unsigned NOT NULL COMMENT '应用编号',
+  `img_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '图片描述',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='应用表';
+
+-- ----------------------------
+-- Table structure for dolocker_app_task
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_app_task`;
+CREATE TABLE `dolocker_app_task` (
+  `at_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '任务编号',
+  `app_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属应用ID',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务类型：1、新手任务',
+  `task_content` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务类型：1、安装，2、时长 3、次数，4、截屏',
+  `state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务状态: 1未上线，2上线',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '任务名称',
+  `app_title` varchar(255) NOT NULL DEFAULT '' COMMENT '应用名称',
+  `block_state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '屏蔽: 0、未屏蔽，1、任务屏蔽，2、应用屏蔽，3、任务自身和应用都被屏蔽',
+  `block_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '屏蔽时间',
+  `block_reason` varchar(64) NOT NULL DEFAULT '' COMMENT '屏蔽原因',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `task_img` varchar(255) NOT NULL DEFAULT '' COMMENT '任务图片',
+  `price` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '任务赏金',
+  PRIMARY KEY (`at_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='APP任务表';
+
+-- ----------------------------
+-- Table structure for dolocker_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_goods`;
+CREATE TABLE `dolocker_goods` (
+  `gid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '商品名称',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1.Q币 2.移动充值卡 3.联通充值卡 4.电信充值卡 5.实物',
+  `price` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '商品金额',
+  `is_shelves` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务状态 0：下架 1：上架',
+  PRIMARY KEY (`gid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户任务关系表';
+
+-- ----------------------------
+-- Table structure for dolocker_user
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_user`;
+CREATE TABLE `dolocker_user` (
+  `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `uname` varchar(64) NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `utype` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '用户类型：1普通用户 99管理员',
+  `reg_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
+  `email` varchar(128) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `phone` varchar(32) NOT NULL DEFAULT '0' COMMENT '手机号,唯一',
+  `password` varchar(255) NOT NULL DEFAULT '' COMMENT '用户密码',
+  `salt` char(6) NOT NULL DEFAULT '' COMMENT '6位加密随机数',
+  `last_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
+  `last_ip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录IP',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '用户状态 1：激活 2：未激活',
+  `login_sign` varchar(128) NOT NULL DEFAULT '' COMMENT '签名密钥',
+  `imei` varchar(128) NOT NULL DEFAULT '' COMMENT 'IMEI码',
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- Table structure for dolocker_user_exchange_log
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_user_exchange_log`;
+CREATE TABLE `dolocker_user_exchange_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `user_id` int(11) unsigned NOT NULL COMMENT '用户id',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名称',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '兑换时间',
+  `gid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '兑换的商品id',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '兑换的商品名称',
+  `state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务状态 0：未兑换 1已兑换',
+  `finish_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '兑换完成时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户兑换日志表';
+
+-- ----------------------------
+-- Table structure for dolocker_user_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_user_login_log`;
+CREATE TABLE `dolocker_user_login_log` (
+  `id` int(11) unsigned NOT NULL COMMENT '自增id',
+  `uid` int(11) unsigned NOT NULL COMMENT '用户编号',
+  `uname` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '登陆时间',
+  `version` varchar(32) NOT NULL DEFAULT '' COMMENT '版本号',
+  `channel` varchar(64) NOT NULL DEFAULT '' COMMENT '渠道',
+  `brand` varchar(64) NOT NULL DEFAULT '' COMMENT '品牌',
+  `device_type` varchar(64) NOT NULL DEFAULT '' COMMENT '设备型号',
+  `os` varchar(64) NOT NULL DEFAULT '' COMMENT '操作系统',
+  `resolution` varchar(16) NOT NULL DEFAULT '' COMMENT '分辨率',
+  `network_method` varchar(64) NOT NULL DEFAULT '' COMMENT '联网方式',
+  `uuid` varchar(64) NOT NULL DEFAULT '' COMMENT 'uuid',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表登陆日志表';
+
+-- ----------------------------
+-- Table structure for dolocker_user_statistics
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_user_statistics`;
+CREATE TABLE `dolocker_user_statistics` (
+  `uid` int(11) unsigned NOT NULL COMMENT '用户编号',
+  `uname` varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
+  `today_income` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '今日收入',
+  `total_income` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '累计收入',
+  `remain_income` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `total_task_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '做的总任务数量',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户统计表';
+
+-- ----------------------------
+-- Table structure for dolocker_user_task
+-- ----------------------------
+DROP TABLE IF EXISTS `dolocker_user_task`;
+CREATE TABLE `dolocker_user_task` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `uid` int(11) unsigned NOT NULL COMMENT '用户id',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名称',
+  `dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间',
+  `tid` int(11) unsigned NOT NULL COMMENT '任务id',
+  `img` varchar(255) NOT NULL DEFAULT '' COMMENT '证据截图 任务类型为截屏的时候需要',
+  `state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '任务状态 0：无需审核 1：待审核 2：审核不通过 3：审核通过已完成',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `u_t` (`uid`,`tid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户任务关系表';
