@@ -146,7 +146,7 @@ class User extends Admin_Controller{
 	        $pay_info['space']           = $space;
 	        
 	        $this->load->model('register_model');
-	        $pay_id = $this->register_model->insert_table_data($pay_info,'pay');
+	        $pay_id = $this->register_model->insert_table_data($pay_info,'/user/upgrade');
 	        if($pay_id == 0){
 	            goback('升级失败');
 	        }
@@ -158,7 +158,7 @@ class User extends Admin_Controller{
 	    $this->load->model('weixin_model');
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key);
+	        $openid = $this->weixin_model->get_openid($openid_key,'');
 	    }
 	    
 	    
@@ -266,7 +266,7 @@ class User extends Admin_Controller{
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	     
 	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key);
+	        $openid = $this->weixin_model->get_openid($openid_key,'/user/pay_register');
 	    }
 	
 	
