@@ -66,7 +66,7 @@ class Weixin_model extends MY_Model {
                 $this->db->where('key',$openid_key)->update('wx_cache',array('time'=>time(),'value'=>$openid));
             }
             
-            $url = 'http://'.$_SERVER['HTTP_HOST'].'/pay/wxpay?'.$_SERVER['QUERY_STRING'];
+            $url = 'http://'.$_SERVER['HTTP_HOST'].$goback_url.'?'.$_SERVER['QUERY_STRING'];
             header("Location:".$url);
         }
         
