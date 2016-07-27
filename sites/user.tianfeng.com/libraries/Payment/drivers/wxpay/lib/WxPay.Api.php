@@ -1,7 +1,7 @@
 <?php
-require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Exception.php";
-require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Config.php";
-require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Data.php";
+require_once "WxPay.Exception.php";
+require_once "WxPay.Config.php";
+require_once "WxPay.Data.php";
 
 /**
  * 
@@ -536,6 +536,7 @@ class WxPayApi
 		curl_setopt($ch,CURLOPT_URL, $url);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验2
+		
 		//设置header
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		//要求结果为字符串且输出到屏幕上
