@@ -48,9 +48,9 @@ echo $this->load->view("head", array(), true);
     <li class="col-sm-3 col-xs-3"><i><img src="images/u-kefu.png"></i>
       <p class="text-center">注册用户</p>
     </li>
-    </a> <a href="zuzhikuangjia.html">
+    </a> <a href="<?php echo site_url('user/create_qrcode');?>">
     <li class="col-sm-3 col-xs-3"><i class="fa fa-share-alt"></i>
-      <p class="text-center">组织框架</p>
+      <p class="text-center">查看我的二维码</p>
     </li>
     </a>
      <a href="">

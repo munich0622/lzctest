@@ -5,6 +5,7 @@ class User extends Admin_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('pay_model');
 		
 		$this->user = $this->user_model->get_user(array('uid'=>$this->user['uid']));
 		if($this->user['status'] == 0){
@@ -124,7 +125,7 @@ class User extends Admin_Controller{
 	    $level++;
 	    $is_upgrade = $this->user_model->upgrade_require($uid,$level,$space);
 	    
-	    if($is_upgrade){
+	    if(empty($is_upgrade)){
 	       go('不符合升级条件','index/index');
 	    }
 	    

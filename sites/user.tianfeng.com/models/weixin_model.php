@@ -40,7 +40,7 @@ class Weixin_model extends MY_Model {
      * 
      */
     public function get_openid($openid_key){
-        $code = $_GET['code'];
+        $code = isset($_GET['code']) ? $_GET['code'] : '';
         if(empty($code)){
             $callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/pay/wxpay?'.$_SERVER['QUERY_STRING']);
             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.self::APPID.'&redirect_uri='.$callback_url.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';

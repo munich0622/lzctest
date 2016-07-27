@@ -118,25 +118,18 @@ class User_model extends CI_Model{
 	     $level = (int)$level;
 	     $uid  = (int)$uid;
 	     $space  = (int)$space;
-	     if($level != 2 || $level != 3 || empty($uid) || empty($space)){
+	     if(!in_array($level, array(2,3)) || empty($uid) || empty($space)){
 	         return false;
 	     }
-	     
-	     //获取当前uid的puid
-	     $sql = " SELECT * FROM tf_relate WHERE uid = {$uid} AND space = {$space}";
-	     $relate = $this->db->query($sql)->row_array();
-	     if(!$relate){
-	         return false;
-	     }
-	     $puid = $relate['puid'];
 	     
 	     
 	     if($level == 2){
 	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
-	         WHERE tr.puid = {$puid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
+	         WHERE tr.puid = {$uid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
 	         
 	         $arr = $this->db->query($sql)->result_array();
 	         if(count($arr) < 2){
+	             echo 1;exit;
 	             return false;
 	         }
 	         
@@ -158,10 +151,11 @@ class User_model extends CI_Model{
 // 	         return true;
 	     }else{
 	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
-	         WHERE tr.puid = {$puid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
+	         WHERE tr.puid = {$uid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
 	         $arr = $this->db->query()->result_array($sql);
 	         
 	         if(count($arr) < 2){
+	             echo 2;exit;
 	             return false;
 	         }
 	         
@@ -173,6 +167,7 @@ class User_model extends CI_Model{
 	         $arr2 = $this->db->query($sql)->result_array();
 	         
 	         if(count($arr2) < 4){
+	             echo 3;exit;
 	             return false;
 	         }
 	         

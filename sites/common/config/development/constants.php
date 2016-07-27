@@ -10,7 +10,7 @@ define('PAY_TYPE_REG', 1);
 define('PAY_TYPE_DOWN_UP', 2);
 
 //邀请注册费用
-define('REGISTER_MONEY', 300);
+define('REGISTER_MONEY', 0.01);
 
 
 define('PLATE_ONE_GRADE_ONE', 300);

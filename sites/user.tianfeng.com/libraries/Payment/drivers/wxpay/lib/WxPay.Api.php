@@ -1,7 +1,7 @@
 <?php
-require_once "../application/libraries/Payment/drivers/wxpay/lib/WxPay.Exception.php";
-require_once "../application/libraries/Payment/drivers/wxpay/lib/WxPay.Config.php";
-require_once "../application/libraries/Payment/drivers/wxpay/lib/WxPay.Data.php";
+require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Exception.php";
+require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Config.php";
+require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Data.php";
 
 /**
  * 

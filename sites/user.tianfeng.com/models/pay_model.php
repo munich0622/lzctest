@@ -119,7 +119,7 @@ class Pay_model extends CI_Model{
 	    }elseif($pay_info['type'] == 2){
 	        //升级
 	        if($been_info['level'] < 3){
-	            $sql = " UPDATE tf_user SET level = level + 1 WHERE uid = {$been_info['uid']}";
+	            $sql = " UPDATE tf_user SET level = level + 1,frozen_time = 0 WHERE uid = {$been_info['uid']}";
 	            $this->db->query($sql);
 	            if($this->db->affected_rows() != 1){
 	                $this->db->trans_rollback();
