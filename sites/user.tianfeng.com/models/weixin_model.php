@@ -50,7 +50,7 @@ class Weixin_model extends MY_Model {
             $secret        = self::APPSECRET;
             $get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'&secret='.$secret.'&code='.$code.'&grant_type=authorization_code';
             $res           = $this->https_request($get_token_url);
-            var_dump($res);exit;
+            
             $json_obj      = json_decode($res,true);
             $openid        = $json_obj['openid'];
             
@@ -86,9 +86,7 @@ class Weixin_model extends MY_Model {
         
         if (!isset($_GET['code'])){
             //触发微信返回code码
-            //echo 'http://'.$_SERVER['HTTP_HOST'].'/pay/wxpay'.'?'.$_SERVER['QUERY_STRING'];exit;
-            //http://tm.quanwuyoupin.com/pay/wxpay?oid=90
-            $baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].'/pay/wxpay'.'?'.$_SERVER['QUERY_STRING']);
+            $baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].'/user/upgrade'.'?'.$_SERVER['QUERY_STRING']);
             $url = $this->__CreateOauthUrlForCode($baseUrl);
             header("Location: $url");
             exit();
