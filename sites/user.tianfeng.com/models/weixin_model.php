@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Weixin_model extends MY_Model {
 
-    const APPID = 'wx27b3188516884536';
-	const MCHID = '1328035901';
+	const APPID = 'wx1fed98ad6d053213';
+	const MCHID = '1357839302';
 	const KEY = 'Hdxhmh22070804Hdxhmh22070804Hdxh';
-	const APPSECRET = '137bf932e1f0baf4794d311a616ec1c7';
+	const APPSECRET = 'ab7eca13351aa935acbcb67ec14531f0';
 	
 	
     public function __construct() { 
