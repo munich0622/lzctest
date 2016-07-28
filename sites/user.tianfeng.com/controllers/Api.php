@@ -2,8 +2,37 @@
 
 class Api extends MY_Controller{
     
+    const APPID = 'wx1fed98ad6d053213';
+    const MCHID = '1357839302';
+    const KEY = 'Hdxhmh22070804Hdxhmh22070804Hdxh';
+    const APPSECRET = 'ab7eca13351aa935acbcb67ec14531f0';
+    
 	function __construct(){
 		parent::__construct();
+	}
+	
+	
+	//格式化参数格式化成url参数
+	private function _ToUrlParams($data)
+	{
+	    $buff = "";
+	    foreach ($data as $k => $v)
+	    {
+	        if($k != "sign" && $v != "" && !is_array($v)){
+	            $buff .= $k . "=" . $v . "&";
+	        }
+	    }
+	
+	    $buff = trim($buff, "&");
+	    return $buff;
+	}
+	
+	//本地生成签名
+	private function _checksign($receivedata){
+	    ksort($receivedata);//stringA中的字段需按首字符在ACSII码表中的顺序从小到大排列
+	    $stringA = $this->_ToUrlParams($receivedata);//格式化参数格式化成url参数
+	    $stringSignTemp = $stringA."&key=".self::KEY;
+	    return $lcsign = strtoupper(md5($stringSignTemp));//微信签名算法（请勿修改）
 	}
 	
 	
@@ -18,9 +47,6 @@ class Api extends MY_Controller{
 	    $xml = file_get_contents("php://input");;
 	    
 	    //xml转数组
-	    $this->load->driver('payment');
-	    
-	    
 	    $receivedata = XmlToArray($xml);
 	    
 	    //公众账号ID string(32)
@@ -67,10 +93,9 @@ class Api extends MY_Controller{
 	   //错误描述 		err_code_des 	String(128) 否 	当result_code为FAIL时，商户展示给用户的错误描述 系统错误
 	   $err_code_des	= isset($receivedata['err_code_des']) ? $receivedata['err_code_des'] : '';
 	    
-	   $lcsign = Payment_wxpay::checksign($receivedata);
+	   $lcsign = $this->_checksign($receivedata);
 	    
 	   if($lcsign == $sign){
-	       
 			if ($return_code == "SUCCESS"){
 				//支付成功，进行逻辑处理！
 				if($result_code == "SUCCESS"){
