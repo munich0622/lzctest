@@ -164,7 +164,6 @@ class User extends Admin_Controller{
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	    if(empty($openid)){
 	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade');
-	        echo $openid;exit;
 	    }
 	    
 	    
