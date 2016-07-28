@@ -56,6 +56,11 @@ class User extends Admin_Controller{
 	    goback('保存失败');
 	}
 	
+	public function test(){
+	    
+	    $this->load->view('pay/wx_pay');
+	}
+	
 	/**
 	 * 修改密码
 	 */
@@ -146,7 +151,7 @@ class User extends Admin_Controller{
 	        $pay_info['space']           = $space;
 	        
 	        $this->load->model('register_model');
-	        $pay_id = $this->register_model->insert_table_data($pay_info,'pay');
+	        $pay_info['id'] = $pay_id = $this->register_model->insert_table_data($pay_info,'pay');
 	        if($pay_id == 0){
 	            goback('升级失败');
 	        }
