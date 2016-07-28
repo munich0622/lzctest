@@ -164,7 +164,7 @@ class User extends Admin_Controller{
 	    
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
 	    require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
-	    var_dump($openid);exit;
+	    
 	    $tools = new JsApiPay();
 	    
 	    $input = new WxPayUnifiedOrder();
