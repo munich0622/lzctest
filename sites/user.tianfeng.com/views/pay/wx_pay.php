@@ -24,9 +24,11 @@
 			<?php echo $jsApiParameters; ?>,
 			function(res){
 				if(res.err_msg == 'get_brand_wcpay_request:fail'){
-					location.href = "/pay/pay_fail?pay_id=<?php echo $pay_id; ?>" ;
+					alert(res.err_code+res.err_desc+res.err_msg);
+					return false;
+					location.href = "/user/pay_fail?pay_id=<?php echo $pay_id; ?>" ;
 				}else if(res.err_msg == 'get_brand_wcpay_request:ok'){
-					location.href = "/pay/pay_success?pay_id=<?php echo $pay_id; ?>";
+					location.href = "/user/pay_success?pay_id=<?php echo $pay_id; ?>";
 				}
 			}
 		);
