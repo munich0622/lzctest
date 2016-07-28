@@ -115,7 +115,7 @@ class Weixin_model extends MY_Model {
         $urlObj["secret"] = self::APPSECRET;
         $urlObj["code"] = $code;
         $urlObj["grant_type"] = "authorization_code";
-        $bizString = $this->ToUrlParams($urlObj);
+        $bizString = $this->_ToUrlParams($urlObj);
         return "https://api.weixin.qq.com/sns/oauth2/access_token?".$bizString;
     }
   
