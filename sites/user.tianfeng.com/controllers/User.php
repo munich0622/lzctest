@@ -191,7 +191,7 @@ class User extends Admin_Controller{
 	    $result = WxPayApi::unifiedOrder($input);
 	    
 	    $data['jsApiParameters'] = $tools->GetJsApiParameters($result);
-	    var_dump($data['jsApiParameters']);exit;
+	    
 	    $data['pay_id']    = $pay_info['id'];
 	    $data['pay_money'] = $pay_info['price'];
 	    $this->load->view('pay/wx_pay',$data);
