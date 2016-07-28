@@ -146,7 +146,7 @@ class User extends Admin_Controller{
 	        $pay_info['space']           = $space;
 	        
 	        $this->load->model('register_model');
-	        $pay_id = $this->register_model->insert_table_data($pay_info,'/user/upgrade');
+	        $pay_id = $this->register_model->insert_table_data($pay_info,'pay');
 	        if($pay_id == 0){
 	            goback('升级失败');
 	        }
