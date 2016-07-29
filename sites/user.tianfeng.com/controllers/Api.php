@@ -48,7 +48,7 @@ class Api extends MY_Controller{
 	    
 	    //xml转数组
 	    $receivedata = XmlToArray($xml);
-	    
+	    $this->pay_model->test($receivedata);
 	    //公众账号ID string(32)
 	    $appid			= $receivedata['appid'];
 	    
