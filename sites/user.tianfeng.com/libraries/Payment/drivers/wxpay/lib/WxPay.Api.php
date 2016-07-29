@@ -48,8 +48,8 @@ class WxPayApi
 			$inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
 		}
 		
-		$inputObj->SetAppid('wx1fed98ad6d053213');//公众账号ID
-		$inputObj->SetMch_id('1357839302');//商户号
+		$inputObj->SetAppid(WxPayConfig::APPID);//公众账号ID
+		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
 		//$inputObj->SetSpbill_create_ip("1.1.1.1");  	    
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
