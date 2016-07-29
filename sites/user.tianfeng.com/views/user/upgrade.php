@@ -27,7 +27,7 @@
          </ul>
     <p class="pull-right count">
     <?php if($is_upgrade):?>
-    <a href="/user/upgrade">升<?php echo $level?>级</a>
+    <a href="/user/upgrade/">升<?php echo $level?>级</a>
     <?php else:?>
           您当前没有满足条件,暂不可以升级。
     <?php endif;?>
