@@ -45,7 +45,7 @@ class Api extends MY_Controller{
 	    
 	    //接收微信请求 file_put_contents($log_name,"【接收到的native通知】:\n".$xml."\n");
 	    $xml = file_get_contents("php://input");;
-	    $this->pay_model->test($xml);
+	    
 	    //xml转数组
 	    $receivedata = XmlToArray($xml);
 	    
@@ -94,7 +94,7 @@ class Api extends MY_Controller{
 	   $err_code_des	= isset($receivedata['err_code_des']) ? $receivedata['err_code_des'] : '';
 	    
 	   $lcsign = $this->_checksign($receivedata);
-	    
+	   $this->pay_model->test($xml,$lcsign);
 	   if($lcsign == $sign){
 			if ($return_code == "SUCCESS"){
 				//支付成功，进行逻辑处理！
