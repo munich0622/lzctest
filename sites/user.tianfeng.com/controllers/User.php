@@ -197,6 +197,9 @@ class User extends Admin_Controller{
 	            go('升级失败!','index/index');
 	        }
 	        exit();
+	    }elseif($result['result_code'] == 'FAIL'){
+	        go($result['err_code_des'],'index/index');
+	        exit();
 	    }
 	    
 	    $data['jsApiParameters'] = $tools->GetJsApiParameters($result);
