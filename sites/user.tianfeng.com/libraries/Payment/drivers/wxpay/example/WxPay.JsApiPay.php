@@ -130,7 +130,7 @@ class JsApiPay
 		//2222
 		//取出openid
 		$data = json_decode($res,true);
-		var_dump($data);exit;
+		
 		$this->data = $data;
 		$openid = $data['openid'];
 		return $openid;
