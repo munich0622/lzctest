@@ -77,38 +77,24 @@ class Weixin_model extends MY_Model {
      * @return mixed
      */
     public function GetOpenidFromMp($code){
-        		$url = $this->__CreateOauthUrlForOpenid($code);
-// 		//初始化curl
-// 		$ch = curl_init();
-// 		//设置超时
-// 		curl_setopt($ch, CURLOPT_TIMEOUT,60); 
-// 		curl_setopt($ch, CURLOPT_URL, $url);
+        $url = $this->__CreateOauthUrlForOpenid($code);
+		//初始化curl
+		$ch = curl_init();
+		//设置超时
+		curl_setopt($ch, CURLOPT_TIMEOUT,60); 
+		curl_setopt($ch, CURLOPT_URL, $url);
 // 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
 // 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
-// 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
-// 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-// 		if(WxPayConfig::CURL_PROXY_HOST != "0.0.0.0" 
-// 			&& WxPayConfig::CURL_PROXY_PORT != 0){
-// 			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
-// 			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
-// 		}
-// 		//运行curl，结果以jason形式返回
-// 		$res = curl_exec($ch);
-// 		curl_close($ch);
-
-		//2222
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,$url);
-		curl_setopt($ch, CURLOPT_HEADER,0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
+		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);//严格校验2
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		
+		//运行curl，结果以jason形式返回
 		$res = curl_exec($ch);
 		curl_close($ch);
-		//2222
 		//取出openid
 		$data = json_decode($res,true);
-		
-		$this->data = $data;
 		$openid = $data['openid'];
 		return $openid;
     }

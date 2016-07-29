@@ -535,7 +535,7 @@ class WxPayApi
 		}
 		curl_setopt($ch,CURLOPT_URL, $url);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验2
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);//严格校验2
 		
 		//设置header
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
