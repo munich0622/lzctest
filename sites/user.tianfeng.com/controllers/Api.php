@@ -94,7 +94,7 @@ class Api extends MY_Controller{
 	   $err_code_des	= isset($receivedata['err_code_des']) ? $receivedata['err_code_des'] : '';
 	    
 	   $lcsign = $this->_checksign($receivedata);
-	   $this->pay_model->test($xml,$lcsign);
+	   $this->pay_model->test($xml,$lcsign.'liuzc');
 	   if($lcsign == $sign){
 			if ($return_code == "SUCCESS"){
 				//支付成功，进行逻辑处理！
