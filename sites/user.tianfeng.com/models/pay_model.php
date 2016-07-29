@@ -133,7 +133,7 @@ class Pay_model extends CI_Model{
 	    
 	    $data = array(
 	        'other_trade_no' => $transaction_id,
-	        'status' => self::payed,
+	        'status' => $this->payed,
 	    );
 	    $this->db->where('myself_trade_no', $out_trade_no);
 	    $this->db->update('pay', $data);
