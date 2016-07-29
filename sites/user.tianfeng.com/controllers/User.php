@@ -163,7 +163,7 @@ class User extends Admin_Controller{
 	    $this->load->model('weixin_model');
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade');
+	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade/');
 	    }
 	    
 	    
@@ -272,7 +272,7 @@ class User extends Admin_Controller{
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	     
 	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key,'/user/pay_register');
+	        $openid = $this->weixin_model->get_openid($openid_key,'/user/pay_register/');
 	    }
 	
 	
