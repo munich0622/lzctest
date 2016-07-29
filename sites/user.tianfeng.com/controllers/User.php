@@ -192,9 +192,9 @@ class User extends Admin_Controller{
 	    if($result['err_code_des'] == '该订单已支付'){
 	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
 	        if($res){
-	            goback('升级成功!');
+	            go('升级成功!','index/index');
 	        }else{
-	            goback('升级失败!');
+	            go('升级失败!','index/index');
 	        }
 	        exit();
 	    }
@@ -205,6 +205,18 @@ class User extends Admin_Controller{
 	    $data['pay_money'] = $pay_info['price'];
 	    $this->load->view('pay/wx_pay',$data);
 	    
+	}
+	
+	public function pay_result(){
+	    $result = $this->input->get('res',true);
+	    
+	    if($result == 'success'){
+	        
+	        $this->load->view('pay/wx_pay',$data);
+	    }else{
+	        
+	        $this->load->view('pay/wx_pay',$data);
+	    }
 	}
 	
 	

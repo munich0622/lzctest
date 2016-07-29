@@ -150,7 +150,7 @@ class User_model extends CI_Model{
 	     }else{
 	         $sql = " SELECT tu.company_id,tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu  ON tr.uid = tu.uid
 	         WHERE tr.puid = {$uid} AND tr.space = {$space} AND tu.status = ".$this->u_status_active;
-	         $arr = $this->db->query()->result_array($sql);
+	         $arr = $this->db->query($sql)->result_array();
 	         
 	         if(count($arr) < 2){
 	             return false;
