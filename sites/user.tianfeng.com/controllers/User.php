@@ -123,7 +123,6 @@ class User extends Admin_Controller{
 	 * 升级提交
 	 */
 	public function upgrade(){
-	    echo date("Y-m-d H:i:s",time());exit;
 	    //如果当前等级为1就是要升2级
 	    $level = $this->user['level'];
 	    $uid   = $this->user['uid'];
