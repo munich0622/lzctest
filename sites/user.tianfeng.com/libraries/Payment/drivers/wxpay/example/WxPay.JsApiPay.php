@@ -65,7 +65,7 @@ class JsApiPay
 	 */
 	public function GetJsApiParameters($UnifiedOrderResult)
 	{
-	    var_dump($UnifiedOrderResult);exit;
+	    
 	    if(!array_key_exists("appid", $UnifiedOrderResult)){
 	        throw new WxPayException("参数错误1");
 	    }
