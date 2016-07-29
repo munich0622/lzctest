@@ -189,7 +189,7 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($openid);
 	    
 	    $result = WxPayApi::unifiedOrder($input);
-	    
+	    var_dump($result);exit;
 	    $data['jsApiParameters'] = $tools->GetJsApiParameters($result);
 	    
 	    $data['pay_id']    = $pay_info['id'];
