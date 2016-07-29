@@ -163,7 +163,7 @@ class User extends Admin_Controller{
 	    $this->load->model('weixin_model');
 	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
 	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade/');
+	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade');
 	    }
 	    
 	    
@@ -189,7 +189,7 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($openid);
 	    
 	    $result = WxPayApi::unifiedOrder($input);
-	    
+	    var_dump($result);exit;
 	    $data['jsApiParameters'] = $tools->GetJsApiParameters($result);
 	    
 	    $data['pay_id']    = $pay_info['id'];
