@@ -45,10 +45,10 @@ class Api extends MY_Controller{
 	    
 	    //接收微信请求 file_put_contents($log_name,"【接收到的native通知】:\n".$xml."\n");
 	    $xml = file_get_contents("php://input");;
-	    
+	    $this->pay_model->test($xml);
 	    //xml转数组
 	    $receivedata = XmlToArray($xml);
-	    $this->pay_model->test($receivedata);
+	    
 	    //公众账号ID string(32)
 	    $appid			= $receivedata['appid'];
 	    
