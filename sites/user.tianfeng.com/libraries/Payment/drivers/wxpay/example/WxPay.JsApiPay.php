@@ -65,6 +65,13 @@ class JsApiPay
 	 */
 	public function GetJsApiParameters($UnifiedOrderResult)
 	{
+	    if(!array_key_exists("appid", $UnifiedOrderResult)){
+	        throw new WxPayException("参数错误1");
+	    }
+	    
+	    if(!array_key_exists("prepay_id", $UnifiedOrderResult)){
+	        throw new WxPayException("参数错误2");
+	    }
 		if(!array_key_exists("appid", $UnifiedOrderResult)
 		|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 		|| $UnifiedOrderResult['prepay_id'] == "")
