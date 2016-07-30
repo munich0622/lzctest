@@ -73,7 +73,6 @@
             </div>
             <button type="button" onclick="callpay()">立即支付</button>
         </div>
-
     </div>
 </div>
 </body>

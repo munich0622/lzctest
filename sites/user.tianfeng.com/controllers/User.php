@@ -212,13 +212,15 @@ class User extends Admin_Controller{
 	
 	public function pay_result(){
 	    $result = $this->input->get('res',true);
-	    
+	    $pay_id = $this->input->get('pay_id',true);
+	    $data['pay_info']  = $this->pay_model->pay_info_to_id($pay_id,$this->user['uid']);
+	    $data['user_info'] = $this->user; 
 	    if($result == 'success'){
 	        
-	        $this->load->view('pay/wx_pay',$data);
+	        $this->load->view('pay/pay_success',$data);
 	    }else{
 	        
-	        $this->load->view('pay/wx_pay',$data);
+	        $this->load->view('pay/pay_success',$data);
 	    }
 	}
 	

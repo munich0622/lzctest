@@ -36,6 +36,23 @@ class Pay_model extends CI_Model{
 	    return $this->db->get_where('pay',$where)->row_array();
 	}
 	
+	/**
+	 * 获取支付信息
+	 */
+	public function pay_info_to_id($pay_id,$uid){
+	    $uid = (int)$uid;
+	    $pay_id = (int)$pay_id;
+	    if($uid <= 0 || $pay_id <= 0){
+	        return false;
+	    }
+	    $where = array(
+	        'id'      => $pay_id,
+	        'pay_uid' => $uid,
+	    );
+	     
+	    return $this->db->get_where('pay',$where)->row_array();
+	}
+	
 	
 	/**
 	 * 微信支付结果回调
