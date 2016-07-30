@@ -189,8 +189,8 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($openid);
 	    
 	    $result = WxPayApi::unifiedOrder($input);
-	    var_dump($result);exit;
-	    if($result['err_code_des'] == '该订单已支付'){
+	    
+	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
 	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
 	        if($res){
 	            go('升级成功!','index/index');
@@ -198,7 +198,7 @@ class User extends Admin_Controller{
 	            go('升级失败!','index/index');
 	        }
 	        exit();
-	    }elseif($result['result_code'] == 'FAIL'){
+	    }elseif(isset($result['result_code']) &&  $result['result_code'] == 'FAIL'){
 	        go($result['err_code_des'],'index/index');
 	        exit();
 	    }
