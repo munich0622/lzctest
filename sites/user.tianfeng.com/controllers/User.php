@@ -220,7 +220,7 @@ class User extends Admin_Controller{
 	        $this->load->view('pay/pay_success',$data);
 	    }else{
 	        
-	        $this->load->view('pay/pay_success',$data);
+	        $this->load->view('pay/pay_fail',$data);
 	    }
 	}
 	

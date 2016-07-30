@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>支付页面</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="format-detection" content="telephone=no,email=no">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta HTTP-EQUIV="Pragma" name="no-cache">
-    <link rel="stylesheet" href="<?php   echo base_url('public/css/shop_common.css');?>">
-    <link rel="stylesheet" href="<?php   echo base_url('public/css/pay.css');?>">
-    <script type="text/javascript" src="<?php echo base_url('public/js/resize.js') ;?>" ></script> 
+<html data-dpr="1" style="font-size: 40px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>支付失败</title>
+<meta name="Keywords" content="盐城天丰">
+<meta name="Description" content="盐城天丰！">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta http-equiv="Pragma" name="no-cache">
+<link rel="stylesheet" href="<?php   echo base_url('public/css/common_pay.css');?>">
+<link rel="stylesheet" href="<?php   echo base_url('public/css/index_pay.css');?>">
 </head>
-<body>
-<link rel="stylesheet" href="/css/pay/index.css?<?=$static_version;?>">
+<body style="font-size: 12px;">
+<header id="header">
+    <table>
+        <tbody>
+        <tr>
+            <td class="icon"><a href="/user/index"><span class="return_btn"></span></a></td>
+            <td class="c">支付失败</td>
+            <td class="icon"><a href="javascript:;"><span class="category_btn"></span></a></td>
+        </tr>
+        </tbody>
+    </table>
+</header>
 
-<div class="page_success">
+
+<div class="page_fail">
     <div class="failure">
         <div class="failure_t">
-            <p class="failure_img"><img src="/img/common/yes02.png" width="45" height="45"></p>
-            <p>支付成功，我们将会尽快为您发货！ </p>
-            <p>订单号：<em></em>您的订单正在处理中...</>
-            <div class="clearfix btns_box succ_box">
-                <a href="/user/order_list" class="back_order_list btns">查看订单</a>
+            <p class="failure_img"><img src="/public/img/fail.png" width="45" height="45"></p>
+            <p>付款失败</p>
+            <div class="clearfix btns_box">
+                <a href="/user/index" class="pay_again btns">返回首页</a>
+          	    <?php if($pay_info['type'] == 1):?>
+                <a href="/user/pay_register" class="pay_again btns" style="float:right;">重新付款</a>
+                <?php else :?>
+                <a href="/user/display_user_level" class="pay_again btns" style="float:right;">重新付款</a>
+                <?php endif;?>
             </div>
         </div>
     </div>
 </div>
-</body>
-</html>
+</div>
+
+</body></html>

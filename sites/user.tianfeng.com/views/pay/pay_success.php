@@ -2,9 +2,9 @@
 <html data-dpr="1" style="font-size: 40px;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>订单支付成功-全屋优品</title>
-<meta name="Keywords" content="全屋优品,家具,家具网上商城">
-<meta name="Description" content="全屋优品,家具,家具网上商城！">
+<title>支付成功</title>
+<meta name="Keywords" content="盐城天丰">
+<meta name="Description" content="盐城天丰！">
 <meta name="format-detection" content="telephone=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta content="yes" name="apple-mobile-web-app-capable">
