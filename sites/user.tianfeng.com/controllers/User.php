@@ -9,7 +9,7 @@ class User extends Admin_Controller{
 		
 		$this->user = $this->user_model->get_user(array('uid'=>$this->user['uid']));
 		if($this->user['status'] == 0 && !strpos($_SERVER['REQUEST_URI'],'user/pay_register')){
-		    redirect('user/pay_register/');
+		    go('请先支付注册费用','/user/pay_register/');
 		}elseif($this->user['status'] == 2 || $this->user['status'] == 3 && !strpos($_SERVER['REQUEST_URI'],'user/create_qrcode')){
 		    redirect('user/create_qrcode');
 		}
