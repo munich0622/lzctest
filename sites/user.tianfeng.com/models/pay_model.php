@@ -57,7 +57,7 @@ class Pay_model extends CI_Model{
 	/**
 	 * 微信支付结果回调
 	 */
-	public function pay_response($out_trade_no = 't_1_2016073114033865826',$transaction_id = 'sdfjsidvbjsd'){
+	public function pay_response($out_trade_no,$transaction_id){
 	    $where = array('myself_trade_no'=>$out_trade_no);
 	    //获取支付类型
 	    $pay_info = $this->db->get_where('pay',$where)->row_array();
@@ -142,8 +142,10 @@ class Pay_model extends CI_Model{
 	                $this->db->trans_rollback();
 	                return false;
 	            }
-	            $cur_level = $been_info['level']++;
-	            $res = $this->_is_last_redbag_upgrade($been_info,$cur_level);
+	            $cur_level = ++$been_info['level'];
+	            if($tj_uid > 0 && $cur_level == 2){
+	                $res = $this->_is_last_redbag_upgrade($been_info,$cur_level,$tj_uid);
+	            }
 	        }
 	        
 	    }
@@ -168,23 +170,38 @@ class Pay_model extends CI_Model{
 	 * 判断是否是最后一个红包(升级)
 	 * $been_info 升级用户的信息
 	 * $cur_level 升级后的等级
+	 * $receive_uid 收钱的uid
 	 */
-	private function _is_last_redbag_upgrade($been_info,$cur_level){
+	private function _is_last_redbag_upgrade($been_info,$cur_level,$receive_uid){
 	    if(empty($been_info) || !is_array($been_info)){
 	        return false;
 	    }
 	    
-	    if($cur_level == 2){
-	        //获取他上级的上级的uid
-	        $sql = " SELECT tr2.puid FROM tf_relate AS tr 
-	                 LEFT JOIN tf_relate AS tr2 ON tr.puid = tr2.uid 
-	                 WHERE tr.uid = {$been_info['uid']}";
-	        $res = $this->db->query($sql)->row_array();
-	        if(empty($res)){
-	            return true;
-	        }
-	        $res['puid'];
+	    $sql = " SELECT uid FROM tf_relate WHERE puid = {$receive_uid} AND space = {$been_info['space']}";
+	    
+	    $temp = $this->db->query($sql)->result_array();
+	    if(count($temp) != 2){
+	        return true;
 	    }
+	    
+	    $uids_arr = array_column($temp, 'uid');
+	    $sql  = " SELECT tu.uid,tu.company_id,tu.level FROM tf_relate AS tr LEFT JOIN tf_user AS tu 
+	              ON tr.uid = tu.uid 
+	              WHERE tr.puid in (".implode(',',$uids_arr).") AND tr.space = {$been_info['space']} AND (tu.level = {$cur_level} || tu.company_id > 0 ) ";
+	    $temp2 = $this->db->query($sql)->result_array();
+	    
+	    if(count($temp2) != 4){
+	        return true;
+	    }
+	    
+	    $this->db->where(array('uid'=>$receive_uid))->update('user',array('frozen_time'=>time()));
+	    
+	    if($this->db->affected_rows() != 1){
+	        return false;
+	    }
+	    
+	    return true;
+	    
 	}
 	/**
 	 * 判断是否是最后一个红包(注册)
@@ -194,9 +211,10 @@ class Pay_model extends CI_Model{
 	private function _is_last_redbag($puid,$been_info){
 	    $puid = intval($puid);
 	    $sql = " SELECT tu.company_id FROM tf_relate AS tr
-        	     LEFT JOIN tf_user AS tu ON tr.uid  = tu.uid
+        	     LEFT JOIN tf_user AS tu ON tr.puid  = tu.uid
         	     WHERE tr.puid = {$puid} AND tu.status = 1 AND tr.space = {$been_info['space']} ";
 	    $res = $this->db->query($sql)->result_array();
+	    
 	    if(count($res) == 2){
 	        //修改冻结时间为2天后
 	        $time = time()+86400*2;
@@ -206,6 +224,8 @@ class Pay_model extends CI_Model{
 	            return false;
 	        }
 	    }
+	    
+	    return true;
 	    
 	}
 	
