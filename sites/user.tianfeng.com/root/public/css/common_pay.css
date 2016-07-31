@@ -12,7 +12,7 @@ em,i{font-style:normal;}
 html,body{height: 100%;min-height:100%;color: #666; position:relative;}
 html{font-size: 100px;/*-webkit-overflow-scrolling: touch;-mz-overflow-scrolling: touch;*/-webkit-text-size-adjust: none;}
 body{line-height:20px;background:#f2f2f2;word-break:break-all;min-width:320px;overflow-x:hidden;
-    width:16rem;margin:0 auto;position: relative;}
+    margin:0 auto;position: relative;}
 div{margin: 0 auto}
 a{text-decoration:none;outline:0;-webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
 a,h2,input,select,textarea{color: #333;}
@@ -54,7 +54,7 @@ img.load{background:url(/img/common/loading.gif) no-repeat center center;}/*æ²¡æ
 .hide{display:none;}
 
 /*Header Css*/
-header{width:16rem;margin-left:auto;margin-right: auto;height:2rem;background:#fff;position: fixed;top: 0;z-index: 100;border-bottom: 1px solid #ccc;}
+header{margin-left:auto;margin-right: auto;height:2rem;background:#fff;top: 0;z-index: 100;border-bottom: 1px solid #ccc;}
 header table{width:100%}
 header table tr td{height: 2rem;color: #666;font-size:0.65rem;}
 header table tr td.icon{width:2rem;}
