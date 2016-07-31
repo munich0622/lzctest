@@ -57,9 +57,7 @@ class Pay_model extends CI_Model{
 	/**
 	 * 微信支付结果回调
 	 */
-	public function pay_response($out_trade_no,$transaction_id){
-	    $out_trade_no = 't_1_2016073114033865826';
-	    $transaction_id = 'sdfjsidvbjsd';
+	public function pay_response($out_trade_no = 't_1_2016073114033865826',$transaction_id = 'sdfjsidvbjsd'){
 	    $where = array('myself_trade_no'=>$out_trade_no);
 	    //获取支付类型
 	    $pay_info = $this->db->get_where('pay',$where)->row_array();
