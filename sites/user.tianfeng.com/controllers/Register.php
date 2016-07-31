@@ -62,7 +62,7 @@ class Register extends MY_Controller{
 	        goback('身份证号码重复');
 	    }
 	    
-	    $tj_uid = 1;
+	    
 	    $tj_uinfo = $this->user_model->get_user(array('uid'=>$tj_uid));
 	    if(!$tj_uinfo){
 	        goback('找不到该推荐人');
