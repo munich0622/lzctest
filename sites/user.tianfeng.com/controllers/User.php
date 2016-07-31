@@ -341,7 +341,7 @@ class User extends Admin_Controller{
 	        if($res){
 	            go('注册成功!','index/index');
 	        }else{
-	            go('注册成功!','index/index');
+	            go('注册失败!','index/index');
 	        }
 	        exit();
 	    }elseif(isset($result['result_code']) &&  $result['result_code'] == 'FAIL'){
