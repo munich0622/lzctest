@@ -341,7 +341,6 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($openid);
 	
 	    $result = WxPayApi::unifiedOrder($input);
-	    var_dump($result);exit;
 	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
 	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
 	        if($res){
