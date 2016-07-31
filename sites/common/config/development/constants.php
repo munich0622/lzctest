@@ -1,9 +1,9 @@
 <?php  
 //上线要改
-define('TEMP_UPLOAD_DIR', '../../upload/qr_code/');
+define('TEMP_UPLOAD_DIR', '/upload/qr_code/');
 //站点url
 define('SITE_URL', 'http://tf.admin.com/');
-define('IMG_URL', 'http://img.tf.com/');
+define('IMG_URL', 'http://www.yctfgw.com/');
 
 //pay表的类型 1注册 2下级支付上级费用（升级）
 define('PAY_TYPE_REG', 1);
