@@ -164,7 +164,6 @@ class User_model extends CI_Model{
 	         $arr2 = $this->db->query($sql)->result_array();
 	         
 	         if(count($arr2) < 4){
-	             echo 3;exit;
 	             return false;
 	         }
 	         
