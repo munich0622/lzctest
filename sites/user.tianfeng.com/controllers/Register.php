@@ -127,7 +127,7 @@ class Register extends MY_Controller{
         $user = $this->user_model->get_user(array('uid'=>$uid));
         
         $_SESSION['user'] = $user;
-        go('注册成功','/login/');
+        go('注册成功','/user');
 	}
 	
 	
