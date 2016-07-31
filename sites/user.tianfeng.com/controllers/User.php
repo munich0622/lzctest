@@ -27,6 +27,10 @@ class User extends Admin_Controller{
 	    $this->load->view('user/user_info',$data);
 	}
 	
+	public function test(){
+	    $this->pay_model->pay_response();
+	}
+	
     /**
      * 保存个人资料
      * 
