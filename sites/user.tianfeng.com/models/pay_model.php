@@ -88,7 +88,7 @@ class Pay_model extends CI_Model{
 	                $this->db->trans_rollback();
 	                return false;
 	            }
-	        }else{
+	            
 	            //第二，三个盘子的话把他的状态改成2
 	            $res = $this->_update_user_status($pay_info,$space);
 	            if(!$res){
