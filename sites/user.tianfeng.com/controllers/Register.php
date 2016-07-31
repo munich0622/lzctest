@@ -81,7 +81,6 @@ class Register extends MY_Controller{
 	    $data['status']      = $tj_uinfo['space'] > 1 ? 2 : 0;
 	    $data['level']       = 1;
 	    $data['space']       = $tj_uinfo['space'];
-	    $data['is_need_invited'] = $tj_uinfo['space'] == 1 ? 0 : 1;
 	    
 	    
 	    $this->db->trans_begin();
