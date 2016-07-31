@@ -18,7 +18,7 @@ border:2px solid #686868;
 </head>
 <body>
 <div class="div_head"><span style="float:left">当前位置是：用户任务管理-》查看个人二维码</span></div>
-<img style"width:100%;height:100%;" src="<?php echo $qr_code_img_url;?>" />
+<img style="width:50%;height:50%;margin-left:50%;" src="<?php echo $qr_code_img_url;?>" />
 </body>
 </html>
 
