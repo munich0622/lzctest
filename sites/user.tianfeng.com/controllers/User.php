@@ -268,12 +268,12 @@ class User extends Admin_Controller{
 	        unlink('temp_qrcode.png');
 	        
 	        $data['qr_code_url'] = str_replace(TEMP_UPLOAD_DIR,'/',$path);
-	        echo $data['qr_code_url'];exit;
+	        
 	        $this->user_model->update_user_info($uid,$data);
 	        
-	        $data['qr_code_img_url'] = IMG_URL.'qr_code'.$data['qr_code_url'];
+	        $data['qr_code_img_url'] = IMG_URL.'upload/qr_code'.$data['qr_code_url'];
 	    }else{
-	        $data['qr_code_img_url'] = IMG_URL.'qr_code'.$user_info['qr_code_url'];
+	        $data['qr_code_img_url'] = IMG_URL.'upload/qr_code'.$user_info['qr_code_url'];
 	    }
 	    
 	    
