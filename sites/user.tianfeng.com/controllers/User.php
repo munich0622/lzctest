@@ -302,8 +302,8 @@ class User extends Admin_Controller{
 	
 	    //判断是否是被人邀请过来的 并且已经支付注册金额
 	    $invited_info = $this->user_model->tf_invited($uid);
-	    if(!empty($invited_info)) {
-	        go('非法注册','index/index');
+	    if(empty($invited_info)) {
+	        go('非法注册',GW_URL);
 	    }
 	    //判断是否支付过
 	    if($invited_info['is_pay'] == 1){
