@@ -106,6 +106,7 @@ class User extends Admin_Controller{
 	 * 
 	 */
 	public function display_user_level(){
+	    echo 1;exit;
 	    $level = $this->user['level'];
 	    $uid   = $this->user['uid'];
 	    $space = $this->user['space'];
