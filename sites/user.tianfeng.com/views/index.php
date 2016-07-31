@@ -22,15 +22,12 @@ echo $this->load->view("head", array(), true);
     <li class="col-sm-3 col-xs-3"> <i class="glyphicon glyphicon-credit-card"></i>
       <p class="text-center">升级</p>
     </li>
-    </a> <a href="">
+    </a> <a href="<?php echo site_url('user/create_qrcode');?>">
     <li class="col-sm-3 col-xs-3"> <i class="fa fa-file-text"></i>
-      <p class="text-center">全部订单</p>
+      <p class="text-center">查看我的二维码</p>
     </li>
-    </a> <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-map-marker"></i>
-      <p class="text-center">收货地址</p>
-    </li>
-    </a> <a href="<?php echo site_url('user/zijin_manage');?>">
+    </a>
+    <a href="<?php echo site_url('user/zijin_manage');?>">
     <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-usd"></i>
       <p class="text-center">资金管理</p>
     </li>
@@ -44,30 +41,6 @@ echo $this->load->view("head", array(), true);
     <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
       <p class="text-center">修改密码</p>
     </li>
-    </a> <a href="register.html">
-    <li class="col-sm-3 col-xs-3"><i><img src="images/u-kefu.png"></i>
-      <p class="text-center">注册用户</p>
-    </li>
-    </a> <a href="<?php echo site_url('user/create_qrcode');?>">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-share-alt"></i>
-      <p class="text-center">查看我的二维码</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-tags"></i>
-      <p class="text-center">我的标签</p>
-    </li>
-    </a>
-    <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-gift"></i>
-      <p class="text-center">我的红包</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-link"></i>
-      <p class="text-center">我的签到</p>
-    </li>
-    </a>
   </ul>
 </section>
 </div>
