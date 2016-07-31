@@ -14,7 +14,7 @@ class Login extends MY_Controller{
 	 */
 	public function index(){
 	    if(isset($_SESSION['user']) && $_SESSION['user']['status'] == 0){
-	        redirect('register/register_pay');
+	        redirect('user/pay_register/');
 	    }
 		$this->load->view('login');
 	}
@@ -42,6 +42,7 @@ class Login extends MY_Controller{
 			redirect('index/index');
 		}
 	}
+	
 	public function loginout(){
 		unset($_SESSION['user']);
 		redirect('login');

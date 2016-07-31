@@ -165,7 +165,7 @@ class User extends Admin_Controller{
 	    
 	    
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
-	    require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
+	    include "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
 	    
 	    $tools = new JsApiPay();
 	    
@@ -315,7 +315,7 @@ class User extends Admin_Controller{
 	    }
 	     
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
-	    require_once "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
+	    include "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
 	
 	    $tools = new JsApiPay();
 	
@@ -336,6 +336,18 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($openid);
 	
 	    $result = WxPayApi::unifiedOrder($input);
+	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
+	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
+	        if($res){
+	            go('注册成功!','index/index');
+	        }else{
+	            go('注册成功!','index/index');
+	        }
+	        exit();
+	    }elseif(isset($result['result_code']) &&  $result['result_code'] == 'FAIL'){
+	        go($result['err_code_des'],'index/index');
+	        exit();
+	    }
 	
 	    $data['jsApiParameters'] = $tools->GetJsApiParameters($result);
 	    $data['pay_id']    = $pay_info['id'];
