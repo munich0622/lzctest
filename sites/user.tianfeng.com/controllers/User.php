@@ -13,6 +13,10 @@ class User extends Admin_Controller{
 		}elseif($this->user['status'] == 2 || $this->user['status'] == 3 && !strpos($_SERVER['REQUEST_URI'],'user/create_qrcode')){
 		    redirect('user/create_qrcode');
 		}
+		
+		if(empty($_SESSION['user']['openid'])){
+		    $this->get_openid();
+		}
 	}
 	
 	
@@ -110,7 +114,6 @@ class User extends Admin_Controller{
 	 * 
 	 */
 	public function display_user_level(){
-	    echo 1;exit;
 	    $level = $this->user['level'];
 	    $uid   = $this->user['uid'];
 	    $space = $this->user['space'];
@@ -160,14 +163,6 @@ class User extends Admin_Controller{
 	        
 	    }
 	    
-	    //获取OPENID
-	    $openid_key = $uid.'_'.WEIXIN_OPENID_KEY;
-	    $this->load->model('weixin_model');
-	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
-	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key,'/user/upgrade');
-	    }
-	    
 	    
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
 	    include "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
@@ -188,7 +183,7 @@ class User extends Admin_Controller{
 	    $notify = 'http://'.$_SERVER['HTTP_HOST'].'/api/wxpay';
 	    $input->SetNotify_url($notify);
 	    $input->SetTrade_type("JSAPI");
-	    $input->SetOpenid($openid);
+	    $input->SetOpenid($_SESSION['user']['openid']);
 	    
 	    $result = WxPayApi::unifiedOrder($input);
 	    
@@ -284,6 +279,21 @@ class User extends Admin_Controller{
 	}
 	
 	
+	//获取OPENID
+	public function get_openid(){
+	    $uid = (int)$_SESSION['user']['uid'];
+	    $openid_key = $uid.'_'.WEIXIN_OPENID_KEY;
+	    $this->load->model('weixin_model');
+	    
+	    $_SESSION['user']['openid'] = $this->weixin_model->get_openid_to_mysql($openid_key);
+	    
+	    if(empty($_SESSION['user']['openid'])){
+	        $_SESSION['user']['openid'] = $this->weixin_model->get_openid($openid_key);
+	    }
+	    
+	}
+	
+	
 	/**
 	 * 支付注册金额
 	 *
@@ -292,16 +302,6 @@ class User extends Admin_Controller{
 	    $uid = (int)$_SESSION['user']['uid'];
 	    if(empty($uid)) {
 	        go('请先登录','login/index');
-	    }
-	
-	    //获取OPENID
-	    $openid_key = $uid.'_'.WEIXIN_OPENID_KEY;
-	    $this->load->model('weixin_model');
-	     
-	    $openid = $this->weixin_model->get_openid_to_mysql($openid_key);
-	     
-	    if(empty($openid)){
-	        $openid = $this->weixin_model->get_openid($openid_key,'/user/pay_register/');
 	    }
 	
 	
@@ -338,7 +338,7 @@ class User extends Admin_Controller{
 	    $notify = 'http://'.$_SERVER['HTTP_HOST'].'/api/wxpay';
 	    $input->SetNotify_url($notify);
 	    $input->SetTrade_type("JSAPI");
-	    $input->SetOpenid($openid);
+	    $input->SetOpenid($_SESSION['user']['openid']);
 	
 	    $result = WxPayApi::unifiedOrder($input);
 	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){

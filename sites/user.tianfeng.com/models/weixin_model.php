@@ -39,10 +39,10 @@ class Weixin_model extends MY_Model {
      * 获取openid 并且保存
      * 
      */
-    public function get_openid($openid_key,$goback_url){
+    public function get_openid($openid_key){
         $code = isset($_GET['code']) ? $_GET['code'] : '';
         if(empty($code)){
-            $callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].$goback_url.'?'.$_SERVER['QUERY_STRING']);
+            $callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/user/get_openid?'.$_SERVER['QUERY_STRING']);
             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.self::APPID.'&redirect_uri='.$callback_url.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
             header("Location:".$url);
         }else{
@@ -63,7 +63,7 @@ class Weixin_model extends MY_Model {
                 $this->db->where('key',$openid_key)->update('wx_cache',array('time'=>time(),'value'=>$openid));
             }
             
-            $url = 'http://'.$_SERVER['HTTP_HOST'].$goback_url.'?'.$_SERVER['QUERY_STRING'];
+            $url = 'http://'.$_SERVER['HTTP_HOST'].'/user/index?'.$_SERVER['QUERY_STRING'];
             header("Location:".$url);
         }
         
