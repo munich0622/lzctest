@@ -7,6 +7,10 @@ class User extends Admin_Controller{
 		$this->load->model('user_model');
 		$this->load->model('pay_model');
 		
+		if(empty($_SESSION['user']['openid'])){
+		    $this->get_openid();
+		}
+		
 		$this->user = $this->user_model->get_user(array('uid'=>$this->user['uid']));
 		if($this->user['status'] == 0 && !strpos($_SERVER['REQUEST_URI'],'user/pay_register')){
 		    go('请先支付注册费用','/user/pay_register/');
@@ -14,9 +18,6 @@ class User extends Admin_Controller{
 		    redirect('user/create_qrcode');
 		}
 		
-		if(empty($_SESSION['user']['openid'])){
-		    $this->get_openid();
-		}
 	}
 	
 	
