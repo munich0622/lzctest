@@ -1,6 +1,6 @@
 <?php  
 //上线要改
-define('TEMP_UPLOAD_DIR', '/upload/qr_code/');
+define('TEMP_UPLOAD_DIR', './upload/qr_code/');
 //站点url
 define('SITE_URL', 'http://www..yctfgw.com/');
 define('IMG_URL', 'http://www.yctfgw.com/');
