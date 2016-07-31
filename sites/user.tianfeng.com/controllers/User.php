@@ -237,7 +237,7 @@ class User extends Admin_Controller{
 	    $user_info = $this->user_model->get_user(array('uid'=>$uid));
 	    if(empty($user_info['qr_code_url']) || !file_exists(TEMP_UPLOAD_DIR.$user_info['qr_code_url'])){
 	        include '../libraries/Qrcode_lib.php';
-	        $url = SITE_URL.'/register?tj_uid='.$this->user['uid']; //二维码内容
+	        $url = SITE_URL.'register?tj_uid='.$this->user['uid']; //二维码内容
 	        $errorCorrectionLevel = 'L';//容错级别
 	        $matrixPointSize      = 4;//生成图片大小
 	        //生成二维码图片
