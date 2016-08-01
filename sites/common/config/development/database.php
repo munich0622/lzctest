@@ -3,10 +3,10 @@ $active_group = 'default';
 $active_record = TRUE;
 // 主数据库（默认）
 //$db['default']['hostname'] = '192.168.18.155';
-$db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'root';
+$db['default']['hostname'] = '119.29.0.237';
+$db['default']['username'] = 'liuzc';
 //$db['default']['password'] = 'root';
-$db['default']['password'] = 'root';
+$db['default']['password'] = '123456';
 $db['default']['database'] = 'test';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'tf_';

@@ -1,99 +1,44 @@
-<!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>首页</title>
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/bootstrap.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/font-awesome.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/ectouch.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/user.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/photoswipe.css');?>">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>欢迎登录后台管理系统</title>
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+
+
 </head>
 
 <body>
-<div class="con">
-<?php 
-echo $this->load->view("head", array(), true);
-?>
-<section class="container-fluid user-nav">
-  <ul class="row ect-row-nav text-center">
-    <a href="/user/display_user_level">
-    <li class="col-sm-3 col-xs-3"> <i class="glyphicon glyphicon-credit-card"></i>
-      <p class="text-center">升级</p>
-    </li>
-    </a> <a href="">
-    <li class="col-sm-3 col-xs-3"> <i class="fa fa-file-text"></i>
-      <p class="text-center">全部订单</p>
-    </li>
-    </a> <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-map-marker"></i>
-      <p class="text-center">收货地址</p>
-    </li>
-    </a> <a href="<?php echo site_url('user/zijin_manage');?>">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-usd"></i>
-      <p class="text-center">资金管理</p>
-    </li>
-    </a> 
-    <a href="/user/index">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-user"></i>
-      <p class="text-center">我的资料</p>
-    </li>
-    </a> 
-    <a href="<?php echo site_url('user/update_pass');?>">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
-      <p class="text-center">修改密码</p>
-    </li>
-    </a> <a href="register.html">
-    <li class="col-sm-3 col-xs-3"><i><img src="images/u-kefu.png"></i>
-      <p class="text-center">注册用户</p>
-    </li>
-    </a> <a href="zuzhikuangjia.html">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-share-alt"></i>
-      <p class="text-center">组织框架</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-tags"></i>
-      <p class="text-center">我的标签</p>
-    </li>
-    </a>
-    <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-gift"></i>
-      <p class="text-center">我的红包</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-link"></i>
-      <p class="text-center">我的签到</p>
-    </li>
-    </a>
-  </ul>
-</section>
-</div>
-<div class="search" style="display:none;">
-  <div class="ect-bg">
-    <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onclick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-  </div>
-  <div class="ect-padding-lr">
-     <form action="" method="post" id="searchForm" name="searchForm">
-      <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-        <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-      </div>
+<div class="main-login">
+
+	<div class="login-content">	
+	<h2>用户登录</h2>
+	
+    <form action="" method="post" id="login-form" name="login-form">
+    <div class="login-info">
+	<span class="user">&nbsp;</span>
+	<input name="username" id="username" type="text"  value="" class="login-input"/>
+	</div>
+    <div class="login-info">
+	<span class="pwd">&nbsp;</span>
+	<input name="password" id="password" type="password"  value="" class="login-input"/>
+	</div>
+    <div class="login-oper">
+	<input style="margin:1px 10px 0px 2px; float:left;" name="" type="checkbox" value="" checked="checked" /><span>记住密码</span>
+	</div>
+    <div class="login-oper">
+	<input name="" type="submit" value="登 录" class="login-btn"/>
+	<input name="" type="submit" value="重 置" class="login-reset"/>
+	</div>
     </form>
-        <div class="hot-search">
-      <p>
-      </p><h4 class="title"><b>热门搜索：</b></h4>
-      <p></p>
-       
-      <a href="">玛卡</a> 
-       
-      <a href="">黑枸杞</a> 
     </div>
-     
-  </div>
+   
+</div>   
+
+<div style="text-align:center;">
+<p>来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
 </div>
+
 </body>
+
 </html>
