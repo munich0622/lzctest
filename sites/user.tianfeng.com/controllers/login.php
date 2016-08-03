@@ -39,7 +39,7 @@ class Login extends MY_Controller{
 			redirect('index/index');
 		} else {
 			# error
-			redirect('index/index');
+			go('登录失败','/login/index');
 		}
 	}
 	

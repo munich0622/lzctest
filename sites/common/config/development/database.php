@@ -3,7 +3,7 @@ $active_group = 'default';
 $active_record = TRUE;
 // 主数据库（默认）
 //$db['default']['hostname'] = '192.168.18.155';
-$db['default']['hostname'] = '119.29.0.237';
+$db['default']['hostname'] = '221.229.172.204';
 $db['default']['username'] = 'liuzc';
 //$db['default']['password'] = 'root';
 $db['default']['password'] = '123456';
