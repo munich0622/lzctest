@@ -13,7 +13,7 @@ class Pay extends Admin_Controller{
 	/**
 	 * 支付列表
 	 */
-	public function index($page){
+	public function index($page = 1){
 	    $type      = (int)$this->input->get('type',true);
 	    $status    = (int)$this->input->get('status',true);
 	    $is_dakuan = (int)$this->input->get('is_dakuan',true);
