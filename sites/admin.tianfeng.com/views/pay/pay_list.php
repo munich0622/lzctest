@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="<?php   echo base_url('public/css/common.css');?>">
     <link rel="stylesheet" href="<?php   echo base_url('public/css/main.css');?>">
     <script type="text/javascript" src="<?php   echo base_url('public/js/modernizr.min.js');?>"></script>
+    <script type="text/javascript" src="<?php   echo base_url('public/js/jquery-1.8.3.min.js');?>"></script>
+    
 </head>
 <body>
 <div class="topbar-wrap white">
@@ -72,7 +74,6 @@
                             <th>支付人姓名</th>
                             <th>支付人电话</th>
                             <th>支付类型</th>
-                            <th>支付描述</th>
                             <th>支付时间</th>
                             <th>支付状态</th>
                             <th>支付金额</th>
@@ -82,10 +83,26 @@
                             <th>打款给接受人的金额</th>
                             <th>系统服务费</th>
                             <th>打款时间</th>
+                            <th>操作</th>
                         </tr>
                     <?php if(count($list) > 0):?>
                     <?php foreach($list as $key=>$val):?>
-                        
+                        <tr>
+                        	<td><?php echo $val['id'];?></td>
+                        	<td><?php echo $user_arr_info[$val['pay_uid']]['uname'];?></td>
+                        	<td><?php echo $user_arr_info[$val['pay_uid']]['phone'];?></td>
+                        	<td><?php echo $val['type'] == 1 ? '注册' : '升级'.'('.$val['content'].')';?></td>
+                        	<td><?php echo date("Y-m-d H:i:s",$val['time']);?></td>
+                        	<td><?php echo $val['status'] == 1 ? '已支付' : '未支付';?></td>
+                        	<td><?php echo $val['price'];?></td>
+                        	<td><?php echo isset($user_arr_info[$val['receive_uid']]) ? $user_arr_info[$val['receive_uid']]['uname'] : '系统';?></td>
+                        	<td><?php echo isset($user_arr_info[$val['receive_uid']]) ? $user_arr_info[$val['receive_uid']]['phone'] : '系统';?></td>
+                        	<td><?php echo isset($user_arr_info[$val['receive_uid']]) ? $user_arr_info[$val['receive_uid']]['bank_num'].'('.$user_arr_info[$val['receive_uid']]['bank_name'].')' : '系统';?></td>
+                        	<td><?php echo $val['dk_money'];?></td>
+                        	<td><?php echo $val['service_money'];?></td>
+                        	<td><?php if($val['dakuan_id'] > 0){echo date("Y-m-d H:i:s",$val['dk_time']);}else{ echo '未打款';}?></td>
+                        	<td><?php if(isset($user_arr_info[$val['receive_uid']])):?><a href="javascript:void(0)" class="dakuan" dk_id = "<?php echo $val['id'];?>">打款</a><?php endif;?></td>
+                        </tr>
                     <?php endforeach; ?>
                     <?php endif;?>
                     </table>
@@ -96,5 +113,30 @@
     </div>
     <!--/main-->
 </div>
+<script type="text/javascript">
+$(function(){
+
+	$(".dakuan").click(function(){
+		var money = prompt("请输入给对方的钱:","");
+		money = parseInt(money);
+		if(money > 0){
+			var pay_id = $(this).attr("dk_id");
+			$.ajax({  
+	            url: "/pay/dakuan", 
+	            data: {"money": money,"pay_id":pay_id},
+	            dataType: "json",
+	            type:"post",
+	            success: function (ret) { 
+	               alert(ret.data);
+	               if(ret.success == true){
+	                   location.reload();
+	               }
+	            }
+	        });
+		}
+	});
+})
+
+</script>
 </body>
 </html>

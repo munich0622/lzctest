@@ -13,11 +13,10 @@ class Pay extends Admin_Controller{
 	/**
 	 * 支付列表
 	 */
-	public function index(){
+	public function index($page){
 	    $type      = (int)$this->input->get('type',true);
 	    $status    = (int)$this->input->get('status',true);
 	    $is_dakuan = (int)$this->input->get('is_dakuan',true);
-	    $page      = (int)$this->input->get('page',true);
 	    $page_size = 1;
 	    
 	    
@@ -43,7 +42,7 @@ class Pay extends Admin_Controller{
 	    
 	    
 	    
-	    $result = $this->pay_model->pay_list($where,$page_size);
+	    $result = $this->pay_model->pay_list($where,$page_size,$page);
 	    $total  =  $result['total'];
 	    $data['list'] = $result['list'];
 	    //获取列表的用户信息
@@ -61,12 +60,56 @@ class Pay extends Admin_Controller{
 	    $this->load->model('user_model');
 	    $data['user_arr_info'] = $this->user_model->get_user_arr_info($uid_arr);
 	    
-	    $url = '/pay/pay_list/%d?'. urldecode ( $_SERVER ['QUERY_STRING'] );
+	    $url = '/pay/index/%d?'. urldecode ( $_SERVER ['QUERY_STRING'] );
 	    $data['page_html'] = pagination ($page, ceil($total/$page_size), $url, 5, TRUE, TRUE, $total );
 	    
 	    $this->load->view('pay/pay_list',$data);
 	}
 	
-   
+   /**  
+    * 打款记录日志
+    */
+	public function dakuan(){
+	    $money  = (int)$this->input->post('money',true);
+	    $pay_id = (int)$this->input->post('pay_id',true);
+	    if($money <= 0){
+	        ajax_response(FALSE,'','传入的金额有误!');
+	    }
+	    
+	    $info = $this->pay_model->pay_info($pay_id); 
+	    
+	    if(empty($info)){
+	        ajax_response(FALSE,'','找不到支付信息!');
+	    }
+	    
+	    if($info['dakuan_id'] > 0 ){
+	        ajax_response(FALSE,'','已经打过款了!');
+	    }
+	    
+	    if($info['price'] < $money){
+	        ajax_response(FALSE,'','打款金额超过支付金额！');
+	    }
+	    
+	    //开启事务
+	    $this->db->trans_begin();
+	    
+	    $id = $this->pay_model->update_dakuan_log($info,$money);
+	    
+	    if(empty($id)){
+	        $this->db->trans_rollback();
+	        ajax_response(FALSE,'','记录日志失败!');
+	    }
+	    
+	    $ret = $this->pay_model->update_dakuan_status($pay_id,$id);
+	    
+	    if(empty($ret)){
+	        $this->db->trans_rollback();
+	        ajax_response(FALSE,'','记录日志失败!');
+	    }
+	    
+	    $this->db->trans_commit();
+	    
+	    ajax_response(true,'','打款日志成功!');
+	}
 }
 ?>
