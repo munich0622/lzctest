@@ -17,7 +17,7 @@ class Pay extends Admin_Controller{
 	    $type      = (int)$this->input->get('type',true);
 	    $status    = (int)$this->input->get('status',true);
 	    $is_dakuan = (int)$this->input->get('is_dakuan',true);
-	    $page_size = 1;
+	    $page_size = 20;
 	    
 	    
 	    $where = " where 1 ";
