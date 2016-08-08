@@ -270,17 +270,11 @@ class Pay_model extends CI_Model{
 	    }
 	    
 	    //如果已经有两个下级了 则寻找一个下级的
-	    $sql = " SELECT tr.puid FROM tf_relate AS tr 
-	             LEFT JOIN tf_user AS tu ON tr.uid = tu.uid
-	             WHERE tu.`status` = 1 AND tu.space = {$space} 
-	             GROUP BY tr.puid HAVING count(1) = 1 LIMIT 1 ";
+	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
 	    $result = $this->db->query($sql)->row_array();
 	    if(empty($result)){
 	        //如果已经有两个下级了 则寻找一个下级的
-	        $sql = " SELECT tr.puid FROM tf_relate AS tr
-        	        LEFT JOIN tf_user AS tu ON tr.uid = tu.uid
-        	        WHERE tu.`status` = 1 AND tu.space = {$space}
-        	        GROUP BY tr.puid HAVING count(1) < 2 LIMIT 1 ";
+	        $sql = " select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) < 2 limit 1";
 	        $result = $this->db->query($sql)->row_array();
 	    }
 	    return $result['puid'];
@@ -293,17 +287,11 @@ class Pay_model extends CI_Model{
 	private function _get_tj_uid($space = 1){
 	    
 	    //如果已经有两个下级了 则寻找一个下级的
-	    $sql = " SELECT tr.puid FROM tf_relate AS tr 
-	             LEFT JOIN tf_user AS tu ON tr.uid = tu.uid
-	             WHERE tu.`status` = 1 AND tu.space = {$space} 
-	             GROUP BY tr.puid HAVING count(1) = 1 LIMIT 1 ";
+	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
 	    $result = $this->db->query($sql)->row_array();
 	    if(empty($result)){
 	        //如果已经有两个下级了 则寻找一个下级的
-	        $sql = " SELECT tr.puid FROM tf_relate AS tr
-        	        LEFT JOIN tf_user AS tu ON tr.uid = tu.uid
-        	        WHERE tu.`status` = 1 AND tu.space = {$space}
-        	        GROUP BY tr.puid HAVING count(1) < 2 LIMIT 1 ";
+	        $sql = " select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) < 2 limit 1";
 	        $result = $this->db->query($sql)->row_array();
 	    }
 	    return $result['puid'];
