@@ -1,43 +1,40 @@
-<!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title></title>
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/bootstrap.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/font-awesome.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/ectouch.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/user.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/photoswipe.css');?>">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>欢迎登录盐城天丰后台管理系统</title>
+<link rel="stylesheet" href="<?php   echo base_url('public/css/login.css');?>">
+
 </head>
 
 <body>
-<div class="con">
-<div class="ect-bg">
-  <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>登录</span></header>
-</div>
- <form name="formLogin" action="<?php echo site_url('login/signin');?>" method="post" class="validforms">
- <div class="flow-consignee ect-bg-colorf">
-     <section>
-      <ul>
-      	<li>
-        <div class="input-text"><b>用户名：</b><span><input placeholder="用户名/手机" name="admin_user" type="text" class="inputBg" id="username" datatype="*" nullmsg="请填写信息！"></span></div>
-        </li>
-        <li>
-        <div class="input-text"><b>密码：</b><span><input placeholder="密码" name="admin_psd" type="password" class="inputBg" datatype="*6-16"></span></div>
-        </li>
-       </ul>
-    </section>
-  </div>
-  <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
-     <input type="checkbox" value="1" name="remember" id="remember" class="l-checkbox">
-     <label for="remember">记住本次登录。<i></i></label>
-  </p>
-  <div class="ect-padding-lr ect-padding-tb"> 
-  <input type="submit" class="btn btn-info ect-btn-info ect-bg" value="立即登陆">
-  </div>
-  </form>
-  <p class="ect-padding-lr ect-margin-tb text-right ect-margin-bottom0" style="clear:both"><a href="javascript:void(0)">忘记密码</a> </p>
-  </div>
+<div class="main-login">
+
+	<div class="login-content">	
+	<h2>用户登录</h2>
+	
+    <form action="/login/signin" method="post" id="login-form" name="login-form">
+    <div class="login-info">
+	<span class="user">&nbsp;</span>
+	<input name="username" id="username" type="text"  value="" class="login-input"/>
+	</div>
+    <div class="login-info">
+	<span class="pwd">&nbsp;</span>
+	<input name="password" id="password" type="password"  value="" class="login-input"/>
+	</div>
+    <div class="login-oper">
+	<input style="margin:1px 10px 0px 2px; float:left;" name="" type="checkbox" value="" checked="checked" /><span>记住密码</span>
+	</div>
+    <div class="login-oper">
+	<input name="" type="submit" value="登 录" class="login-btn"/>
+	<input name="" type="reset" value="重 置" class="login-reset"/>
+	</div>
+    </form>
+    </div>
+   
+</div>   
+
+
 </body>
+
 </html>

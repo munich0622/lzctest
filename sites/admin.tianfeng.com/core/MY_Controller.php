@@ -24,7 +24,7 @@ class Admin_Controller extends MY_Controller {
     public $user;
     public function __construct(){
         parent::__construct();
-        if(!isset($_SESSION['user']) || (int)$_SESSION['user']['uid'] <= 0){
+        if(!isset($_SESSION['user']) || (int)$_SESSION['user']['id'] <= 0){
             redirect('login/index');
         }
         

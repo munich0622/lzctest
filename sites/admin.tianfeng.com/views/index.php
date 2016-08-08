@@ -1,99 +1,27 @@
-<!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>首页</title>
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/bootstrap.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/font-awesome.min.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/ectouch.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/user.css');?>">
-<link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/photoswipe.css');?>">
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台首页</title>
+    <link rel="stylesheet" href="<?php   echo base_url('public/css/common.css');?>">
+    <link rel="stylesheet" href="<?php   echo base_url('public/css/main.css');?>">
+    <script type="text/javascript" src="<?php   echo base_url('public/js/modernizr.min.js');?>"></script>
 </head>
-
 <body>
-<div class="con">
-<?php 
-echo $this->load->view("head", array(), true);
-?>
-<section class="container-fluid user-nav">
-  <ul class="row ect-row-nav text-center">
-    <a href="/user/display_user_level">
-    <li class="col-sm-3 col-xs-3"> <i class="glyphicon glyphicon-credit-card"></i>
-      <p class="text-center">升级</p>
-    </li>
-    </a> <a href="">
-    <li class="col-sm-3 col-xs-3"> <i class="fa fa-file-text"></i>
-      <p class="text-center">全部订单</p>
-    </li>
-    </a> <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-map-marker"></i>
-      <p class="text-center">收货地址</p>
-    </li>
-    </a> <a href="<?php echo site_url('user/zijin_manage');?>">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-usd"></i>
-      <p class="text-center">资金管理</p>
-    </li>
-    </a> 
-    <a href="/user/index">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-user"></i>
-      <p class="text-center">我的资料</p>
-    </li>
-    </a> 
-    <a href="<?php echo site_url('user/update_pass');?>">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
-      <p class="text-center">修改密码</p>
-    </li>
-    </a> <a href="register.html">
-    <li class="col-sm-3 col-xs-3"><i><img src="images/u-kefu.png"></i>
-      <p class="text-center">注册用户</p>
-    </li>
-    </a> <a href="zuzhikuangjia.html">
-    <li class="col-sm-3 col-xs-3"><i class="fa fa-share-alt"></i>
-      <p class="text-center">组织框架</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-tags"></i>
-      <p class="text-center">我的标签</p>
-    </li>
-    </a>
-    <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-gift"></i>
-      <p class="text-center">我的红包</p>
-    </li>
-    </a>
-     <a href="">
-    <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-link"></i>
-      <p class="text-center">我的签到</p>
-    </li>
-    </a>
-  </ul>
-</section>
-</div>
-<div class="search" style="display:none;">
-  <div class="ect-bg">
-    <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onclick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-  </div>
-  <div class="ect-padding-lr">
-     <form action="" method="post" id="searchForm" name="searchForm">
-      <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-        <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-      </div>
-    </form>
-        <div class="hot-search">
-      <p>
-      </p><h4 class="title"><b>热门搜索：</b></h4>
-      <p></p>
-       
-      <a href="">玛卡</a> 
-       
-      <a href="">黑枸杞</a> 
+<div class="topbar-wrap white">
+    <!--<div class="topbar-inner clearfix">-->
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">管理员中心</a></h1>
+        </div>
     </div>
-     
-  </div>
+</div>
+<div class="container clearfix">
+    <?php $this->load->view('left');?>
+    <!--/sidebar-->
+    <div class="main-wrap">
+        <?php $this->load->view('menu');?>
+    </div>
+    <!--/main-->
 </div>
 </body>
 </html>
