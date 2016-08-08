@@ -272,13 +272,16 @@ class Pay_model extends CI_Model{
 	    //如果已经有两个下级了 则寻找一个下级的
 	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
 	    $result = $this->db->query($sql)->row_array();
-	    if(empty($result)){
-	        //如果已经有两个下级了 则寻找一个下级的
-	        $sql = " select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) < 2 limit 1";
-	        $result = $this->db->query($sql)->row_array();
+	    if(!empty($result)){
+	        return $result['puid'];
 	    }
-	    return $result['puid'];
+		
+		//如果已经有两个下级了 则寻找一个下级的
+		$sql = " SELECT tf_user.uid FROM tf_user LEFT JOIN tf_relate ON tf_user.uid = tf_relate.puid 
+		         WHERE tf_relate.puid IS NULL AND tf_user.status = 1 AND tf_user.space = {$space} limit 1";
+		$result = $this->db->query($sql)->row_array();
 	    
+	    return $result['uid'];
 	}
 	
 	/**
@@ -289,12 +292,16 @@ class Pay_model extends CI_Model{
 	    //如果已经有两个下级了 则寻找一个下级的
 	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
 	    $result = $this->db->query($sql)->row_array();
-	    if(empty($result)){
-	        //如果已经有两个下级了 则寻找一个下级的
-	        $sql = " select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) < 2 limit 1";
-	        $result = $this->db->query($sql)->row_array();
-	    }
-	    return $result['puid'];
+		if(!empty($result)){
+			return $result['puid'];
+		}
+	    
+		//如果已经有两个下级了 则寻找一个下级的
+		$sql = " SELECT tf_user.uid FROM tf_user LEFT JOIN tf_relate ON tf_user.uid = tf_relate.puid 
+		         WHERE tf_relate.puid IS NULL AND tf_user.status = 1 AND tf_user.space = {$space} limit 1";
+		$result = $this->db->query($sql)->row_array();
+	    
+	    return $result['uid'];
 	}
 	
 	/**
