@@ -27,7 +27,7 @@ class Pay extends Admin_Controller{
 	    if(in_array($status,array(1,2))){
 	        $status = $status == 1 ? 1 : 0;
 	        
-	        $where .= " AND tp.status = {$status} ";
+	        $where .= " AND tp.status = 1 ";
 	    }
 	    
 	    if(in_array($is_dakuan,array(1,2))){
