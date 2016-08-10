@@ -54,7 +54,7 @@
             <tbody>
             <tr>
                 <td class="icon"><a href="javascript:;" class="return"></a></td>
-                <td class="c">支付</td>
+                <td class="c">支付(支付到公司平台由公司平台统一打款到对应上级)</td>
                 <td class="icon"><a href="javascript:;" id="JS_category_menu" class="category"></a></td>
             </tr>
             </tbody>
