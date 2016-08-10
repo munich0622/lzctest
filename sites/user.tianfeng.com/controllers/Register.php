@@ -140,7 +140,7 @@ class Register extends MY_Controller{
 	 * @date 2015-04-17
 	 * @return string
 	 */
-	private function _rank_string($length = 6 ){
+	private function _rank_string($length = 4 ){
 	    // 密码字符集，可任意添加你需要的字符+
 	    $chars = '123456789abcdefghijklmnopqrstuvwxyz';
 	    $string = '';
