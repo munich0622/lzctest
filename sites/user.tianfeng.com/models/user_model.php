@@ -195,7 +195,7 @@ class User_model extends CI_Model{
 	public function get_parents($uid,$level){
 	    $level = intval($level);
 	    $uid   = intval($uid);
-	    if($level != 2 || $level != 3 || empty($uid)){
+	    if(($level != 2 && $level != 3) || empty($uid)){
 	        return false;
 	    }
 	    
