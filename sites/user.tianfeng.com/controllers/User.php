@@ -362,6 +362,40 @@ class User extends Admin_Controller{
 	    $this->load->view('pay/wx_pay',$data);
 	}
 	
+	/*
+	 * 查看组织框架
+	 */
+	public function frame(){
+	    $uid = $this->user['uid'];
+	    
+	    $up_info = array();
+	    $son_info = array();
+	    $son_son_info = array();
+	    $son_son_son_info = array();
+	    
+	    //获取上一级
+	    $up_info = $this->user_model->get_parent_info($uid);
+	    
+	    //获取下一级
+	    $son_info = $this->user_model->get_son_info($uid);
+	    if(!empty($son_info)){
+	        $son_son_uid = array_column($son_info, 'uid');
+	        //获取下下一级
+	        $son_son_info = $this->user_model->get_son_info($son_son_uid);
+	        if(!empty($son_son_info)){
+	            $son_son_son_uid = array_column($son_son_info, 'uid');
+	            $son_son_son_info = $this->user_model->get_son_info($son_son_son_uid);
+	        }
+	    }
+	    
+	    $data['up_info']          = $up_info;
+	    $data['son_info']         = $son_info;
+	    $data['son_son_info']     = $son_son_info;
+	    $data['son_son_son_info'] = $son_son_son_info;
+	    
+	    $this->load->view('user/frame',$data);
+	}
+	
 	/**
 	 * 资金管理
 	 */

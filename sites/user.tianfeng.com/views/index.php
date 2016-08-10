@@ -41,6 +41,12 @@ echo $this->load->view("head", array(), true);
     <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
       <p class="text-center">修改密码</p>
     </li>
+    </a>
+    <a href="<?php echo site_url('user/frame');?>">
+    <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
+      <p class="text-center">查看框架</p>
+    </li>
+    </a>
   </ul>
 </section>
 </div>
