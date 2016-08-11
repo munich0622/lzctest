@@ -63,6 +63,7 @@ class Pay extends Admin_Controller{
 	    $url = '/pay/index/%d?'. urldecode ( $_SERVER ['QUERY_STRING'] );
 	    $data['page_html'] = pagination ($page, ceil($total/$page_size), $url, 5, TRUE, TRUE, $total );
 	    
+	    $data['menu_name'] = '支付列表';
 	    $this->load->view('pay/pay_list',$data);
 	}
 	

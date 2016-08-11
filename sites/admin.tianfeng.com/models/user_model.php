@@ -39,6 +39,25 @@ class User_model extends CI_Model{
 	    return $new_arr;
 	}
 	
+	/**
+	 * 重置用户密码
+	 */
+	public function reset_pas($phone){
+	    $password = '123456';
+	    $uinfo = $this->db->select('uid,salt')->where(array('phone'=>$phone))->get('user')->row_array();
+		if(isset($uinfo) && !empty($uinfo)){
+		    $password = en_pass($password, $uinfo['salt']);
+			$res = $this->db->where('uid',$uinfo['uid'])->update('user',array('password'=>$password));
+			if($res){
+			    return true;
+			}else{
+			    return false;
+			}
+		}else{
+		   return '-1';
+		}
+	}
+	
 }
 
 ?>

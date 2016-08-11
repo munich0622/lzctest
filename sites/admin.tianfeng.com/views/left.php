@@ -8,7 +8,7 @@
                     <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                     <ul class="sub-menu">
                         <li><a href="/pay"><i class="icon-font">&#xe008;</i>支付日志列表</a></li>
-                        <li><a href=""><i class="icon-font">&#xe005;</i>公告发布</a></li>
+                        <li><a href="/user/update_pas"><i class="icon-font">&#xe005;</i>修改会员密码</a></li>
                         <li><a href=""><i class="icon-font">&#xe006;</i>订单查询</a></li>
                     </ul>
                 </li>
