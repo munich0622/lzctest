@@ -403,5 +403,15 @@ class User extends Admin_Controller{
 	    
 	    $this->load->view('user/zijin');
 	}
+	
+	/**
+	 * 专属链接
+	 */
+	public function my_link(){
+	    $uid = $this->user['uid'];
+	    
+	    $data['link'] = 'http://www.yctfgw.com/register?tj_uid='.$uid;
+	    $this->load->view('user/my_link',$data);
+	}
 }
 ?>

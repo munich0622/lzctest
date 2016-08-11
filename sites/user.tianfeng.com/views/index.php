@@ -47,6 +47,11 @@ echo $this->load->view("head", array(), true);
       <p class="text-center">查看框架</p>
     </li>
     </a>
+    <a href="/user/my_link">
+    <li class="col-sm-3 col-xs-3"><i class="fa fa-user"></i>
+      <p class="text-center">我的专属链接</p>
+    </li>
+    </a> 
   </ul>
 </section>
 </div>
