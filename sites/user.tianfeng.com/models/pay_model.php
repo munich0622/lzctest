@@ -320,10 +320,7 @@ class Pay_model extends CI_Model{
 	    return true;
 	}
 	
-	public function test($content,$sss){
-	    $sql = " INSERT INTO `tttt`(text,xxx) VALUES ('{$content}','{$sss}')";
-	    $this->db->query($sql);
-	}
+	
 	
 }
 
