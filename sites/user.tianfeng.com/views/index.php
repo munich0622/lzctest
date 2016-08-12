@@ -24,7 +24,7 @@ echo $this->load->view("head", array(), true);
     </li>
     </a> <a href="<?php echo site_url('user/create_qrcode');?>">
     <li class="col-sm-3 col-xs-3"> <i class="fa fa-file-text"></i>
-      <p class="text-center">查看我的二维码</p>
+      <p class="text-center">我的二维码</p>
     </li>
     </a>
     <a href="<?php echo site_url('user/zijin_manage');?>">
