@@ -179,7 +179,7 @@ class User extends Admin_Controller{
 	    $fee = $pay_info['price'] * 100;
 	    $input->SetTotal_fee($fee);
 	    $input->SetTime_start(date("YmdHis"));
-	    $input->SetTime_expire(date("YmdHis", time() + 600));
+	    $input->SetTime_expire(date("YmdHis", time() + 7200));
 	    
 	    $notify = 'http://'.$_SERVER['HTTP_HOST'].'/api/wxpay';
 	    $input->SetNotify_url($notify);
@@ -334,7 +334,7 @@ class User extends Admin_Controller{
 	    $fee = $pay_info['price'] * 100;
 	    $input->SetTotal_fee($fee);
 	    $input->SetTime_start(date("YmdHis"));
-	    $input->SetTime_expire(date("YmdHis", time() + 600));
+	    $input->SetTime_expire(date("YmdHis", time() + 7200));
 	
 	    $notify = 'http://'.$_SERVER['HTTP_HOST'].'/api/wxpay';
 	    $input->SetNotify_url($notify);
