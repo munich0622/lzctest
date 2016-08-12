@@ -27,7 +27,7 @@
                                 <th><i class="require-red">*</i>请输入要修复的订单号：</th>
                                 <td >
                                     <input class="common-text required" name="order_sn" size="50" value="" type="text">
-                                    <input type="submit" value="确定重置" >
+                                    <input type="submit" value="确定修复" >
                                 </td>
                             </tr>
                         </tbody></table>
