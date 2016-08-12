@@ -24,7 +24,7 @@ class Xiufu extends Admin_Controller{
 	     $order_sn = $this->input->post('order_sn',TRUE);
 	     
 	     $pay_info = $this->xiufu_model->get_pay_info($order_sn);
-	     var_dump($pay_info);exit;
+	     
 	     if(empty($pay_info)){
 	         go('查找不到该订单号','/xiufu/xiufu_pay');
 	     }
