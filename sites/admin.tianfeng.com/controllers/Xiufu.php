@@ -77,7 +77,8 @@ class Xiufu extends Admin_Controller{
 	    fclose($file);
 	    
 	    foreach ($order as $key=>$val){
-	        $this->xiufu_model->update_pay($val);
+	        $res = $this->xiufu_model->update_pay($val);
+	        var_dump($res);
 	    }
 	}
 }
