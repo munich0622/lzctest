@@ -68,6 +68,7 @@ class Xiufu extends Admin_Controller{
 	    }
 	    $row  = 1;
 	    $file = fopen($_FILES['csv']['tmp_name'],"r");
+	    var_dump($file);exit;
         while ($data = fgetcsv($file, 1000, ",")) { 
             if($row > 1){
                 $order_sn = substr($data[2], 1);
