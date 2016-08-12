@@ -23,7 +23,7 @@ class Xiufu extends Admin_Controller{
 	public function xiufu_pay_sub(){
 	     $order_sn = $this->input->post('order_sn',TRUE);
 	     
-	     $pay_info = $this->pay_model->get_pay_info($order_sn);
+	     $pay_info = $this->xiufu_model->get_pay_info($order_sn);
 	     
 	     if(empty($pay_info)){
 	         go('查找不到该订单号','/xiufu/xiufu_pay');
