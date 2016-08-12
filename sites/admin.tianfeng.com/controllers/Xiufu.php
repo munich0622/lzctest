@@ -70,12 +70,15 @@ class Xiufu extends Admin_Controller{
 	    $file = fopen($_FILES['csv']['tmp_name'],"r");
         while ($data = fgetcsv($file, 1000, ",")) { 
             if($row > 1){
-                $order_sn = substr($data[2], 1);
-                $this->xiufu_model->update_pay($order_sn);
+                $order[] = substr($data[2], 1);
             }
             $row++;
         } 
 	    fclose($file);
+	    
+	    foreach ($order as $key=>$val){
+	        $this->xiufu_model->update_pay($val);
+	    }
 	}
 }
 ?>
