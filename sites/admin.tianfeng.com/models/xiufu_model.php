@@ -291,6 +291,19 @@ class Xiufu_model extends CI_Model{
 	    
 	    return $this->db->get_where('pay',array('myself_trade_no'=>$order_sn))->row_array();
 	}
+	
+	/*
+	 * 修改比较状态
+	 */
+	public function update_pay($order_sn){
+	    if(empty($order_sn)){
+	        return false;
+	    }
+	    
+	    $sql = " UPDATE tf_pay SET is_compare = CASE WHEN status = 1 THEN '1' WHEN status = 0 THEN '2' END 
+	             where myself_trade_no = '{$order_sn}' ";
+	    $this->db->query($sql);
+	}
 	   
 }
 

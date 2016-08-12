@@ -66,8 +66,15 @@ class Xiufu extends Admin_Controller{
 	    if($type != 'csv'){
 	        go('文件类型错误','/xiufu/opencsv');
 	    }
-	    $file = fopen($_FILES['csv']['name'],"r");
-	    print_r(fgetcsv($file));
+	    $row  = 1;
+	    $file = fopen($_FILES['csv']['tmp_name'],"r");
+        while ($data = fgetcsv($file, 1000, ",")) { 
+            if($row > 1){
+                $order_sn = substr($data[2], 1);
+                $this->xiufu_model->update_pay($order_sn);
+            }
+            $row++;
+        } 
 	    fclose($file);
 	}
 }
