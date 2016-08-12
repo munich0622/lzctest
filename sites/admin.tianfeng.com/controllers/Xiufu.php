@@ -71,7 +71,6 @@ class Xiufu extends Admin_Controller{
         while ($data = fgetcsv($file, 1000, ",")) { 
             if($row > 1){
                 $order_sn = substr($data[2], 1);
-                echo $order_sn;exit;
                 $this->xiufu_model->update_pay($order_sn);
             }
             $row++;

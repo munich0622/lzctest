@@ -302,6 +302,7 @@ class Xiufu_model extends CI_Model{
 	    
 	    $sql = " UPDATE tf_pay SET is_compare = CASE WHEN status = 1 THEN '1' WHEN status = 0 THEN '2' END 
 	             where myself_trade_no = '{$order_sn}' ";
+	    echo $sql;exit;
 	    $this->db->query($sql);
 	}
 	   
