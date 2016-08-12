@@ -7,6 +7,9 @@ if (! defined ( 'BASEPATH' )) exit ( 'No direct script access allowed' );
  * @date 2015-08-12
  */
 class Xiufu_model extends CI_Model{
+    
+    public  $payed    = 1;
+    public  $no_payed = 0;
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
