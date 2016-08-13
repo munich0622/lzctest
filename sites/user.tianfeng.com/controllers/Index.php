@@ -14,7 +14,7 @@ class Index extends Admin_Controller{
 	
 	public function test(){
 	    $this->load->model('user_model');
-	    $sql = " SELECT * FROM tf_pay WHERE receive_uid = 0 AND status = 1 AND dakuan_id = 0 AND type = 2";
+	    $sql = " SELECT * FROM tf_pay WHERE receive_uid = 0 AND dakuan_id = 0 AND type = 2";
 	    $list = $this->db->query($sql)->result_array();
 	    foreach($list as $key=>$val){
 	        if($val['content'] == '升2费用'){
