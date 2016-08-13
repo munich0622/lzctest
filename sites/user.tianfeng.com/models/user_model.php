@@ -264,7 +264,24 @@ class User_model extends CI_Model{
 	    return $res;
 	}
 	
-	
+	/**
+	 * 修改支付信息
+	 */
+	public function update_pay_info($id,$order_sn){
+	    $id = intval($id);
+	    
+	    
+	    $time = time();
+	    $data = array(
+	        'myself_trade_no' => $order_sn,
+	        'time' => $time
+	    );
+	    $this->db->where('id',$id)->update('pay',$data);
+	    if($this->db->affected_row() != 1){
+	        return false;
+	    }
+	    return true;
+	}
 }
 
 ?>
