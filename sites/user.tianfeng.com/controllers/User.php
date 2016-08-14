@@ -164,14 +164,6 @@ class User extends Admin_Controller{
 	        
 	    }elseif($pay_info['status'] == 1){
 	        goback('已经支付过该订单');
-	    }elseif(($pay_info['time'] + 10*60) <= time()){
-	        //修改支付信息生成新的订单号
-	        $order_sn = create_order_sn(2);
-	        $res = $this->user_model->update_pay_info($pay_info['id'],$order_sn);
-	        $pay_info['myself_trade_no'] = $order_sn;
-	        if(!$res){
-	            goback('修改失效订单失败');
-	        }
 	    }
 	    
 	    
@@ -333,14 +325,6 @@ class User extends Admin_Controller{
 	    
 	    if($pay_info['status'] == 1){
 	        go('已经支付过了','index/index');
-	    }elseif(($pay_info['time'] + 10*60) <= time()){
-            //修改支付信息生成新的订单号
-            $order_sn = create_order_sn(1);
-            $res = $this->user_model->update_pay_info($pay_info['id'],$order_sn);
-            $pay_info['myself_trade_no'] = $order_sn;
-            if(!$res){
-                goback('修改失效订单失败');
-            }
 	    }
 	     
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
