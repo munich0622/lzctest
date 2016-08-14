@@ -326,6 +326,11 @@ class User extends Admin_Controller{
 	        go('已经支付过了','index/index');
 	    }
 	    $pay_info = $this->pay_model->pay_info($uid,PAY_TYPE_REG);
+	    if(empty($pay_info)){
+	        go('非法注册!!',GW_URL);
+	    }
+	    
+	    
 	    if($pay_info['status'] == 1){
 	        go('已经支付过了','index/index');
 	    }elseif(($pay_info['time'] + 10*60) <= time()){
