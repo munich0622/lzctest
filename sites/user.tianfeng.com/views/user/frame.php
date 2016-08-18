@@ -29,7 +29,7 @@
     <b class="ect-colory">
         <?php 
         if(!empty($up_info)){
-            echo $up_info['uname'];
+            echo $up_info['uname'].'('.$up_info['phone'].')';
         }else{
             echo '暂无上级';
         }
@@ -40,7 +40,7 @@
         <?php 
         if(!empty($son_info)){
             foreach ($son_info as $key=>$val){
-                echo $val['uname']."<br />";
+                echo $val['uname'].'('.$val['phone'].')'."<br />";
             }
         }else{
             echo '暂无上级';
@@ -52,7 +52,7 @@
         <?php 
         if(!empty($son_son_info)){
             foreach ($son_son_info as $key=>$val){
-                echo $val['uname']."<br />";
+                echo $val['uname'].'('.$val['phone'].')'."<br />";
             }
         }else{
             echo '暂无下下级';
@@ -64,7 +64,7 @@
         <?php 
         if(!empty($son_son_son_info)){
             foreach ($son_son_son_info as $key=>$val){
-                echo $val['uname']."<br />";
+                echo $val['uname'].'('.$val['phone'].')'."<br />";
             }
         }else{
             echo '暂无下下下级';
