@@ -7,9 +7,9 @@ class User extends Admin_Controller{
 		$this->load->model('user_model');
 		$this->load->model('pay_model');
 		
-// 		if(empty($_SESSION['user']['openid'])){
-// 		    $this->get_openid();
-// 		}
+		if(empty($_SESSION['user']['openid'])){
+		    $this->get_openid();
+		}
 		
 		$this->user = $this->user_model->get_user(array('uid'=>$this->user['uid']));
 		if($this->user['status'] == 0 && !strpos($_SERVER['REQUEST_URI'],'user/pay_register')){
@@ -416,6 +416,7 @@ class User extends Admin_Controller{
 	 */
 	public function my_link(){
 	    $uid = $this->user['uid'];
+	    
 	    $data['link'] = 'http://'.$_SERVER['HTTP_HOST'].'/register?tj_uid='.$uid;
 	    $this->load->view('user/my_link',$data);
 	}
