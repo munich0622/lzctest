@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>资金管理</title>
+<title>组织框架</title>
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/bootstrap.min.css');?>">
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/font-awesome.min.css');?>">
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/ectouch.css');?>">
@@ -15,7 +15,7 @@
 <body>
 <div class="con">
 <div class="ect-bg">
-  <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>资金管理</span></header>
+  <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>组织框架</span></header>
   <nav class="ect-nav ect-nav-list" style="display:none;">
     <ul class="ect-diaplay-box text-center">
       
