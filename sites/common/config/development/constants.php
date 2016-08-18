@@ -2,9 +2,9 @@
 //上线要改
 define('TEMP_UPLOAD_DIR', './upload/qr_code/');
 //站点url
-define('GW_URL', 'http://www.yctfgw.com/');
-define('SITE_URL', 'http://www.yctfgw.com/');
-define('IMG_URL', 'http://www.yctfgw.com/');
+define('GW_URL', 'http://user.yctfgw.com/');
+define('SITE_URL', 'http://user.yctfgw.com/');
+define('IMG_URL', 'http://user.yctfgw.com/');
 
 //pay表的类型 1注册 2下级支付上级费用（升级）
 define('PAY_TYPE_REG', 1);
