@@ -203,6 +203,10 @@ class User extends Admin_Controller{
 	    $input->SetOpenid($_SESSION['user']['openid']);
 	    
 	    $result = WxPayApi::unifiedOrder($input);
+	    if($uid == 12){
+	        var_dump($result);
+	        exit;
+	    }
 	    
 	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
 	        $res = $this->pay_model->pay_response($order_sn,$result['nonce_str']);
