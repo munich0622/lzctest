@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>用户注册</title>
+<title>天丰会员注册</title>
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/bootstrap.min.css');?>">
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/font-awesome.min.css');?>">
 <link rel="stylesheet" href="<?php   echo base_url('public/mobile/css/ectouch.css');?>">
