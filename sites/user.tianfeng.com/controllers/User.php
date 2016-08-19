@@ -161,11 +161,25 @@ class User extends Admin_Controller{
 	        if($pay_id == 0){
 	            goback('升级失败');
 	        }
-	        
+	        $order_sn = $pay_info['myself_trade_no'];
 	    }elseif($pay_info['status'] == 1){
 	        goback('已经支付过该订单');
 	    }
 	    
+	    //判断订单是否失效,订单失效为2小时，这里设置1小时50分钟
+        $time = time();
+        $expire_time = $pay_info['time'] + 6600;
+        if($time >= $expire_time){
+            //重新生成订单号
+            $order_sn = create_order_sn(2);
+            $ret = $this->user_model->update_pay_info($pay_info['id'],$order_sn);
+            if(!$ret){
+                go('升级失败!','index/index');
+                exit();
+            }
+        }else{
+            $order_sn = $pay_info['myself_trade_no'];
+        }
 	    
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
 	    include "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
@@ -174,8 +188,8 @@ class User extends Admin_Controller{
 	    
 	    $input = new WxPayUnifiedOrder();
 	     
-	    $input->SetBody("升级支付号:".$pay_info['myself_trade_no']);
-	    $input->SetOut_trade_no($pay_info['myself_trade_no']);
+	    $input->SetBody("升级支付号:".$order_sn);
+	    $input->SetOut_trade_no($order_sn);
 	    
 	    //订单金额 微信单位是分
 	    $fee = $pay_info['price'] * 100;
@@ -191,7 +205,7 @@ class User extends Admin_Controller{
 	    $result = WxPayApi::unifiedOrder($input);
 	    
 	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
-	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
+	        $res = $this->pay_model->pay_response($order_sn,$result['nonce_str']);
 	        if($res){
 	            go('升级成功!','index/index');
 	        }else{
@@ -326,6 +340,20 @@ class User extends Admin_Controller{
 	    if($pay_info['status'] == 1){
 	        go('已经支付过了','index/index');
 	    }
+	    $time = time();
+	    //订单失效为2小时，这里设置1小时50分钟
+	    $expire_time = $pay_info['time'] + 6600;
+	    if($time >= $expire_time){
+	        //重新生成订单号
+	        $order_sn = create_order_sn(1);
+	        $ret = $this->user_model->update_pay_info($pay_info['id'],$order_sn);
+	        if(!$ret){
+	            go('注册失败!','index/index');
+	            exit();
+	        }
+	    }else{
+	        $order_sn = $pay_info['myself_trade_no'];
+	    }
 	     
 	    include '../libraries/Payment/drivers/wxpay/example/WxPay.JsApiPay.php';
 	    include "../libraries/Payment/drivers/wxpay/lib/WxPay.Api.php";
@@ -334,8 +362,8 @@ class User extends Admin_Controller{
 	
 	    $input = new WxPayUnifiedOrder();
 	    
-	    $input->SetBody("注册支付号:".$pay_info['myself_trade_no']);
-	    $input->SetOut_trade_no($pay_info['myself_trade_no']);
+	    $input->SetBody("注册支付号:".$order_sn);
+	    $input->SetOut_trade_no($order_sn);
 	
 	    //订单金额 微信单位是分
 	    $fee = $pay_info['price'] * 100;
@@ -350,7 +378,7 @@ class User extends Admin_Controller{
 	
 	    $result = WxPayApi::unifiedOrder($input);
 	    if(isset($result['err_code_des']) && $result['err_code_des'] == '该订单已支付'){
-	        $res = $this->pay_model->pay_response($pay_info['myself_trade_no'],$result['nonce_str']);
+	        $res = $this->pay_model->pay_response($order_sn,$result['nonce_str']);
 	        if($res){
 	            go('注册成功!','index/index');
 	        }else{
