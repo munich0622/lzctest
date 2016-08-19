@@ -212,8 +212,8 @@ class User extends Admin_Controller{
 	            go('升级失败!','index/index');
 	        }
 	        exit();
-	    }elseif(isset($result['result_code']) &&  $result['result_code'] == 'FAIL'){
-	        go($result['err_code_des'],'index/index');
+	    }elseif(isset($result['return_code']) && $result['return_code'] == 'FAIL'){
+	        go($result['return_msg'],'index/index');
 	        exit();
 	    }
 	    
