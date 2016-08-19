@@ -204,7 +204,7 @@ class User extends Admin_Controller{
 	    
 	    $result = WxPayApi::unifiedOrder($input);
 	    if($uid == 12){
-	        var_dump($result);
+	        var_dump($result['result_code']);
 	        exit;
 	    }
 	    

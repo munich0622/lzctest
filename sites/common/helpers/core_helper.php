@@ -216,7 +216,7 @@ function create_file_name(){
 function create_order_sn($type){
     $prefix = ENVIRONMENT == 'development' ? 't_' : 'f_';
     $mark = $prefix.$type.'_';
-    return $mark.date('YmdHis') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT).'_'.uniqid();
+    return $mark.date('YmdHis').'_'.uniqid();
 }
 
 /**
