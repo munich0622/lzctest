@@ -58,6 +58,13 @@ class User_model extends CI_Model{
 		}
 	}
 	
+	/**
+	 * 获取用户信息
+	 */
+	public function get_user($phone){
+	    
+	}
+	
 }
 
 ?>
