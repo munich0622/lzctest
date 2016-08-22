@@ -25,9 +25,9 @@ class Pay_model extends CI_Model{
 	    $sql = " SELECT tp.id,tp.pay_uid,tp.receive_uid,tp.type,tp.price,tp.content,tp.time,tp.status,tp.dakuan_id,tdl.dk_money,tdl.service_money,tdl.time as dk_time 
 	             FROM tf_pay AS tp 
 	             LEFT JOIN tf_dakuan_log AS tdl ON tp.dakuan_id = tdl.id 
-	             {$where} ORDER BY tp.id DESC LIMIT {$offset}, {$limit}";
+	             {$where} ORDER BY tp.dakuan_id ASC,tp.id DESC LIMIT {$offset}, {$limit}";
 	    
-	    
+	    echo $sql;exit;
 	    $list = $this->db->query($sql)->result_array();
 	    
 	    $data['total'] = $num['count'];
