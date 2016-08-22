@@ -27,7 +27,7 @@ class Pay_model extends CI_Model{
 	             LEFT JOIN tf_dakuan_log AS tdl ON tp.dakuan_id = tdl.id 
 	             {$where} ORDER BY tp.dakuan_id ASC,tp.id DESC LIMIT {$offset}, {$limit}";
 	    
-	    echo $sql;exit;
+	    
 	    $list = $this->db->query($sql)->result_array();
 	    
 	    $data['total'] = $num['count'];
