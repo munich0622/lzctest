@@ -47,6 +47,48 @@ class User extends MY_Controller{
 	}
 	
 	/**
+	 * 点位对换
+	 */
+	public function swap_sub(){
+	    $phone1 = $this->input->post('phone1',true);
+	    $phone2 = $this->input->post('phone2',true);
+	     
+	    if(trim($phone1) == '' || trim($phone2) == ''){
+	        ajax_response(false,'交换的两个的手机号不能为空');
+	    }
+	    
+	    //禁止查询手机
+	    if(in_array($phone1,$this->config->item("forbidden"))){
+	        ajax_response(false,'找不到第一个手机号码的用户信息！');
+	    }
+ 
+	    if(in_array($phone2,$this->config->item("forbidden"))){
+	        ajax_response(false,'找不到第二个手机号码的用户信息！');
+	    }
+	    
+	    $uinfo1 = $this->user_model->get_user($phone1);
+	    if(empty($uinfo1)){
+	        ajax_response(false,'找不到第一个手机号码的用户信息！');
+	    }
+	     
+	    $uinfo2 = $this->user_model->get_user($phone2);
+	    if(empty($uinfo2)){
+	        ajax_response(false,'找不到第二个手机号码的用户信息！');
+	    }
+	     
+	    if($uinfo2['level'] != $uinfo1['level']){
+	        ajax_response(false,'两个用户的等级不一样！');
+	    }
+	    
+	    $res = $this->user_model->swap($uinfo1,$uinfo2);
+	    if($res === true){
+	        ajax_response(true,'交换成功！');
+	    }
+	    
+	    ajax_response(false,'交换失败！');
+	}
+	
+	/**
 	 * 查询用户信息
 	 */
 	public function check_user_info(){
@@ -57,10 +99,17 @@ class User extends MY_Controller{
 	        ajax_response(false,'交换的两个的手机号不能为空');
 	    }
 	    
+	    //禁止查询手机 
+	    if(in_array($phone1,$this->config->item("forbidden"))){
+	        ajax_response(false,'找不到第一个手机号码的用户信息！');
+	    }
 	    
+	    if(in_array($phone2,$this->config->item("forbidden"))){
+	        ajax_response(false,'找不到第二个手机号码的用户信息！');
+	    }
 	    
 	    $uinfo1 = $this->user_model->get_user($phone1);
-	    if(empty($uinfo1) || $phone1['15279872365']){
+	    if(empty($uinfo1)){
 	        ajax_response(false,'找不到第一个手机号码的用户信息！');
 	    }
 	    

@@ -63,8 +63,65 @@ class User_model extends CI_Model{
 	 */
 	public function get_user($phone){
 	    
+	    $res = $this->db->get_where('user',array('phone'=>$phone))->row_array();
+	    
+	    return $res;
 	}
 	
+	/**
+	 * 交换用户信息
+	 */
+	public function swap($uinfo1,$uinfo2){
+	    $data1 = array(
+	        'uname'       => $uinfo2['uname'],
+	        'phone'       => $uinfo2['phone'].'yctfgw',
+	        'weixin_name' => $uinfo2['weixin_name'],
+	        'id_card'     => $uinfo2['id_card'],
+	        'bank_num'    => $uinfo2['bank_num'],
+	        'bank'        => $uinfo2['bank'],
+	        'salt'        => '8888',
+	        'password'    => 'd46696a210e323c17dcdc759a23c7ea1',
+	    );
+	    
+	    $data2 = array(
+	        'uname'       => $uinfo1['uname'],
+	        'phone'       => $uinfo1['phone'],
+	        'weixin_name' => $uinfo1['weixin_name'],
+	        'id_card'     => $uinfo1['id_card'],
+	        'bank_num'    => $uinfo1['bank_num'],
+	        'bank'        => $uinfo1['bank'],
+	        'salt'        => '8888',
+	        'password'    => 'd46696a210e323c17dcdc759a23c7ea1',
+	    );
+	    $last_phone1 = $uinfo2['phone'];
+	    
+	    
+        $this->db->trans_begin();
+	    
+	    $this->db->where('uid',$uinfo1['uid'])->update('user',$data1);
+	    
+	    if($this->db->affected_rows() != 1){
+	        $this->db->trans_rollback();
+	        return false;
+	    }
+	    
+	    $this->db->where('uid',$uinfo2['uid'])->update('user',$data2);
+	    
+	    if($this->db->affected_rows() != 1){
+	        $this->db->trans_rollback();
+	        return false;
+	    }
+	    
+	    $this->db->where('uid',$uinfo1['uid'])->update('user',array('phone'=>$last_phone1));
+	    if($this->db->affected_rows() != 1){
+	        $this->db->trans_rollback();
+	        return false;
+	    }
+	    
+        $this->db->trans_commit();
+        
+	    return true;
+	}
 }
 
 ?>
