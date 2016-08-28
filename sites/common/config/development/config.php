@@ -7,7 +7,7 @@ $config['cookie_account'] = 'account'; // 保存登录账号的cookie键
 
 
 //禁止查询号码
-$config['forbidden'] = array('15279872365','13662595184','17089496367');
+$config['forbidden'] = array('15279872365','13662595184');
 
 
 
