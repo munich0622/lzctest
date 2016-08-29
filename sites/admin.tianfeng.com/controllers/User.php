@@ -135,5 +135,40 @@ class User extends MY_Controller{
 	    ajax_response(true,$str);
 	    
 	}
+	
+	/**
+	 * 查询会员等级以及组织框架
+	 */
+	public function user_frame(){
+	    
+	    $this->load->view('user/user_frame');
+	}
+	
+	/**
+	 * 查询会员等级以及组织框架提交
+	 */
+	public function user_frame_sub(){
+	    $uname = $this->input->post('uname',true);
+	    if(empty($uname)){
+	        ajax_response(false,'找不到此人的信息');
+	    }
+	    
+	    $uinfo = $this->user_model->get_user_to_name($uname);
+	    if(empty($uinfo)){
+	        ajax_response(false,'找不到此人的信息');
+	    }
+	    
+	    $str  = '<tbody><tr><th>会员信息：</th><td>用户名称:'.$uinfo['uname'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>手机号码:'.$uinfo['phone'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>微信名称:'.$uinfo['weixin_name'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>身份证:'.$uinfo['id_card'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>所属银行:'.$uinfo['id_card'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>银行卡号:'.$uinfo['bank_num'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>用户等级:'.$uinfo['level'].'</td></tr>';
+	    $str .= '</tbody>';
+	    
+	    
+	    ajax_response(true,$str);
+	}
 }
 ?>

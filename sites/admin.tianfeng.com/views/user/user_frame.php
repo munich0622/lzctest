@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>点位对换</title>
+    <title>用户组织框架</title>
     <link rel="stylesheet" href="<?php   echo base_url('public/css/common.css');?>">
     <link rel="stylesheet" href="<?php   echo base_url('public/css/main.css');?>">
     <script type="text/javascript" src="<?php   echo base_url('public/js/modernizr.min.js');?>"></script>
@@ -24,15 +24,9 @@
                     <table class="insert-tab" width="100%">
                         <tbody>
                             <tr>
-                                <th><i class="require-red">*</i>请输入要对换的会员手机号码1：</th>
+                                <th><i class="require-red">*</i>请输入要对换的会员用户名称：</th>
                                 <td>
-                                    <input class="common-text required" name="phone1" size="50" value="" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><i class="require-red">*</i>请输入要对换的会员手机号码2：</th>
-                                <td>
-                                    <input class="common-text required" name="phone2" size="50" value="" type="text">
+                                    <input class="common-text required" name="uname" size="50" value="" type="text">
                                 </td>
                             </tr>
                             <tr>
@@ -47,10 +41,6 @@
                 <table class="insert-tab" id="user_info" width="100%">
                     
                 </table>
-                <table class="insert-tab" width="100%" >
-                <tr><td style="text-align: center"><input type="button" value="确定交换" class="swap_sub"></td></tr>
-                </table>
-                
             </div>
         </div>
     </div>
@@ -58,27 +48,23 @@
 <script type="text/javascript">
 $(function(){
 	$('.check_phone').click(function(){
-		var phone1 = $("input[name='phone1']").val();
-		var phone2 = $("input[name='phone2']").val();
-		if(phone1 == '' || phone2 == ''){
-			alert('请输入要对换的两个手机号码!');
+		var uname = $("input[name='uname']").val();
+		if(uname == ''){
+			alert('请输入要查询的用户名信息!');
 			return false;
 		}
-
 		$.ajax({  
-            url: "/user/check_user_info", 
-            data: {"phone1": phone1,"phone2": phone2},
+            url: "/user/user_frame_sub", 
+            data: {"uname": uname},
             dataType: "json",
             type:"post",
             success: function (ret) { 
                if(ret.success == true){
                    $('#user_info').html(ret.code);
-                   $('.check_phone').attr('is_click','yes');
                    return false;
                }else{
                    alert(ret.code);
                    return false;
-                   //延长收货失败
                }
             }
         });

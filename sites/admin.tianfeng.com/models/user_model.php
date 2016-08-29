@@ -69,6 +69,16 @@ class User_model extends CI_Model{
 	}
 	
 	/**
+	 * 获取用户信息
+	 */
+	public function get_user_to_name($uname){
+	     
+	    $res = $this->db->get_where('user',array('uname'=>$uname))->row_array();
+	     
+	    return $res;
+	}
+	
+	/**
 	 * 交换用户信息
 	 */
 	public function swap($uinfo1,$uinfo2){

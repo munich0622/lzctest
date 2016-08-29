@@ -10,6 +10,7 @@
                         <li><a href="/pay"><i class="icon-font">&#xe008;</i>支付日志列表</a></li>
                         <li><a href="/user/update_pas"><i class="icon-font">&#xe005;</i>修改会员密码</a></li>
                         <li><a href="/user/swap"><i class="icon-font">&#xe006;</i>点位对换</a></li>
+                        <li><a href="/user/user_frame"><i class="icon-font">&#xe006;</i>查询会员等级以及组织框架</a></li>
                     </ul>
                 </li>
 <!--                 <li> -->
