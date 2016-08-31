@@ -132,6 +132,26 @@ class User_model extends CI_Model{
         
 	    return true;
 	}
+	
+	/**
+	 * 获取下级信息
+	 */
+	public function get_son_info($uid){
+	    if(is_numeric($uid)){
+	        $uid = intval($uid);
+	    }else{
+	        $uid = implode(',', $uid);
+	    }
+	     
+	    $sql = " SELECT tu.* FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
+	             WHERE tr.puid in ({$uid})";
+	    $res = $this->db->query($sql)->result_array();
+	    if(empty($res)){
+	        return false;
+	    }
+	    
+	    return $res;
+	}
 }
 
 ?>

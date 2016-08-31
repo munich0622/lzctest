@@ -153,19 +153,52 @@ class User extends MY_Controller{
 	        ajax_response(false,'找不到此人的信息');
 	    }
 	    
+
 	    $uinfo = $this->user_model->get_user_to_name($uname);
 	    if(empty($uinfo)){
 	        ajax_response(false,'找不到此人的信息');
 	    }
 	    
-	    $str  = '<tbody><tr><th>会员信息：</th><td>用户名称:'.$uinfo['uname'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>手机号码:'.$uinfo['phone'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>微信名称:'.$uinfo['weixin_name'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>身份证:'.$uinfo['id_card'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>所属银行:'.$uinfo['id_card'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>银行卡号:'.$uinfo['bank_num'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>用户等级:'.$uinfo['level'].'</td></tr>';
+	    $son_info = array();
+	    $son_son_info = array();
+	    $son_son_son_info = array();
+	    
+	    //获取下级
+	    $son_info = $this->user_model->get_son_info($uinfo['uid']);
+	    
+	    if(!empty($son_info)){
+	        $son_son_uid = array_column($son_info, 'uid');
+	        //获取下下一级
+	        $son_son_info = $this->user_model->get_son_info($son_son_uid);
+	        if(!empty($son_son_info)){
+	            $son_son_son_uid = array_column($son_son_info, 'uid');
+	            $son_son_son_info = $this->user_model->get_son_info($son_son_son_uid);
+	        }
+	    }
+	    
+	    $str  = '<tbody><tr><td colspan="8" style="text-align:center">'.$uinfo['uname'].'</td></tr>';
+	    $str .= '<tr>';
+	    $str .= '<td colspan="4" style="text-align:center">'.(isset($son_info[0]['uname']) ? $son_info[0]['uname'].'('.$son_info[0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="4" style="text-align:center">'.(isset($son_info[1]['uname']) ? $son_info[1]['uname'].'('.$son_info[1]['level'].')' : '暂无').'</td>';
+	    $str .= '</tr>';
+	    $str .= '<tr>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[0]['uname']) ? $son_son_info[0]['uname'].'('.$son_son_info[0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[1]['uname']) ? $son_son_info[1]['uname'].'('.$son_son_info[1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[2]['uname']) ? $son_son_info[2]['uname'].'('.$son_son_info[2]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[3]['uname']) ? $son_son_info[3]['uname'].'('.$son_son_info[3]['level'].')' : '暂无').'</td>';
+	    $str .= '</tr>';
+	    $str .= '<tr>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[0]['uname']) ? $son_son_son_info[0]['uname'].'('.$son_son_son_info[0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[1]['uname']) ? $son_son_son_info[1]['uname'].'('.$son_son_son_info[1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[2]['uname']) ? $son_son_son_info[2]['uname'].'('.$son_son_son_info[2]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[3]['uname']) ? $son_son_son_info[3]['uname'].'('.$son_son_son_info[3]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[4]['uname']) ? $son_son_son_info[4]['uname'].'('.$son_son_son_info[4]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[5]['uname']) ? $son_son_son_info[5]['uname'].'('.$son_son_son_info[5]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[6]['uname']) ? $son_son_son_info[6]['uname'].'('.$son_son_son_info[6]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[7]['uname']) ? $son_son_son_info[7]['uname'].'('.$son_son_son_info[7]['level'].')' : '暂无').'</td>';
+	    $str .= '</tr>';
 	    $str .= '</tbody>';
+	    
 	    
 	    
 	    ajax_response(true,$str);

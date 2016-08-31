@@ -8,6 +8,9 @@
     <script type="text/javascript" src="<?php   echo base_url('public/js/modernizr.min.js');?>"></script>
     <script type="text/javascript" src="<?php   echo base_url('public/js/jquery-1.8.3.min.js');?>"></script>
 </head>
+<style type="text/css">
+td{text-align:center;}
+</style>
 <body>
 <div class="topbar-wrap white">
     <div class="topbar-inner clearfix">
