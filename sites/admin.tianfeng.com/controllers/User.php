@@ -176,7 +176,7 @@ class User extends MY_Controller{
 	        }
 	    }
 	    
-	    $str  = '<tbody><tr><td colspan="8" style="text-align:center">'.$uinfo['uname'].'</td></tr>';
+	    $str  = '<tbody><tr><td colspan="8" style="text-align:center">'.$uinfo['uname'].'('.$uinfo['level'].')</td></tr>';
 	    $str .= '<tr>';
 	    $str .= '<td colspan="4" style="text-align:center">'.(isset($son_info[0]['uname']) ? $son_info[0]['uname'].'('.$son_info[0]['level'].')' : '暂无').'</td>';
 	    $str .= '<td colspan="4" style="text-align:center">'.(isset($son_info[1]['uname']) ? $son_info[1]['uname'].'('.$son_info[1]['level'].')' : '暂无').'</td>';
