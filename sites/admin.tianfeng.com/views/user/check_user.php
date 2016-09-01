@@ -2,15 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>用户组织框架</title>
+    <title>查询用户信息</title>
     <link rel="stylesheet" href="<?php   echo base_url('public/css/common.css');?>">
     <link rel="stylesheet" href="<?php   echo base_url('public/css/main.css');?>">
     <script type="text/javascript" src="<?php   echo base_url('public/js/modernizr.min.js');?>"></script>
     <script type="text/javascript" src="<?php   echo base_url('public/js/jquery-1.8.3.min.js');?>"></script>
 </head>
-<style type="text/css">
-td{text-align:center;}
-</style>
 <body>
 <div class="topbar-wrap white">
     <div class="topbar-inner clearfix">
@@ -38,7 +35,7 @@ td{text-align:center;}
                             </td>
                         </tr>
                     </tbody>
-                </table>
+               </table>
                 <table class="insert-tab" id="user_info" width="100%">
                     
                 </table>
@@ -55,7 +52,7 @@ $(function(){
 			return false;
 		}
 		$.ajax({  
-            url: "/user/user_frame_sub", 
+            url: "/user/check_user_sub", 
             data: {"uname": uname},
             dataType: "json",
             type:"post",
