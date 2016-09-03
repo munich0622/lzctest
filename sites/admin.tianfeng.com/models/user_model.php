@@ -143,7 +143,7 @@ class User_model extends CI_Model{
 	        $uid = implode(',', $uid);
 	    }
 	     
-	    $sql = " SELECT tu.* FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
+	    $sql = " SELECT tu.uid,tu.uname,tu.level,tr.puid FROM tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid 
 	             WHERE tr.puid in ({$uid})";
 	    $res = $this->db->query($sql)->result_array();
 	    if(empty($res)){

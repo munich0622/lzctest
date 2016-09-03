@@ -169,12 +169,37 @@ class User extends MY_Controller{
 	    if(!empty($son_info)){
 	        $son_son_uid = array_column($son_info, 'uid');
 	        //获取下下一级
-	        $son_son_info = $this->user_model->get_son_info($son_son_uid);
-	        if(!empty($son_son_info)){
-	            $son_son_son_uid = array_column($son_son_info, 'uid');
-	            $son_son_son_info = $this->user_model->get_son_info($son_son_son_uid);
+	        $temp_son_son_info = $this->user_model->get_son_info($son_son_uid);
+	        foreach ($temp_son_son_info as $key=>$val){
+	            if($son_info[0]['uid'] == $val['puid']){
+	                $son_son_info['left'][] = $val;
+	            }
+	            if(isset($son_info[1]['uid']) && $son_info[1]['uid'] == $val['puid']){
+	                $son_son_info['right'][] = $val;
+	            }
+	        }
+	        if(!empty($temp_son_son_info)){
+	            $temp_son_son_son_uid = array_column($temp_son_son_info, 'uid');
+	            $temp_son_son_son_info = $this->user_model->get_son_info($temp_son_son_son_uid);
+	            foreach ($temp_son_son_son_info as $key=>$val){
+	                if(isset($son_son_info['left'][0]['uid']) && $son_son_info['left'][0]['uid'] == $val['puid']){
+	                    $son_son_son_info['left_left'][] = $val;
+	                }
+	                if(isset($son_son_info['left'][1]['uid']) && $son_son_info['left'][1]['uid'] == $val['puid']){
+	                    $son_son_son_info['left_zhong'][] = $val;
+	                }
+	                if(isset($son_son_info['right'][0]['uid']) && $son_son_info['right'][0]['uid'] == $val['puid']){
+	                    $son_son_son_info['right_zhong'][] = $val;
+	                }
+	                if(isset($son_son_info['right'][1]['uid']) && $son_son_info['right'][1]['uid'] == $val['puid']){
+	                    $son_son_son_info['right_right'][] = $val;
+	                }
+	            }
 	        }
 	    }
+	    
+	    
+	    
 	    
 	    $str  = '<tbody><tr><td colspan="8" style="text-align:center">'.$uinfo['uname'].'('.$uinfo['level'].')</td></tr>';
 	    $str .= '<tr>';
@@ -182,20 +207,20 @@ class User extends MY_Controller{
 	    $str .= '<td colspan="4" style="text-align:center">'.(isset($son_info[1]['uname']) ? $son_info[1]['uname'].'('.$son_info[1]['level'].')' : '暂无').'</td>';
 	    $str .= '</tr>';
 	    $str .= '<tr>';
-	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[0]['uname']) ? $son_son_info[0]['uname'].'('.$son_son_info[0]['level'].')' : '暂无').'</td>';
-	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[1]['uname']) ? $son_son_info[1]['uname'].'('.$son_son_info[1]['level'].')' : '暂无').'</td>';
-	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[2]['uname']) ? $son_son_info[2]['uname'].'('.$son_son_info[2]['level'].')' : '暂无').'</td>';
-	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info[3]['uname']) ? $son_son_info[3]['uname'].'('.$son_son_info[3]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info['left'][0]['uname']) ? $son_son_info['left'][0]['uname'].'('.$son_son_info['left'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info['left'][1]['uname']) ? $son_son_info['left'][1]['uname'].'('.$son_son_info['left'][1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info['right'][0]['uname']) ? $son_son_info['right'][0]['uname'].'('.$son_son_info['right'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td colspan="2" style="text-align:center">'.(isset($son_son_info['right'][1]['uname']) ? $son_son_info['right'][1]['uname'].'('.$son_son_info['right'][1]['level'].')' : '暂无').'</td>';
 	    $str .= '</tr>';
 	    $str .= '<tr>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[0]['uname']) ? $son_son_son_info[0]['uname'].'('.$son_son_son_info[0]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[1]['uname']) ? $son_son_son_info[1]['uname'].'('.$son_son_son_info[1]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[2]['uname']) ? $son_son_son_info[2]['uname'].'('.$son_son_son_info[2]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[3]['uname']) ? $son_son_son_info[3]['uname'].'('.$son_son_son_info[3]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[4]['uname']) ? $son_son_son_info[4]['uname'].'('.$son_son_son_info[4]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[5]['uname']) ? $son_son_son_info[5]['uname'].'('.$son_son_son_info[5]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[6]['uname']) ? $son_son_son_info[6]['uname'].'('.$son_son_son_info[6]['level'].')' : '暂无').'</td>';
-	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info[7]['uname']) ? $son_son_son_info[7]['uname'].'('.$son_son_son_info[7]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['left_left'][0]['uname']) ? $son_son_son_info['left_left'][0]['uname'].'('.$son_son_son_info['left_left'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['left_left'][1]['uname']) ? $son_son_son_info['left_left'][1]['uname'].'('.$son_son_son_info['left_left'][1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['left_zhong'][0]['uname']) ? $son_son_son_info['left_zhong'][0]['uname'].'('.$son_son_son_info['left_zhong'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['left_zhong'][1]['uname']) ? $son_son_son_info['left_zhong'][1]['uname'].'('.$son_son_son_info['left_zhong'][1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['right_zhong'][0]['uname']) ? $son_son_son_info['right_zhong'][0]['uname'].'('.$son_son_son_info['right_zhong'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['right_zhong'][1]['uname']) ? $son_son_son_info['right_zhong'][1]['uname'].'('.$son_son_son_info['right_zhong'][1]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['right_right'][0]['uname']) ? $son_son_son_info['right_right'][0]['uname'].'('.$son_son_son_info['right_right'][0]['level'].')' : '暂无').'</td>';
+	    $str .= '<td style="text-align:center">'.(isset($son_son_son_info['right_right'][1]['uname']) ? $son_son_son_info['right_right'][1]['uname'].'('.$son_son_son_info['right_right'][1]['level'].')' : '暂无').'</td>';
 	    $str .= '</tr>';
 	    $str .= '</tbody>';
 	    
