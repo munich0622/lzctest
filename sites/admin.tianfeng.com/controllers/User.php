@@ -268,5 +268,29 @@ class User extends MY_Controller{
 	
 	    ajax_response(true,$str);
 	}
+	
+	
+
+	/**
+	 * 用户列表
+	 */
+	public function one_user_list($page = 1){
+	    $page_size = 50;
+	    $where  = " where 1 ";
+	    $result = $this->user_model->one_user_list($where,$page_size,$page);
+	    $total  =  $result['total'];
+	    $data['list'] = $result['list'];
+	    
+	     
+	    $temp_bank_list = $this->user_model->bank_list(); 
+	    foreach($temp_bank_list as $key=>$val){
+	        $data['bank_list'][$val['id']] = $val['bank_name'];
+	    }
+	    $url = '/user/one_user_list/%d?'. urldecode ( $_SERVER ['QUERY_STRING'] );
+	    $data['page_html'] = pagination ($page, ceil($total/$page_size), $url, 5, TRUE, TRUE, $total );
+	     
+	    $data['menu_name'] = '一级用户列表';
+	    $this->load->view('user/one_user_list',$data);
+	}
 }
 ?>

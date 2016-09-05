@@ -152,6 +152,37 @@ class User_model extends CI_Model{
 	    
 	    return $res;
 	}
+	
+	/**
+	 * 一级会员列表
+	 * @param unknown $where
+	 * @param number $limit
+	 * @param number $page
+	 */
+	public function one_user_list($where,$limit = 20,$page = 1){
+	    $page   = $page > 0 ? $page : 1;
+	    $offset = ($page - 1) * $limit;
+	   
+	    $sql = " SELECT count(1) AS count FROM tf_user AS tu {$where}";  
+	    $num = $this->db->query($sql)->row_array();
+	     
+	    $sql = " SELECT * FROM tf_user AS tu {$where} LIMIT {$offset}, {$limit}";
+	     
+	    $list = $this->db->query($sql)->result_array();
+	     
+	    $data['total'] = $num['count'];
+	    $data['list']  = $list;
+	     
+	    return $data;
+	}
+	
+	/**
+	 * 银行列表
+	 */
+	public function bank_list(){
+	    $sql = " SELECT * FROM tf_bank ";
+	    return $this->db->query($sql)->result_array();
+	}
 }
 
 ?>
