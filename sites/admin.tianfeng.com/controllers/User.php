@@ -123,6 +123,7 @@ class User extends MY_Controller{
 	    }
 	    
 	    $str  = '<tbody><tr><th>会员信息1：</th><td>用户名称:'.$uinfo1['uname'].'</td><th>会员信息2：</th><td>用户名称:'.$uinfo2['uname'].'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>当前点位:'.$uinfo1['uid'].'</td><td>&nbsp;</td><td>当前点位:'.$uinfo2['uid'].'</td></tr>';
 	    $str .= '<tr><td>&nbsp;</td><td>手机号码:'.$uinfo1['phone'].'</td><td>&nbsp;</td><td>手机号码:'.$uinfo2['phone'].'</td></tr>';
 	    $str .= '<tr><td>&nbsp;</td><td>微信名称:'.$uinfo1['weixin_name'].'</td><td>&nbsp;</td><td>微信名称:'.$uinfo2['weixin_name'].'</td></tr>';
 	    $str .= '<tr><td>&nbsp;</td><td>身份证:'.$uinfo1['id_card'].'</td><td>&nbsp;</td><td>身份证:'.$uinfo2['id_card'].'</td></tr>';
