@@ -183,18 +183,20 @@ class User extends MY_Controller{
 	            
 	            $temp_son_son_son_uid = array_column($temp_son_son_info, 'uid');
 	            $temp_son_son_son_info = $this->user_model->get_son_info($temp_son_son_son_uid);
-	            foreach ($temp_son_son_son_info as $key=>$val){
-	                if(isset($son_son_info['left'][0]['uid']) && $son_son_info['left'][0]['uid'] == $val['puid']){
-	                    $son_son_son_info['left_left'][] = $val;
-	                }
-	                if(isset($son_son_info['left'][1]['uid']) && $son_son_info['left'][1]['uid'] == $val['puid']){
-	                    $son_son_son_info['left_zhong'][] = $val;
-	                }
-	                if(isset($son_son_info['right'][0]['uid']) && $son_son_info['right'][0]['uid'] == $val['puid']){
-	                    $son_son_son_info['right_zhong'][] = $val;
-	                }
-	                if(isset($son_son_info['right'][1]['uid']) && $son_son_info['right'][1]['uid'] == $val['puid']){
-	                    $son_son_son_info['right_right'][] = $val;
+	            if(!empty($temp_son_son_son_info)){
+	                foreach ($temp_son_son_son_info as $key=>$val){
+	                    if(isset($son_son_info['left'][0]['uid']) && $son_son_info['left'][0]['uid'] == $val['puid']){
+	                        $son_son_son_info['left_left'][] = $val;
+	                    }
+	                    if(isset($son_son_info['left'][1]['uid']) && $son_son_info['left'][1]['uid'] == $val['puid']){
+	                        $son_son_son_info['left_zhong'][] = $val;
+	                    }
+	                    if(isset($son_son_info['right'][0]['uid']) && $son_son_info['right'][0]['uid'] == $val['puid']){
+	                        $son_son_son_info['right_zhong'][] = $val;
+	                    }
+	                    if(isset($son_son_info['right'][1]['uid']) && $son_son_info['right'][1]['uid'] == $val['puid']){
+	                        $son_son_son_info['right_right'][] = $val;
+	                    }
 	                }
 	            }
 	        }
