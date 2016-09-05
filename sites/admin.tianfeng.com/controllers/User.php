@@ -170,15 +170,17 @@ class User extends MY_Controller{
 	        $son_son_uid = array_column($son_info, 'uid');
 	        //获取下下一级
 	        $temp_son_son_info = $this->user_model->get_son_info($son_son_uid);
-	        foreach ($temp_son_son_info as $key=>$val){
-	            if($son_info[0]['uid'] == $val['puid']){
-	                $son_son_info['left'][] = $val;
-	            }
-	            if(isset($son_info[1]['uid']) && $son_info[1]['uid'] == $val['puid']){
-	                $son_son_info['right'][] = $val;
-	            }
-	        }
+	            
 	        if(!empty($temp_son_son_info)){
+	            foreach ($temp_son_son_info as $key=>$val){
+	                if($son_info[0]['uid'] == $val['puid']){
+	                    $son_son_info['left'][] = $val;
+	                }
+	                if(isset($son_info[1]['uid']) && $son_info[1]['uid'] == $val['puid']){
+	                    $son_son_info['right'][] = $val;
+	                }
+	            }
+	            
 	            $temp_son_son_son_uid = array_column($temp_son_son_info, 'uid');
 	            $temp_son_son_son_info = $this->user_model->get_son_info($temp_son_son_son_uid);
 	            foreach ($temp_son_son_son_info as $key=>$val){
