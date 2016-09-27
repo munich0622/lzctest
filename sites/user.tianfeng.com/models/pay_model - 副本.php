@@ -36,6 +36,23 @@ class Pay_model extends CI_Model{
 	    return $this->db->get_where('pay',$where)->row_array();
 	}
 	
+	/**
+	 * 获取支付信息
+	 */
+	public function pay_info_to_id($pay_id,$uid){
+	    $uid = (int)$uid;
+	    $pay_id = (int)$pay_id;
+	    if($uid <= 0 || $pay_id <= 0){
+	        return false;
+	    }
+	    $where = array(
+	        'id'      => $pay_id,
+	        'pay_uid' => $uid,
+	    );
+	     
+	    return $this->db->get_where('pay',$where)->row_array();
+	}
+	
 	
 	/**
 	 * 微信支付结果回调
@@ -64,14 +81,14 @@ class Pay_model extends CI_Model{
 	    $this->db->trans_begin();
 	    //支付类型为1的话是注册用户支付金额
 	    if($pay_info['type'] == 1){
-	        //如果是第一个盘子的，要把用户分配到推荐人下面如果推荐人下面满了2个人 则推荐到该分支下面，如果该分支买
+	        //如果是第一个盘子的，要把用户分配到推荐人下面，如果推荐人下面满了，则寻找缺少一个下级的，否则寻找没有下级的
 	        if($space == 1){
-	            $res = $this->_deal_relate_user($pay_info,$space);
-	            if(!$res){
+	            $real_uid = $this->_deal_relate_user($pay_info,$space);
+	            if(!$real_uid){
 	                $this->db->trans_rollback();
 	                return false;
 	            }
-	        }else{
+	            
 	            //第二，三个盘子的话把他的状态改成2
 	            $res = $this->_update_user_status($pay_info,$space);
 	            if(!$res){
@@ -94,9 +111,9 @@ class Pay_model extends CI_Model{
 	               return false;
 	           }
 	           
-	           $puid = $this->_get_tj_uid($space);
+	           $real_uid = $this->_get_tj_uid($space);
 	           $data = array(
-	               'puid'  => $puid ,
+	               'puid'  => $real_uid ,
 	               'uid'   => $tj_uid ,
 	               'space' => $space,
 	               'time'  => time()
@@ -109,28 +126,33 @@ class Pay_model extends CI_Model{
 	       }
 	       
            //查看是否属于最后一个红包如果是的话则开启冻结时间
-           $res = $this->_is_last_redbag($tj_info,$been_info);
-           if(!$res){
-               $this->db->trans_rollback();
-               return false;
+           if($real_uid > 0){
+               $res = $this->_is_last_redbag($real_uid,$been_info);
+               if(!$res){
+                   $this->db->trans_rollback();
+                   return false;
+               }
            }
 	    }elseif($pay_info['type'] == 2){
 	        //升级
 	        if($been_info['level'] < 3){
-	            $sql = " UPDATE tf_user SET level = level + 1 WHERE uid = {$been_info['uid']}";
+	            $sql = " UPDATE tf_user SET level = level + 1,frozen_time = 0 WHERE uid = {$been_info['uid']}";
 	            $this->db->query($sql);
 	            if($this->db->affected_rows() != 1){
 	                $this->db->trans_rollback();
 	                return false;
 	            }
-	            $res = $this->_is_last_redbag($tj_info,$been_info);
+	            $cur_level = ++$been_info['level'];
+	            if($tj_uid > 0 && $cur_level == 2){
+	                $res = $this->_is_last_redbag_upgrade($been_info,$cur_level,$tj_uid);
+	            }
 	        }
 	        
 	    }
 	    
 	    $data = array(
 	        'other_trade_no' => $transaction_id,
-	        'status' => self::payed,
+	        'status' => $this->payed,
 	    );
 	    $this->db->where('myself_trade_no', $out_trade_no);
 	    $this->db->update('pay', $data);
@@ -139,34 +161,72 @@ class Pay_model extends CI_Model{
 	        $this->db->trans_rollback();
 	        return false;
 	    }
-	     
+	    
+	    $this->db->trans_commit();
 	    return true;
 	}
 	
 	/**
-	 * 判断是否是最后一个红包
-	 * @param array $user_info 推荐人的用户信息
+	 * 判断是否是最后一个红包(升级)
+	 * $been_info 升级用户的信息
+	 * $cur_level 升级后的等级
+	 * $receive_uid 收钱的uid
 	 */
-	private function _is_last_redbag($user_info,$been_info){
-	    if($user_info['level'] == 1){
-	        $sql = " SELECT tu.company_id FROM tf_relate AS tr 
-	                 LEFT JOIN tf_user AS tu ON tr.uid  = tu.uid
-	                 WHERE tr.puid = {$user_info['uid']} AND tr.space = {$been_info['space']} ";
-	        $list = $this->db->query($sql)->result_array();
-            
-            if(count($list) == 2){
-                //修改冻结时间为2天后
-                $time = time()+86400*2;
-                $sql = " UPDATE tf_user SET frozen_time = {$time} WHERE uid = {$user_info['uid']}";
-                $this->db->query($sql);
-                if($this->db->affected_rows() != 1){
-                    return false;
-                }
-            }
-            return true;
-	    }elseif($user_info['level'] == 2){
-	        
+	private function _is_last_redbag_upgrade($been_info,$cur_level,$receive_uid){
+	    if(empty($been_info) || !is_array($been_info)){
+	        return false;
 	    }
+	    
+	    $sql = " SELECT uid FROM tf_relate WHERE puid = {$receive_uid} AND space = {$been_info['space']}";
+	    
+	    $temp = $this->db->query($sql)->result_array();
+	    if(count($temp) != 2){
+	        return true;
+	    }
+	    
+	    $uids_arr = array_column($temp, 'uid');
+	    $sql  = " SELECT tu.uid,tu.company_id,tu.level FROM tf_relate AS tr LEFT JOIN tf_user AS tu 
+	              ON tr.uid = tu.uid 
+	              WHERE tr.puid in (".implode(',',$uids_arr).") AND tr.space = {$been_info['space']} AND (tu.level = {$cur_level} || tu.company_id > 0 ) ";
+	    $temp2 = $this->db->query($sql)->result_array();
+	    
+	    if(count($temp2) != 4){
+	        return true;
+	    }
+	    
+	    $this->db->where(array('uid'=>$receive_uid))->update('user',array('frozen_time'=>time()));
+	    
+	    if($this->db->affected_rows() != 1){
+	        return false;
+	    }
+	    
+	    return true;
+	    
+	}
+	/**
+	 * 判断是否是最后一个红包(注册)
+	 * @param int $puid 推荐人的用户id
+	 * @param array $been_info 升级用户的信息
+	 */
+	private function _is_last_redbag($puid,$been_info){
+	    $puid = intval($puid);
+	    $sql = " SELECT tu.company_id FROM tf_relate AS tr
+        	     LEFT JOIN tf_user AS tu ON tr.puid  = tu.uid
+        	     WHERE tr.puid = {$puid} AND tu.status = 1 AND tr.space = {$been_info['space']} ";
+	    $res = $this->db->query($sql)->result_array();
+	    
+	    if(count($res) == 2){
+	        //修改冻结时间为2天后
+	        $time = time()+86400*2;
+	        $sql = " UPDATE tf_user SET frozen_time = {$time} WHERE uid = {$puid}";
+	        $this->db->query($sql);
+	        if($this->db->affected_rows() != 1){
+	            return false;
+	        }
+	    }
+	    
+	    return true;
+	    
 	}
 	
 	/**
@@ -179,7 +239,7 @@ class Pay_model extends CI_Model{
 	    $tj_uid     = (int)$pay_info['receive_uid'];
 	    
 	    //查找推荐人下面是否已经满人了
-	    $relate_uid = $this->_digui_get_relate_uid($tj_uid,1,$space);
+	    $relate_uid = $this->_digui_get_relate_uid($tj_uid,$space);
 	    
 	    $data = array(
 	        'puid'  => $relate_uid ,
@@ -192,51 +252,56 @@ class Pay_model extends CI_Model{
 	    if($this->db->affected_rows() != 1){
 	        return false;
 	    }
-	    return true;
+	    return $relate_uid;
 	}
 	
 	/**
-	 * 递归获取上级人的uid
-	 * 
+	 * 获取上级人的uid(根据规则获取)
+	 * @param int $tj_uid 推荐人uid
+	 * @param int $space 所在盘子
 	 */
-	private function _digui_get_relate_uid($tj_uid,$i,$space = 1){
-	    
+	private function _digui_get_relate_uid($tj_uid,$space = 1){
+	    //判断推荐人下面是否有两个下级
 	    $sql = " SELECT tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu
 	             ON tr.uid = tu.uid WHERE tr.puid in ({$tj_uid}) AND tu.status = 1 AND tu.space = {$space} ";
 	    $result = $this->db->query($sql)->result_array();
-	    if(count($result) == 0){
+	    if(count($result) < 2){
 	        return $tj_uid;
 	    }
-	    $num = pow(2,$i);
-	    if(count($result) < $num && $i == 1){
-	        return $tj_uid;
-	    }elseif(count($result) < $num ){
-	        //说明当前下级有推荐人未满两个
-	        return $this->_get_tj_uid($space,$result);
-	    }elseif(count($result) >= $num && $i < 5){
-	        //用++$i 来循环当前分支下 只循环5层
-	        return $this->_digui_get_relate_uid($tj_uid,++$i,$space);
-	    }else{
-	        //5层之后没有的话 从数据库找一个
-	        return $this->_get_tj_uid();
+	    
+	    //如果已经有两个下级了 则寻找一个下级的
+	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
+	    $result = $this->db->query($sql)->row_array();
+	    if(!empty($result)){
+	        return $result['puid'];
 	    }
+		
+		//如果已经有两个下级了 则寻找一个下级的
+		$sql = " SELECT tf_user.uid FROM tf_user LEFT JOIN tf_relate ON tf_user.uid = tf_relate.puid 
+		         WHERE tf_relate.puid IS NULL AND tf_user.status = 1 AND tf_user.space = {$space} limit 1";
+		$result = $this->db->query($sql)->row_array();
+	    
+	    return $result['uid'];
 	}
 	
 	/**
 	 * 获取数组下的某个符合条件的uid作为上下级关系
 	 */
-	private function _get_tj_uid($space = 1,$result = array()){
-        $where = '';
-        if(!empty($results) && is_array($result)){
-            $temp_arr = array_column($result, 'uid');
-            $uids = implode(',',$temp_arr);
-            $where = " tr.puid in ({$uids}) AND ";
-        }
+	private function _get_tj_uid($space = 1){
 	    
-	    $sql = " SELECT tr.puid   tf_relate AS tr LEFT JOIN tf_user AS tu ON tr.uid = tu.uid
-	             WHERE {$where} tu.`status` = 1 AND tu.space = {$space} GROUP BY tr.puid HAVING count(1) < 2 LIMIT 1 ";
+	    //如果已经有两个下级了 则寻找一个下级的
+	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
 	    $result = $this->db->query($sql)->row_array();
-	    return $result['puid'];
+		if(!empty($result)){
+			return $result['puid'];
+		}
+	    
+		//如果已经有两个下级了 则寻找一个下级的
+		$sql = " SELECT tf_user.uid FROM tf_user LEFT JOIN tf_relate ON tf_user.uid = tf_relate.puid 
+		         WHERE tf_relate.puid IS NULL AND tf_user.status = 1 AND tf_user.space = {$space} limit 1";
+		$result = $this->db->query($sql)->row_array();
+	    
+	    return $result['uid'];
 	}
 	
 	/**
@@ -254,6 +319,8 @@ class Pay_model extends CI_Model{
 	    
 	    return true;
 	}
+	
+	
 	
 }
 
