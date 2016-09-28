@@ -255,14 +255,26 @@ class User extends MY_Controller{
 	    if(empty($uinfo)){
 	        ajax_response(false,'找不到此人的信息');
 	    }
-	
-	    $str  = '<tbody><tr><th>会员信息：</th><td>用户名称:'.$uinfo['uname'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>手机号码:'.$uinfo['phone'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>微信名称:'.$uinfo['weixin_name'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>身份证:'.$uinfo['id_card'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>所属银行:'.$uinfo['id_card'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>银行卡号:'.$uinfo['bank_num'].'</td></tr>';
-	    $str .= '<tr><td>&nbsp;</td><td>用户等级:'.$uinfo['level'].'</td></tr>';
+	    
+	    //获取银行信息
+	    $bank_list = $this->user_model->bank_list();
+	    $bank_html = '<select name="bank"><option value ="0">请选择</option>';
+	    foreach ($bank_list as $key=>$val){
+	        if($val['id'] == $uinfo['bank']){
+	            $bank_html .= '<option value="'.$val['id'].'" selected="selected">'.$val['bank_name'].'</option>';
+	        }else{
+	            $bank_html .= '<option value="'.$val['id'].'">'.$val['bank_name'].'</option>';
+	        }
+	        
+	    }
+	    $bank_html .= '</select>';
+	    $str  = '<tbody><tr><th>会员信息：</th><td>用户名称:'.$uinfo['uname'].'</td><td><input type="text" value="'.$uinfo['uname'].'" name="uname"></td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>手机号码:'.$uinfo['phone'].'</td><td><input type="text" value="'.$uinfo['phone'].'" name="phone"></td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>微信名称:'.$uinfo['weixin_name'].'</td><td><input type="text" value="'.$uinfo['weixin_name'].'" name="weixin_name"></td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>身份证:'.$uinfo['id_card'].'</td><td><input type="text" value="'.$uinfo['id_card'].'" name="id_card"></td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>所属银行:'.$uinfo['bank_name'].'</td><td>'.$bank_html.'</td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>银行卡号:'.$uinfo['bank_num'].'</td><td><input type="text" value="'.$uinfo['bank_num'].'" name="bank_num"></td></tr>';
+	    $str .= '<tr><td>&nbsp;</td><td>用户等级:'.$uinfo['level'].'</td><td><input type="hidden" value="'.$uinfo['uid'].'" name="uid"><input type="submit"  value="提交修改"></td></tr>';
 	    $str .= '</tbody>';
 	
 	
@@ -291,6 +303,27 @@ class User extends MY_Controller{
 	     
 	    $data['menu_name'] = '一级用户列表';
 	    $this->load->view('user/one_user_list',$data);
+	}
+	
+	/**
+	 * 修改会员信息
+	 */
+	public function update_user_info(){
+	    $uid = (int)$this->input->post('uid',true);
+	    $data['uname']       = $this->input->post("uname",true);
+	    $data['phone']       = $this->input->post("phone",true);
+	    $data['weixin_name'] = $this->input->post("weixin_name",true);
+	    $data['id_card']     = $this->input->post("id_card",true);
+	    $data['bank']        = (int)$this->input->post("bank",true);
+	    $data['bank_num']    = $this->input->post("bank_num",true);
+	    
+	    $res = $this->user_model->update_info($uid,$data);
+	    $url = '/user/check_user';
+	    if($res){
+	        go('修改成功',$url);
+	    }else{
+	        go('修改失败',$url);
+	    }
 	}
 }
 ?>

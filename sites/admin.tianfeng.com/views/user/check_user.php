@@ -23,7 +23,7 @@
                 <table class="insert-tab" width="100%">
                     <tbody>
                         <tr>
-                            <th><i class="require-red">*</i>请输入要对换的会员用户名称：</th>
+                            <th><i class="require-red">*</i>请输入需要查询的会员名称：</th>
                             <td>
                                 <input class="common-text required" name="uname" size="50" value="" type="text">
                             </td>
@@ -36,9 +36,11 @@
                         </tr>
                     </tbody>
                </table>
+               <form action="/user/update_user_info" method="post">
                 <table class="insert-tab" id="user_info" width="100%">
                     
                 </table>
+                </form>
             </div>
         </div>
     </div>
@@ -66,6 +68,10 @@ $(function(){
                }
             }
         });
+	});
+
+	$('#user_info').on("click","#update_user",function(){
+		alert(11);
 	});
 
 	$('.swap_sub').click(function(){

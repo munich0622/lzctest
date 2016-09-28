@@ -73,8 +73,8 @@ class User_model extends CI_Model{
 	 */
 	public function get_user_to_name($uname){
 	     
-	    $res = $this->db->get_where('user',array('uname'=>$uname))->row_array();
-	     
+	    $sql = " SELECT u.*,b.bank_name FROM tf_user AS u LEFT JOIN tf_bank AS b ON u.bank = b.id WHERE u.uname = '{$uname}' "; 
+	    $res = $this->db->query($sql)->row_array();
 	    return $res;
 	}
 	
@@ -182,6 +182,16 @@ class User_model extends CI_Model{
 	public function bank_list(){
 	    $sql = " SELECT * FROM tf_bank ";
 	    return $this->db->query($sql)->result_array();
+	}
+	
+	/**
+	 * 修改会员信息
+	 */
+	public function update_info($uid,$data){
+	    $uid = intval($uid);
+	    
+	    return $this->db->where('uid',$uid)->update('user',$data);
+	    
 	}
 }
 

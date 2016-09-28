@@ -26,7 +26,7 @@ td{text-align:center;}
                 <table class="insert-tab" width="100%">
                     <tbody>
                         <tr>
-                            <th><i class="require-red">*</i>请输入要对换的会员用户名称：</th>
+                            <th><i class="require-red">*</i>请输入查询的组织框架的人的名称：</th>
                             <td>
                                 <input class="common-text required" name="uname" size="50" value="" type="text">
                             </td>
