@@ -269,54 +269,9 @@ class Pay_model extends CI_Model{
 	        return $tj_uid;
 	    }
 	    
-	    $three_level = array();
-	    foreach ($result as $key => $val){
-	        $sql = " SELECT tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu
-	        ON tr.uid = tu.uid WHERE tr.puid in ({$val['uid']}) AND tu.status = 1 AND tu.space = {$space} ";
-	        $temp = $this->db->query($sql)->result_array();
-	        if(count($temp) < 2){
-	            return $val['uid'];
-	        }
-	        foreach ($temp as $key2=>$val2){
-	            $three_level[] = $val2['uid'];
-	        }
-	    }
-	    unset($key,$val,$key2,$val2);
-	    $four_level = array();
-	    foreach ($three_level as $key=>$val){
-	        $sql = " SELECT tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu
-	        ON tr.uid = tu.uid WHERE tr.puid in ({$val}) AND tu.status = 1 AND tu.space = {$space} ";
-	        $temp = $this->db->query($sql)->result_array();
-	        if(count($temp) < 2){
-	            return $val;
-	        }
-	        foreach ($temp as $key2=>$val2){
-	            $four_level[] = $val2['uid'];
-	        }
-	    }
-	    
-	    unset($key,$val,$key2,$val2);
-	    foreach ($four_level as $key=>$val){
-	        $sql = " SELECT tu.uid FROM tf_relate AS tr LEFT JOIN tf_user AS tu
-	        ON tr.uid = tu.uid WHERE tr.puid in ({$val}) AND tu.status = 1 AND tu.space = {$space} ";
-	        $temp = $this->db->query($sql)->result_array();
-	        if(count($temp) < 2){
-	            return $val;
-	        }
-	    }
-	    
-	    //寻找下面只有一个子集的
-	    $sql = "select puid from tf_relate where space = {$space} GROUP BY puid HAVING count(1) = 1 limit 1";
+	    $sql = " SELECT tu.uid,tr.puid,count(tr.puid) as c_uid FROM tf_user AS tu LEFT JOIN tf_relate AS tr ON tu.uid = tr.puid GROUP BY tu.uid HAVING c_uid < 2 ORDER BY uid ASC LIMIT 1";
 	    $result = $this->db->query($sql)->row_array();
-	    if(!empty($result)){
-	        return $result['puid'];
-	    }
-	
-	    //寻找下面没有人的
-	    $sql = " SELECT tf_user.uid FROM tf_user LEFT JOIN tf_relate ON tf_user.uid = tf_relate.puid
-	    WHERE tf_relate.puid IS NULL AND tf_user.status = 1 AND tf_user.space = {$space} limit 1";
-	    $result = $this->db->query($sql)->row_array();
-	     
+	    
 	    return $result['uid'];
 	}
 	
