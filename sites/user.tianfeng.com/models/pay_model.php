@@ -269,7 +269,7 @@ class Pay_model extends CI_Model{
 	        return $tj_uid;
 	    }
 	    
-	    $sql = " SELECT tu.uid,tr.puid,count(tr.puid) as c_uid FROM tf_user AS tu LEFT JOIN tf_relate AS tr ON tu.uid = tr.puid GROUP BY tu.uid HAVING c_uid < 2 ORDER BY uid ASC LIMIT 1";
+	    $sql = " SELECT tu.uid,tr.puid,count(tr.puid) as c_uid FROM tf_user AS tu LEFT JOIN tf_relate AS tr ON tu.uid = tr.puid WHERE tu.status = 1 GROUP BY tu.uid HAVING c_uid < 2 ORDER BY uid ASC LIMIT 1";
 	    $result = $this->db->query($sql)->row_array();
 	    
 	    return $result['uid'];
