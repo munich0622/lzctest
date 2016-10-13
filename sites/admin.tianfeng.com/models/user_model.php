@@ -79,6 +79,16 @@ class User_model extends CI_Model{
 	}
 	
 	/**
+	 * 获取用户信息
+	 */
+	public function get_user_to_phone($phone){
+	
+	    $sql = " SELECT count(1) as c FROM tf_user WHERE phone = '{$phone}' ";
+	    $res = $this->db->query($sql)->row_array();
+	    return $res;
+	}
+	
+	/**
 	 * 交换用户信息
 	 */
 	public function swap($uinfo1,$uinfo2){
