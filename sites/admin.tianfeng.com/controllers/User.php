@@ -321,7 +321,7 @@ class User extends MY_Controller{
 	    //查询是否已经有这个手机号码
 	    $is_phone = $this->user_model->get_user_to_phone($data['phone']);
 	    if(!empty($is_phone) && $is_phone['c'] > 0){
-	        go('要修改的手机号码已经被人注册了',$url);
+	        goback('要修改的手机号码已经被人注册了');
 	    }
 	    
 	    $res = $this->user_model->update_info($uid,$data);
