@@ -282,6 +282,13 @@ class User_model extends CI_Model{
 	    }
 	    return true;
 	}
+	
+	/**
+	 * 获取是否允许注册
+	 */
+	public function open_register(){
+	    return $this->db->get_where('open_register')->row_array();
+	}  
 }
 
 ?>

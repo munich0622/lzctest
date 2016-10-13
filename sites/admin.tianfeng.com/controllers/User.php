@@ -7,7 +7,32 @@ class User extends MY_Controller{
 		$this->load->helper('pagination');
 	}
 	
+	/**
+	 * 是否开放对外注册
+	 */
+	public function open_register(){
+	    
+	    $data = $this->user_model->open_register();
+	    
+	    $this->load->view('user/open_register',$data);
+	}
 	
+	public function open_register_sub(){
+	   $data['is_open_register'] = (int)$this->input->post('is_open',true);
+	   
+	   
+	   if($data['is_open_register'] != 0 && $data['is_open_register'] != 1){
+	       ajax_response(false,'非法传值！');
+	   }
+	   
+	   $res = $this->user_model->update_open_register($data);
+	   $msg = $data['is_open_register'] == 1 ? '开启注册功能' : '关闭注册功能';
+	   if(!$res){
+	       ajax_response(false,$msg.'失败');
+	   }
+	   
+	   ajax_response(true,$msg.'成功');
+	}
 	
 	
 	/**

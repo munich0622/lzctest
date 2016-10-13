@@ -203,6 +203,20 @@ class User_model extends CI_Model{
 	    return $this->db->where('uid',$uid)->update('user',$data);
 	    
 	}
+	
+	/**
+	 * 获取是否开放注册
+	 */
+	public function open_register(){
+	     return $this->db->get_where('open_register',array())->row_array();
+	}
+	
+	/**
+	 * 修改是否开放注册
+	 */
+	public function update_open_register($data){
+	    return $this->db->update('tf_open_register',$data);
+	}
 }
 
 ?>

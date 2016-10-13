@@ -13,6 +13,10 @@ class Register extends MY_Controller{
 	 * 个人资料管理
 	 */
 	public function index(){
+	    $open_register = $this->user_model->open_register();
+	    if($open_register['is_open_register'] == '0'){
+	        exit('暂不开发注册!');
+	    }
 	    //推荐人的uid
 	    $data['uid']  = (int)$this->input->get('tj_uid',TRUE);
 	    $data['bank'] = $this->user_model->bank_list();
