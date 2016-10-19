@@ -1,0 +1,161 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td,
+menu {
+    margin: 0px;
+    padding: 0px;
+}
+
+*html {
+    /*兼容IE6固定定位*/
+    background-image: url(about:blank);
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+/*@font-face {
+  font-family: 'myFirstFont';
+  src: url("/font/lthj.ttf") format("truetype");
+}*/
+
+body {
+    background: #fff;
+    color: #565656;
+    /*font-family: "宋体","myFirstFont","兰亭黑简","tohoma","Microsoft YaHei", Helvetica, Tahoma, Helvetica, sans-serif, Arial;*/
+    font-family: "Arial","Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;  
+    font-size: 14px;
+    min-width:1250px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.cl {
+    zoom: 1;
+}
+
+.cl:before,
+.cl:after {
+    content: "";
+    display: table;
+}
+
+.cl:after {
+    clear: both;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+textarea {
+    resize: none;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.comeW {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+select,
+input,
+textarea,
+button {
+    border: 1px solid #DEDEDE;
+    background: #FFF;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+    outline: none;
+}
+
+input {
+    transition: box-shadow .3s;
+}
+
+input[type="text"]:focus {
+    -webkit-box-shadow: 0 0px 1px rgba(255, 135, 48, .8);
+    box-shadow: 0 0px 1px rgba(255, 135, 48, .8);
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill{
+    box-shadow:inset 0 0 0 1000px #fff;
+    -moz-box-shadow:inset 0 0 0 1000px #fff;
+    -webkit-box-shadow:inset 0 0 0 1000px #fff
+}
+i,
+b {
+    font-style: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}

@@ -1,0 +1,147 @@
+﻿.main {
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.middle {
+    margin: 0 auto;
+}
+.login-images-middle{
+  width:445px;
+  background:url(../images/loginbg.png) repeat left;
+  height:393px;
+  float:left;
+}
+
+.tip {
+    color: #899699;
+    font-size: 26px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+td {
+    padding: 8px 0;
+}
+
+
+.phone {
+    /*background: url('../images/head.png') no-repeat 10px center;*/
+    -webkit-border-radius: 7px; /*圆角矩形*/
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-indent: 70px;
+    border: 1px dotted #819091;
+    color: #333;
+    font-size: 15px;
+}
+
+.pass {
+    /*background: url('../images/password.png') no-repeat 10px center;*/
+    -webkit-border-radius: 7px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-indent: 70px;
+    border: 1px dotted #819091;
+    color: #333;
+    font-size: 15px;
+}
+.logo-item-info {
+     position:relative;
+ }
+.logo-icon-type {
+    position:absolute;
+    margin-left:10px;
+    margin-top:12px;
+}
+.YanzhengCode input {
+    -webkit-border-radius: 7px; /*圆角矩形*/
+    height: 30px;
+    line-height: 30px;
+    border: 1px dotted #819091;
+    width: 115px;
+    height: 30px;
+    margin-top: 4px;
+}
+
+.YanzhengCode img {
+    vertical-align: middle;
+    height: 42px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.YanzhengCode a {
+    color: #E93939;
+    font-weight: bold;
+    font-size: 18px;
+    padding-right: 0px;
+}
+
+.remember {
+    color: #b2b6b7;
+    text-decoration: none;
+}
+
+.forget {
+    text-align: right;
+}
+
+    .forget a {
+        text-decoration: none;
+        color: #b2b6b7;
+    }
+
+        .forget a:hover {
+            color: #eea151;
+        }
+
+.btnlogin {
+    width: 327px;
+    height: 48px;
+    text-align: center;
+    border-radius: 5px;
+    background: #F5AC4D;
+    color: #FEFFFF;
+    font-weight: bolder;
+}
+
+    .btnlogin:hover {
+        background: #DC9A45;
+    }
+
+.otherway {
+    color: #666664;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 12px 0 5px;
+}
+
+.name {
+    color: #ff6a00;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 5px 0 0;
+}
+
+
+.tip_check {
+    height: 17px;
+    display: block;
+    margin-left: 10px;
+}
+
+.register_title {
+    color: #A1A1A1;
+    font-size: 13px;
+    margin-left: 24px;
+}
+.foot_div{margin-top:60px;}
