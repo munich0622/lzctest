@@ -141,8 +141,8 @@
 			    <a href="">安全退出</a><span class="split-line">|</span>
 			</div>
 			<div class="not-login-link">
-			    <a href="">登录</a><span class="split-line">|</span>
-			    <a href="">注册</a><span class="split-line">|</span>
+			    <a href="/index/index">登录</a><span class="split-line">|</span>
+			    <a href="/register/index">注册</a><span class="split-line">|</span>
 			</div>
 			<a href="">首页</a>
 		</div>
@@ -272,10 +272,11 @@ $('#btnUserNameLogin').click(function(){
         dataType: "json",
         type:"post",
         success: function (ret) { 
-           if(ret.s == '1'){
-               location.reload();
+           if(ret.success == true){
+        	   alert(ret.data);
+               location.href = "/user/index";
            }else{
-               //确认收货失败
+        	   alert(ret.data);
            }
         }
     })

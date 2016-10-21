@@ -19,7 +19,7 @@ class User_model extends CI_Model{
 	 * $value string 字段对应的值
 	 */
 	public function get_user($field,$value){
-	    if(!in_array($field,array('phone','name')) || empty($value)){
+	    if(!in_array($field,array('uid','phone','name')) || empty($value)){
 	        return false;
 	    }
 	    $where = array(
