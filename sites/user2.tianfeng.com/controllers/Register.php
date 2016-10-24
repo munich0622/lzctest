@@ -52,7 +52,7 @@ class Register extends MY_Controller{
 	    
 	    
 	    
-	    
+	    $data['uname']       = $phone;
 	    $data['phone']       = $phone;
 	    $data['salt']        = $this->_rank_string();
 	    $data['password']    = en_pass($pwd, $data['salt']);

@@ -3,122 +3,47 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>个人主页</title>
-    <meta name="Keywords" content="大融小贷 个人主页" />
-    <meta name="Description" content="大融小贷 个人主页" />
     <link href="/public/css/UserCSS.css" rel="stylesheet" type="text/css" />
-    <script src="/public/js/jquery.min.js" type="text/javascript"></script>
     <script src="/public/js/ops.js" type="text/javascript"></script>
-    <script src="/public/js/UserJS.js" type="text/javascript"></script>
+    <script src="/public/js/clipboard/clipboard.min.js" type="text/javascript"></script>
+    
+    <!--[if IE]>
+		<script src="/public/js/ie/html5shiv.min.js"></script>
+	<![endif]-->
 </head>
 <body>
+	<?php $this->load->view('header');?>
     <div class="row" style="margin-top: 10px;">
     </div>
     <div class="row">
-        <div class="u-menu">
-            <ul class="u-nav" id="user_menu">
-                <li class="item" id="user_menu_my" name="user_menu_my">
-                    <h3 class="t1">
-                        我的主页<span title="折叠"></span></h3>
-                    <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
-                            <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
-                </li>
-                <li class="item" id="user_menu_funds" name="user_menu_funds">
-                    <h3 class="t2">
-                        资金管理<span title="折叠"></span></h3>
-                    <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
-                            <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
-                </li>
-                <li class="item" id="user_menu_invest" name="user_menu_invest">
-                    <h3 class="t4">
-                        资金管理<span title="折叠"></span></h3>
-                    <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
-                            <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
-                </li>
-                <li class="item" id="user_menu_loan" name="user_menu_loan">
-                    <h3 class="t3">
-                        资金管理<a name="user_login"></a><span title="折叠"></span></h3>
-                    <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
-                            <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
-                </li>
-            </ul>
-            <script type="text/javascript">
-                var menuClosed = Ops.getCookie('menuClosed');
-
-                $(".item h3 span").click(function () {
-
-                    menuClosed = Ops.getCookie('menuClosed');
-                    if (menuClosed == undefined || menuClosed == null) {
-                        menuClosed = '';
-                        Ops.setCookie('menuClosed', menuClosed);
-                    }
-                    //console.log(menuClosed+',click;;;');	
-                    $(this).parent().parent().toggleClass('bg-slide');
-                    $(this).parent().parent().find(".sub").slideToggle('fast');
-
-                    if ($(this).attr('title') == '折叠') {
-                        $(this).attr('title', '展开');
-                    } else {
-                        $(this).attr('title', '折叠');
-                    }
-
-                    var pid = $(this).parent().parent().attr('id');
-
-                    if ($(this).parent().parent().hasClass('bg-slide') && menuClosed.indexOf("#" + pid + "#") == -1) {
-                        var cookies = menuClosed + '#' + pid + '#';
-                    } else {
-                        var cookies = menuClosed.replace("#" + pid + "#", '');
-                    }
-                    Ops.setCookie('menuClosed', cookies);
-                });
-
-                if (menuClosed != null) {
-                    var closedMatch = menuClosed.match(/([a-z_]+)/g);
-                    for (var i in closedMatch) {
-                        var idObj = $('#' + closedMatch[i]);
-                        idObj.toggleClass('bg-slide');
-                        idObj.find(".sub").hide();
-                        idObj.find('h3 span').attr('title', '展开');
-                    }
-                } else {
-                    $("#user_menu_loan h3 span").click();
-                }
-            </script>
-        </div>
+        <?php $this->load->view('left');?>
         <!-- /.u-menu -->
         <div class="u-main">
             <div class="ucenter">
                 <div class="ucenter-info mt10">
                     <div class="info-title">
-                        <h5>
-                            我的个人主页</h5>
+                        <h5>我的个人主页</h5>
                     </div>
                     <div class="info">
-                        <ul class="info-img">
-                            <li>
-                                <img src="/public/images/tx_img.gif" class="avatar" /></li></ul>
+                        <ul class="info-img"><li><img src="<?php echo $user['head_img_url'];?>" class="avatar" /></li></ul>
                         <div class="info-main">
-                            <div class="row">
-                                <label>
-                                    用户名：</label>张三</div>
-                            <div class="row">
-                                <label>
-                                    注册时间：</label>2013-07-13</div>
-                            <div class="row">
-                                <label>
-                                    所在地：</label>重庆</div>
-                            <div class="row">
-                                <label>
-                                    角色：</label><span class="orange">普通会员 </span></div>
-                            <div class="row">
-                                <label>
-                                    个人统计：</label><span class="orange">0</span>&nbsp;条记录 ， 共计&nbsp;<span class="orange">0</span>&nbsp;元
-                                ； <span class="orange">0</span>&nbsp;条投标记录 ， 共计&nbsp;<span class="orange">0.00</span>&nbsp;元
-                                。
-                            </div>
+                            <div class="row"><label>用户名：</label><?php echo $user['uname'];?></div>
+                            <div class="row"><label>注册时间：</label><?php echo date('Y-m-d H:i:s',$user['reg_time']);?></div>
+                            <div class="row"><label>点股数量：</label>(总/出局)：4/2</div>
+                            <div class="row"><label>推荐人：</label><span class="orange">
+                            <?php 
+                            if(preg_match("/^1[34578]{1}\d{9}$/",$user['tj_info']['uname']))
+                            {
+                                echo substr_replace($user['tj_info']['uname'], '****', 3,6);
+                            
+                            }else{
+                                echo $user['tj_info']['uname'];
+                            }
+                            ?></span></div>
+                            <div class="row"><label>日分红：</label><span class="red"><?php echo $user['today_reward'];?></span></div>
+                            <div class="row"><label>团队奖励：</label><span class="red"><?php echo $user['team_reward'];?></span></div>
+                            <div class="tgljs"><label>推广链接：<input type="text" id="foo" class="form-control" value="<?php echo $user['link'];?>"> 
+                            <a id="d_clip_button"  data-clipboard-action="copy" data-clipboard-target="#foo" href="javascript:;">复制链接</a><br /><span>您可将该链接发给您的朋友，推荐他注册成为我们的会员，效果同上</span></div>
                         </div>
                         <div class="clear">
                         </div>
@@ -127,7 +52,7 @@
                 <div class="ucenter-info mt10">
                 <div class="ucenter-tab-box">
                         <ul class="u-tab clearfix">
-                            <li class="current"><a>我关注的用户</a></li>
+                            <li class="current"><a>我的账户</a></li>
                             <li><a>关注我的用户</a></li>
                             <li><a>复投记录</a></li>
                             <li><a>收益记录</a></li>
@@ -135,20 +60,38 @@
                 </div>
                 <div id="tab_box">
                     <div class="u-form-wrap">
-                        <div>
-                            这是我关注的用户</div>
+                        <dl class="huiyuantwo">
+                        	
+                            <dd>
+                            	<p>
+                                	账户余额（元）<br>
+                                    <span><a href="javascript:void(0);"><?php echo $user['money'];?></a></span><br>
+                                    <a href="">点击充值</a>
+                                </p>
+                               
+                                <p>
+                                	收入总额（元）<br>
+                                    <span><a href="userindex.asp?lx=tgjl&amp;zj_lx=ljfl">508.36</a></span><br>
+                                    <a href="userindex.asp?lx=tgjl&amp;zj_lx=ljfl">查看资金流水</a>
+                                </p>
+                                
+                                <p>
+                                	直属推荐会员（人）<br>
+                                    <span><a href="userindex.asp?lx=wdtj&amp;xslx=yjhy">3</a></span><br>
+                                    <a href="userindex.asp?lx=wdtj&amp;xslx=yjhy">查看团队人员</a>
+                                </p>
+                                
+                            </dd>
+                        </dl>
                     </div>
                     <div class="u-form-wrap" style="display: none;">
-                        <div>
-                            这是关注我的用户</div>
+                        <div>这是关注我的用户</div>
                     </div>
                     <div class="u-form-wrap" style="display: none;">
-                        <div>
-                            这是我的复投记录</div>
+                    	<div>这是我的复投记录</div>
                     </div>
                     <div class="u-form-wrap" style="display: none;">
-                        <div>
-                            这是我的收益记录</div>
+                        <div>这是我的收益记录</div>
                     </div>
                 </div>                
             </div>
@@ -174,7 +117,13 @@
 
                 });
 
-        </script>
+                //点击赋值到剪切板
+                var clipboard = new Clipboard('#d_clip_button');
+                clipboard.on('success', function(e) {
+                	alert("文字已复制到剪贴板中");
+                    //console.log(e);
+                });
+        	</script>
         </div>
     </div>
 </body>

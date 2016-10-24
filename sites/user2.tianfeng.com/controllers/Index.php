@@ -45,7 +45,7 @@ class Index extends MY_Controller{
 	
 	public function loginout(){
 	    unset($_SESSION['user']);
-	    redirect('login');
+	    redirect('index');
 	}
 	
 }

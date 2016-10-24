@@ -1003,7 +1003,7 @@ li.item{
 
 .ucenter .info-main{float:left; width:520px;}
 .ucenter .info-main .row{line-height:28px; width:520px;}
-.ucenter .info-main .row label{display:inline-block; margin-right:10px; width:60px;}
+.ucenter .info-main .row label{display:inline-block; margin-right:10px; width:70px;}
 
 
 .ucenter .u-tab{text-align:center; margin:0 auto; width:480px; height:35px;}
@@ -3018,3 +3018,29 @@ a i{
 	background: #fd9000;
 	color: #fff;
 }
+.tgljs { line-height:40px; }
+.tgljs h3{ float:left; width:150px;  text-align:center; display:block;}
+.tgljs span{color:#f00;}
+.tgljs a{ margin:0 10px; padding:3px 6px; line-height:24px; background:#C00; text-align:center; color:#FFF;}
+.tgljs input{ width:300px; height:24px; line-height:24px; margin-top:8px; padding:0; text-indent:1em;}
+
+/*会员首页*/
+
+.huiyuanone { height:115px; width:100%;}
+.huiyuanone div.f_l{ width:115px; height:115px;}
+.huiyuanone dl.f_c{ width:300px; margin-left:15px;}
+.huiyuanone dl.f_c dt{ height:30px; line-height:30px; border-bottom:#ccc 1px solid}
+.huiyuanone dl.f_c dt strong{ float:left; display:block; height:30px; line-height:30px;}
+.huiyuanone dl.f_c dt a{float:right; display:block; height:25px; line-height:25px; background:#e12b36; padding:0 15px; color:#fff; text-align:center;}
+.huiyuanone dl.f_c dd{ height:84px;}
+.huiyuanone dl.f_c dd p{ width:150px; float:left; line-height:28px;}
+.huiyuanone dl.f_c span a{ color:#C00; font-size:14px; padding:0 5px;}
+.huiyuanone dl.f_r{ width:485px;}
+
+.huiyuantwo,huiyuanthree { height:auto; border:#e7e7eb 1px solid;}
+.huiyuantitles{ height:30px; line-height:30px; background:#eee; border-bottom:#e7e7e7 1px solid; font-size:14px; font-weight:bold; text-indent:1.5em;}
+.huiyuantwo dd{ height:90px; padding:10px 0;}
+.huiyuantwo dd p{ width:151px; border-right:#eee 1px solid; padding:0 40px; float:left; line-height:30px;}
+.huiyuantwo dd p span a{ color:#000; font-size:20px; font-weight:700; font-family:Arial;}
+.huiyuantwo h2{ font-size:14px;}
+.huiyuantwo font{ color:#999;}
