@@ -14,14 +14,14 @@
                     <h3 class="t2">
                         资金管理<span title="折叠"></span></h3>
                     <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
+                        <li><a href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
                             <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
                 </li>
                 <li class="item" id="user_menu_invest" name="user_menu_invest">
                     <h3 class="t4">
                         资金管理<span title="折叠"></span></h3>
                     <ul class="sub">
-                        <li><a class="current" href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
+                        <li><a href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
                             <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
                 </li>
                 <li class="item" id="user_menu_loan" name="user_menu_loan">

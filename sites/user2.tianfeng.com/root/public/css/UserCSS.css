@@ -3044,3 +3044,20 @@ a i{
 .huiyuantwo dd p span a{ color:#000; font-size:20px; font-weight:700; font-family:Arial;}
 .huiyuantwo h2{ font-size:14px;}
 .huiyuantwo font{ color:#999;}
+
+.glzx_xgmm2{width:100%; float:left; margin-bottom:1px; height:38px; background:#f2f2f2;}
+.glzx_xgmm3{width:135px; float:left; line-height:38px; text-indent:15px; height:38px; background:#e5e5e5; color:#000000; font-size:14px;}
+.glzx_xgmm4{ float:left; padding-top:7px; padding-left:10px;}
+.glzx_xgmm4 input{ background:#fcfcfc; float:left; border:1px solid #ccc8c4; width:154px; height:22px; line-height:22px; padding:0px; margin:0px; text-indent:5px;}
+
+.glzx_xgmm5{ float:left;width:100%;}
+.glzx_xgmm5 input{ background:url(images/glzx_xgmm5.png) no-repeat; float:left; border:0px; width:113px; height:31px; l padding:0px; margin:0px; cursor:pointer; }
+
+.glzx_tgzc2{ float:left; padding-top:7px; padding-left:10px;}
+.glzx_tgzc2 input{ background:#fcfcfc; float:left; border:1px solid #ccc8c4; width:300px; height:22px; line-height:22px; padding:0px; margin:0px; text-indent:5px;}
+
+.glzx_sjvip2{float:left;width:100%;}
+.glzx_sjvip2 table{ border-top:1px solid #dadada; border-left:1px solid #dadada; width:99%;}
+
+.glzx_sjvip2 td{ height:48px; text-align:center; vertical-align:middle; color:#272727; font-size:14px; font-weight:bold; border-bottom:1px solid #dadada; border-right:1px solid #dadada; }
+.glzx_sjvip2 tr.tr_bs{ background:#f3f3f3;}

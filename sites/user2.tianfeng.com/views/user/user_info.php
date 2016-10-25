@@ -17,7 +17,6 @@
     </div>
     <div class="row">
         <?php $this->load->view('left');?>
-        <!-- /.u-menu -->
         <div class="u-main">
             <div class="ucenter">
                 <div class="ucenter-info mt10">
@@ -66,19 +65,19 @@
                             	<p>
                                 	账户余额（元）<br>
                                     <span><a href="javascript:void(0);"><?php echo $user['money'];?></a></span><br>
-                                    <a href="">点击充值</a>
+                                    <a href="javascript:void(0);">点击充值</a>
                                 </p>
                                
                                 <p>
                                 	收入总额（元）<br>
-                                    <span><a href="userindex.asp?lx=tgjl&amp;zj_lx=ljfl">508.36</a></span><br>
-                                    <a href="userindex.asp?lx=tgjl&amp;zj_lx=ljfl">查看资金流水</a>
+                                    <span><a href="javascript:void(0);"><?php echo $user['today_reward']+$user['team_reward'];?></a></span><br>
+                                    <a href="javascript:void(0);">查看资金流水</a>
                                 </p>
                                 
                                 <p>
                                 	直属推荐会员（人）<br>
-                                    <span><a href="userindex.asp?lx=wdtj&amp;xslx=yjhy">3</a></span><br>
-                                    <a href="userindex.asp?lx=wdtj&amp;xslx=yjhy">查看团队人员</a>
+                                    <span><a href="/user/tj_list"><?php echo $user['tj_count'];?></a></span><br>
+                                    <a href="/user/tj_list">查看直属推荐会员</a>
                                 </p>
                                 
                             </dd>
@@ -126,5 +125,6 @@
         	</script>
         </div>
     </div>
+  </div>
 </body>
 </html>
