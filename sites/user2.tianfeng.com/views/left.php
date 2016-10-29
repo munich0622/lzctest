@@ -5,8 +5,8 @@
                         我的主页<span title="折叠"></span></h3>
                     <ul class="sub">
                         <li><a <?php if($method == 'User::index'):?>class="current"<?php endif;?> href="/user/index">个人主页</a></li>
-                        <li><a href="/user/info">个人资料</a></li>
-                        <li><a href="/user/password">密码设置</a></li>
+                        <li><a <?php if($method == 'User::info'):?>class="current"<?php endif;?> href="/user/info">个人资料</a></li>
+                        <li><a <?php if($method == 'User::set_password'):?>class="current"<?php endif;?>href="/user/set_password">密码设置</a></li>
                         <li><a href="/user/tj_url">推荐有奖</a></li>
                     </ul>
                 </li>

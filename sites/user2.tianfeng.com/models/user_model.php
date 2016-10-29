@@ -59,6 +59,18 @@ class User_model extends CI_Model{
 	    
 	    return $data;
 	}
+	
+	/**
+	 * 修改会员信息
+	 */
+	public function update_user_info($uid,$data){
+	    $uid = (int)$uid;
+	    if($uid <= 0 || empty($data) || !is_array($data)){
+	        return false;
+	    }
+	    
+	    return $this->db->where('uid',$uid)->update('ooo_user',$data);
+	}
 }
 
 ?>

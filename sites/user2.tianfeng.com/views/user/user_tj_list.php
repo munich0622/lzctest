@@ -31,14 +31,12 @@
                             <td>头像</td>
                             <td>昵称</td>
                             <td width="250">注册时间</td>
-                        	<td width="250">点股数量(总/出局)</td>
                         </tr>
                         <?php foreach($list as $key=>$val):?>
             		    <tr class="tr_bs">
                           <td><img src="<?php echo $val['head_img_url']?>" height="50" width="50" style="margin:10px;"></td>
                           <td><?php echo $val['uname'];?></td>
             			  <td><?php echo date("Y-m-d H:i:s",$val['reg_time']);?></td>
-                          <td>1/0</td>
                     	</tr>
                     	<?php endforeach;?>
                     	<?php echo $page_html;?>
