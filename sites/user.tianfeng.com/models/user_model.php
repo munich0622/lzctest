@@ -289,6 +289,8 @@ class User_model extends CI_Model{
 	public function open_register(){
 	    return $this->db->get_where('open_register')->row_array();
 	}  
+	
+	
 }
 
 ?>
