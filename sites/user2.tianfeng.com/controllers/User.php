@@ -136,7 +136,42 @@ class User extends Admin_Controller{
 	 * 密码设置
 	 */
 	public function set_password(){
+	    $data['method'] = __METHOD__;
 	    
+	    $this->load->view('user/set_password',$data);
+	}
+	
+	/**
+	 * 密码设置提交
+	 */
+	public function set_pass_sub(){
+	    $old_pass     = $this->input->post('old_pass',true);
+	    $new_pass     = $this->input->post('new_pass',true);
+	    $re_new_pass  = $this->input->post('re_new_pass',true);
+	    if($new_pass != $re_new_pass){
+	        goback('两次输入的密码不一致！');
+	    }
+	    
+	    if(strlen($new_pass) < 6){
+	        goback('密码长度必须大于等于6位数！');
+	    }
+	    
+	    $data = $this->user_model->get_user('uid',$this->user['uid']);
+	    
+	    if(en_pass($old_pass, $data['salt']) != $data['password']){
+	        goback('旧密码不正确！');
+	    }
+	    
+	    $update_data = array(
+	        'password' => en_pass($new_pass, $data['salt'])
+	    );
+	    
+	    $res = $this->user_model->update_user_info($this->user['uid'],$update_data);
+	    if($res){
+	        go('修改成功','/user/index');
+	    }else{
+	        goback('修改失败');
+	    }
 	}
 }
 ?>
