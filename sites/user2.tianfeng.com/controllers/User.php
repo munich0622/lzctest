@@ -173,5 +173,82 @@ class User extends Admin_Controller{
 	        goback('修改失败');
 	    }
 	}
+	
+	/**
+	 * 点击复投点股
+	 */
+	public function touzi_action(){
+	    if($_SESSION['user']['is_touzi'] == 1){
+	        ajax_response(false,'','今天已经投资过了');
+	    }
+	    $user = $this->user_model->get_user('uid',$this->user['uid']);
+	    //查询今天是否投资
+	    $count = $this->user_model->today_is_touzi($this->user['uid']);
+	    if($count['num'] > 0){
+	        ajax_response(false,'','今天已经投资过了');
+	    }
+	    if($user['money'] < 200){
+	        ajax_response(false,'','金额不足,请先充值');
+	    }
+	    
+	    //开启书屋
+	    $this->db->trans_begin();
+	     
+	    //插入投资表
+	    $time = time();
+	    $data = array(
+	        'user_id'    => $this->user['uid'],
+	        'money'      => 200,
+	        'start_time' => $time,
+	        'profit'     => 20,
+	        'end_time'   => strtotime(date("Y-m-d 23:59:59"),$time)+15*86400,
+	        'status'     => 0,
+	    );
+	    $touzi_id = $this->common_model->add_data('tf_ooo_touzi',$data);
+	    if($touzi_id <= 0){
+	        $this->db->trans_rollback();
+	        ajax_response(false,'','复投点股失败');
+	    }
+	    //该用户减少200元
+	    $update_data = array(
+	        'money' => bcsub($user['money'],200,2),
+	    );
+	    $this->common_model->update_data(array('uid'=>$this->user['uid']),'tf_ooo_user',);
+	    
+	    
+	    $_SESSION['user']['is_touzi'] = 1;
+	}
+	
+	/**
+	 * 复投记录
+	 */
+	public function invested_record($page = 1){
+	    $data['method'] = __METHOD__;
+	    //$data['user'] = $this->user_model->get_user('uid',$this->user['uid']);
+	    $where = " where user_id = {$this->user['uid']}";
+	     
+	    $result       = $this->user_model->invested_record_list($where,$page);
+	    $total        =  $result['total'];
+	    $data['list'] =  $result['list'];
+	    if(!empty($data['list'])){
+	        $i = ($page - 1) * 20 + $this->user_model->limit;
+	        foreach ($data['list'] as $key=>$val){
+	            $data['list'][$key]['index'] = $i;
+	            $i++;
+	        }
+	    }
+	    $url = '/user/invested_record/%d?'. urldecode ( $_SERVER ['QUERY_STRING'] );
+	     
+	    $data['page_html'] = pagination ($page, ceil($total/$this->user_model->limit), $url, 5, TRUE, TRUE, $total );
+	     
+	    $this->load->view('user/invested_record_list',$data);
+	}
+	
+	/**
+	 * 收益记录
+	 */
+	public function profit_record(){
+	    
+	}
 }
 ?>

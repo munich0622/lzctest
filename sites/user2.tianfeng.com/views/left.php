@@ -1,21 +1,23 @@
 <div class="u-menu">
             <ul class="u-nav" id="user_menu">
                 <li class="item" id="user_menu_my" name="user_menu_my">
-                    <h3 class="t1">
-                        我的主页<span title="折叠"></span></h3>
+                    <h3 class="t1">我的主页<span title="折叠"></span></h3>
                     <ul class="sub">
                         <li><a <?php if($method == 'User::index'):?>class="current"<?php endif;?> href="/user/index">个人主页</a></li>
                         <li><a <?php if($method == 'User::info'):?>class="current"<?php endif;?> href="/user/info">个人资料</a></li>
                         <li><a <?php if($method == 'User::set_password'):?>class="current"<?php endif;?>href="/user/set_password">密码设置</a></li>
-                        <li><a href="/user/tj_url">推荐有奖</a></li>
+                        <li><a <?php if($method == 'User::tj_list'):?>class="current"<?php endif;?>href="/user/tj_list">直推列表</a></li>
                     </ul>
                 </li>
                 <li class="item" id="user_menu_funds" name="user_menu_funds">
-                    <h3 class="t2">
-                        资金管理<span title="折叠"></span></h3>
+                    <h3 class="t2">资金管理<span title="折叠"></span></h3>
                     <ul class="sub">
-                        <li><a href="个人主页.htm">个人主页</a></li><li><a href="个人资料.htm">个人资料</a></li><li>
-                            <a href="认证管理.htm">认证管理</a></li><li><a href="密码管理.htm">密码设置</a></li><li><a href="推荐有奖.htm">推荐有奖</a></li></ul>
+                        <li><a <?php if($method == 'User::invested_record'):?>class="current"<?php endif;?>href="/user/invested_record">复投记录</a></li>
+                        <li><a <?php if($method == 'User::profit_record'):?>class="current"<?php endif;?>href="/user/profit_record">收益记录</a></li>
+                        <li><a href="认证管理.htm">认证管理</a></li>
+                        <li><a href="密码管理.htm">密码设置</a></li>
+                        <li><a href="推荐有奖.htm">推荐有奖</a></li>
+                     </ul>
                 </li>
                 <li class="item" id="user_menu_invest" name="user_menu_invest">
                     <h3 class="t4">

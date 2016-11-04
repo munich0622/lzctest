@@ -42,7 +42,7 @@ class User_model extends CI_Model{
 	/**
 	 * 获取直推列表
 	 */
-	public function tj_list($where,$page = 1){
+	public function tj_list($where = '',$page = 1){
 	    $page   = (int)$page > 0 ? (int)$page : 1;
 	    $offset = ($page - 1) * $this->limit;
 	    
@@ -61,6 +61,26 @@ class User_model extends CI_Model{
 	}
 	
 	/**
+	 * 获取投资记录
+	 */
+	public function invested_record_list($where = '',$page = 1){
+	    $page   = (int)$page > 0 ? (int)$page : 1;
+	    $offset = ($page - 1) * $this->limit;
+	     
+	    $sql = " SELECT count(1) AS count FROM tf_ooo_touzi {$where}";
+	    $num = $this->db->query($sql)->row_array();
+	     
+	    $sql = " SELECT * FROM tf_ooo_touzi LIMIT {$offset}, {$this->limit}";
+	     
+	    $list = $this->db->query($sql)->result_array();
+	     
+	    $data['total'] = $num['count'];
+	    $data['list']  = $list;
+	     
+	    return $data;
+	}
+	
+	/**
 	 * 修改会员信息
 	 */
 	public function update_user_info($uid,$data){
@@ -71,6 +91,18 @@ class User_model extends CI_Model{
 	    
 	    return $this->db->where('uid',$uid)->update('ooo_user',$data);
 	}
+	
+	/**
+	 * 查询今天是否投资
+	 */
+	public function today_is_touzi($uid){
+	    $uid = (int)$uid;
+	    $sql = " SELECT count(1) as num FROM tf_ooo_touzi WHERE user_id = {$uid} AND to_days(start_time) = to_days(now())";
+	    
+	    return $this->db->query($sql)->row_array();;
+	}
+	
+	
 }
 
 ?>
